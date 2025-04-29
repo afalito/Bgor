@@ -327,9 +327,12 @@
                 </div>
             </div>
             
-            <!-- Nueva sección de selección de formatos -->
-            <div class="format-selector-section">
-                <h3>Elige tu formato</h3>
+            <!-- Nueva sección de selección de formatos (oculta por defecto) -->
+            <div id="formatSelectorSection" class="format-selector-section" style="display: none;">
+                <div class="form-header">
+                    <h3>Elige tu formato</h3>
+                    <button id="closeFormatSelector" class="close-form-btn"><i class="fas fa-times"></i></button>
+                </div>
                 <p class="format-selector-description">Selecciona las cantidades que necesitas de cada presentación y completa tu pedido</p>
                 
                 <div class="format-cards">
@@ -420,7 +423,7 @@
             </div>
             
             <div class="presentation-cta">
-                <button id="toggleOrderFormFromBtn" class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Haz tu pedido</button>
+                <button id="toggleFormatSelectorBtn" class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Haz tu pedido</button>
             </div>
         </div>
     </section>

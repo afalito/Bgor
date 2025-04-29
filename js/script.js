@@ -110,7 +110,9 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     // Elementos del DOM para formularios
     const toggleOrderFormBtn = document.getElementById('toggleOrderForm');
-    const toggleOrderFormFromBtn = document.getElementById('toggleOrderFormFromBtn');
+    const toggleFormatSelectorBtn = document.getElementById('toggleFormatSelectorBtn');
+    const formatSelectorSection = document.getElementById('formatSelectorSection');
+    const closeFormatSelector = document.getElementById('closeFormatSelector');
     const orderFormContainer = document.getElementById('orderFormContainer');
     const toggleDistribuidorFormBtn = document.getElementById('toggleDistribuidorForm');
     const distribuidorFormContainer = document.getElementById('distribuidorFormContainer');
@@ -125,6 +127,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (toggleOrderFormBtn) {
                 toggleOrderFormBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Haz tu pedido';
             }
+        }
+        
+        // Ocultar selector de formatos
+        if (formatSelectorSection) {
+            formatSelectorSection.style.display = 'none';
         }
         
         // Ocultar formulario de distribuidores
@@ -159,25 +166,35 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Mostrar/ocultar el formulario de pedido desde el botón de la sección de presentaciones
-    if (toggleOrderFormFromBtn && orderFormContainer) {
-        toggleOrderFormFromBtn.addEventListener('click', function() {
+    // Mostrar/ocultar la sección de selección de formatos
+    if (toggleFormatSelectorBtn && formatSelectorSection) {
+        toggleFormatSelectorBtn.addEventListener('click', function() {
             // Cerrar otros formularios primero
             closeAllForms();
             
-            // Mostrar formulario de pedidos
-            orderFormContainer.classList.add('active');
+            // Mostrar selector de formatos con animación
+            formatSelectorSection.style.display = 'block';
             
-            if (toggleOrderFormBtn) {
-                toggleOrderFormBtn.innerHTML = '<i class="fas fa-times"></i> Cerrar formulario';
-            }
-            
-            // Si estamos en la sección de presentaciones, ir a la sección de contacto
-            document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
-            
-            // Desplazarse al formulario
+            // Añadir clase para la animación
             setTimeout(() => {
-                orderFormContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                formatSelectorSection.classList.add('fade-in');
+            }, 10);
+            
+            // Scroll hasta la sección
+            setTimeout(() => {
+                formatSelectorSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        });
+    }
+    
+    // Cerrar el selector de formatos
+    if (closeFormatSelector && formatSelectorSection) {
+        closeFormatSelector.addEventListener('click', function() {
+            formatSelectorSection.classList.remove('fade-in');
+            
+            // Ocultar con un pequeño retraso para permitir la animación
+            setTimeout(() => {
+                formatSelectorSection.style.display = 'none';
             }, 300);
         });
     }
