@@ -17,45 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Carrusel de testimonios mejorado
-    const testimonialSlider = document.querySelector('.testimonial-slider');
-    const testimonialSlides = document.querySelectorAll('.testimonial-slide');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    
-    if (testimonialSlider && testimonialSlides.length > 0) {
-        let currentSlide = 0;
-        const slideCount = testimonialSlides.length;
-        
-        // Función para mostrar un slide específico
-        function showSlide(index) {
-            if (index < 0) {
-                currentSlide = slideCount - 1;
-            } else if (index >= slideCount) {
-                currentSlide = 0;
-            } else {
-                currentSlide = index;
-            }
-            
-            testimonialSlider.style.transform = `translateX(-${currentSlide * 100}%)`;
-        }
-        
-        // Event listeners para los botones
-        if (prevBtn) {
-            prevBtn.addEventListener('click', function() {
-                showSlide(currentSlide - 1);
-            });
-        }
-        
-        if (nextBtn) {
-            nextBtn.addEventListener('click', function() {
-                showSlide(currentSlide + 1);
-            });
-        }
-        
-        // Eliminado el cambio automático de slides
-        // El carrusel ahora solo se mueve con las flechas
-    }
+    // Inicializar testimonios
+    initTestimonials();
     
     // Animación de scroll suave para los enlaces de navegación
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -139,3 +102,77 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     document.body.classList.add('loaded');
 });
+
+// Funcionalidad para el formulario de pedido
+document.addEventListener('DOMContentLoaded', function() {
+    // Elementos del DOM
+    const toggleOrderFormBtn = document.getElementById('toggleOrderForm');
+    const orderFormContainer = document.getElementById('orderFormContainer');
+    const orderForm = document.getElementById('orderForm');
+    
+    // Mostrar/ocultar el formulario de pedido
+    if (toggleOrderFormBtn && orderFormContainer) {
+        toggleOrderFormBtn.addEventListener('click', function() {
+            orderFormContainer.classList.toggle('active');
+            
+            // Cambiar el texto del botón según el estado
+            if (orderFormContainer.classList.contains('active')) {
+                toggleOrderFormBtn.innerHTML = '<i class="fas fa-times"></i> Cerrar formulario';
+            } else {
+                toggleOrderFormBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Haz tu pedido';
+            }
+            
+            // Desplazarse al formulario si está visible
+            if (orderFormContainer.classList.contains('active')) {
+                setTimeout(() => {
+                    orderFormContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+        });
+    }
+    
+    // Procesar el formulario de pedido
+    if (orderForm) {
+        orderForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Recopilar datos del formulario
+            const formData = new FormData(orderForm);
+            let formValues = {};
+            
+            formData.forEach((value, key) => {
+                formValues[key] = value;
+            });
+            
+            console.log('Pedido enviado:', formValues);
+            
+            // Mostrar mensaje de éxito
+            alert('¡Gracias por tu pedido! Te contactaremos pronto para confirmar los detalles.');
+            orderForm.reset();
+            
+            // Ocultar formulario después de enviar
+            orderFormContainer.classList.remove('active');
+            toggleOrderFormBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Haz tu pedido';
+        });
+    }
+});
+
+// Función para inicializar el carrusel de testimonios con Swiper
+function initTestimonials() {
+    // Inicializar Swiper
+    const swiper = new Swiper('.testimonial-slider', {
+        loop: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        effect: 'slide',
+        slidesPerView: 1,
+        spaceBetween: 30,
+        centeredSlides: true,
+    });
+}
