@@ -131,28 +131,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Procesar el formulario de pedido
+    // Procesar el formulario de pedido - ahora manejado por Netlify Forms
     if (orderForm) {
         orderForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+            // No vamos a prevenir el comportamiento por defecto para que Netlify procese el formulario
+            // e.preventDefault();
             
-            // Recopilar datos del formulario
-            const formData = new FormData(orderForm);
-            let formValues = {};
+            // Podemos agregar código aquí para tracking o validaciones adicionales
+            console.log('Formulario enviado a Netlify');
             
-            formData.forEach((value, key) => {
-                formValues[key] = value;
-            });
-            
-            console.log('Pedido enviado:', formValues);
-            
-            // Mostrar mensaje de éxito
-            alert('¡Gracias por tu pedido! Te contactaremos pronto para confirmar los detalles.');
-            orderForm.reset();
-            
-            // Ocultar formulario después de enviar
-            orderFormContainer.classList.remove('active');
-            toggleOrderFormBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Haz tu pedido';
+            // Nota: El redireccionamiento ocurrirá automáticamente a la página de éxito de Netlify
+            // o podemos configurar redirecciones personalizadas en Netlify
         });
     }
 });

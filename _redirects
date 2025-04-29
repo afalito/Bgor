@@ -1,0 +1,8 @@
+# Configuración de redirecciones para formularios de Netlify
+
+# Redirección para el formulario de pedido
+/gracias-pedido              /    200
+/thankyou                    /    200
+
+# Redirección para el formulario de contacto
+/gracias-contacto            /    200
