@@ -948,6 +948,226 @@
     color: var(--primary-color);
 }
 
+/* Estilos para la sección de Fichas Técnicas */
+.fichas-tecnicas {
+    padding: 80px 0;
+    background-color: #f9f9f9;
+}
+
+.tech-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.tech-card {
+    flex: 1;
+    min-width: 280px;
+    max-width: 400px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    display: flex;
+    transition: all 0.3s ease;
+    border-left: 4px solid var(--primary-color);
+}
+
+.tech-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.tech-card-icon {
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+}
+
+.tech-card-content {
+    padding: 20px 20px 20px 0;
+    flex: 1;
+}
+
+.tech-card-content h3 {
+    margin: 0 0 10px;
+    color: var(--secondary-color);
+    font-size: 1.3rem;
+}
+
+.tech-card-content p {
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.tech-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.tech-download-btn:hover {
+    background-color: #dd5500;
+    transform: translateY(-2px);
+}
+
+/* Estilos mejorados para la sección de Veterinarias */
+.veterinarias {
+    padding: 80px 0;
+}
+
+.veterinarias-benefits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.veterinaria-benefit-card {
+    flex: 1;
+    min-width: 280px;
+    max-width: 350px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    padding: 25px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    transition: all 0.3s ease;
+}
+
+.veterinaria-benefit-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.benefit-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: rgba(255, 107, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.benefit-content h3 {
+    margin: 0 0 10px;
+    color: var(--secondary-color);
+}
+
+.benefit-content p {
+    margin: 0;
+    color: #666;
+}
+
+.veterinarias-cta {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.veterinarias-cta .btn {
+    font-size: 1.1rem;
+    padding: 12px 30px;
+}
+
+/* Formulario para distribuidores */
+.distribuidor-form-container {
+    max-width: 700px;
+    margin: 30px auto 0;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    display: none;
+    animation: fadeIn 0.3s ease;
+    position: relative;
+}
+
+.distribuidor-form-container.active {
+    display: block;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-header h3 {
+    margin: 0;
+    color: var(--primary-color);
+}
+
+.close-form-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #999;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.close-form-btn:hover {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Cambios en el formulario principal */
+.order-form-container {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.order-form-container.active {
+    display: block;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up {
+    opacity: 0;
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.fade-in-up.visible {
+    opacity: 1;
+}
+
 /* Ajustes adicionales para responsive */
 @media (max-width: 768px) {
     .animal-gallery {
@@ -1007,5 +1227,23 @@
     
     .format-selector-section {
         padding: 20px 15px;
+    }
+    
+    .tech-cards-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .tech-card {
+        width: 100%;
+    }
+    
+    .veterinarias-benefits {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .veterinaria-benefit-card {
+        width: 100%;
     }
 }

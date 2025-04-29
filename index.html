@@ -95,6 +95,8 @@
                 <li><a href="#productos">Productos</a></li>
                 <li><a href="#presentaciones">Presentaciones</a></li>
                 <li><a href="#testimonios">Testimonios</a></li>
+                <li><a href="#veterinarias">Distribuidores</a></li>
+                <li><a href="#fichas-tecnicas">Fichas Técnicas</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </div>
@@ -465,10 +467,82 @@
     <section id="veterinarias" class="veterinarias">
         <div class="container">
             <h2>¿Tienes una veterinaria o punto de venta?</h2>
-            <p class="section-description">Distribuye BGOR con márgenes de rentabilidad entre el 20% y 30%.</p>
+            
+            <div class="veterinarias-benefits">
+                <div class="veterinaria-benefit-card fade-in">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="benefit-content">
+                        <h3>Alta rentabilidad</h3>
+                        <p>Distribuye BGOR con márgenes de rentabilidad entre el 20% y 30%.</p>
+                    </div>
+                </div>
+                
+                <div class="veterinaria-benefit-card fade-in">
+                    <div class="benefit-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="benefit-content">
+                        <h3>Marca reconocida</h3>
+                        <p>Lleva a tu región una de las marcas nuevas con mejor acogida en Colombia.</p>
+                    </div>
+                </div>
+                
+                <div class="veterinaria-benefit-card fade-in">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="benefit-content">
+                        <h3>Clientes satisfechos</h3>
+                        <p>Miles de predios ganaderos nos escogen a diario.</p>
+                    </div>
+                </div>
+            </div>
             
             <div class="veterinarias-cta">
-                <button id="toggleContactForm" class="btn btn-primary">Solicita información</button>
+                <button id="toggleDistribuidorForm" class="btn btn-primary"><i class="fas fa-handshake"></i> Contáctanos</button>
+            </div>
+            
+            <!-- Formulario específico para distribuidores (inicialmente oculto) -->
+            <div id="distribuidorFormContainer" class="distribuidor-form-container">
+                <div class="form-header">
+                    <h3>Información para distribuidores</h3>
+                    <button id="closeDistribuidorForm" class="close-form-btn"><i class="fas fa-times"></i></button>
+                </div>
+                <p>¿Quieres distribuir BGOR en tu veterinaria o punto de venta? Completa el formulario y te contactaremos.</p>
+                <form name="distribuidor" method="POST" data-netlify="true" class="distribuidor-form">
+                    <input type="hidden" name="form-name" value="distribuidor">
+                    <div class="form-group">
+                        <label for="distribuidorName">Nombre completo</label>
+                        <input type="text" id="distribuidorName" name="nombre" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombreNegocio">Nombre del negocio</label>
+                            <input type="text" id="nombreNegocio" name="negocio" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="distribuidorLocation">Ciudad</label>
+                            <input type="text" id="distribuidorLocation" name="ciudad" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="distribuidorEmail">Correo electrónico</label>
+                            <input type="email" id="distribuidorEmail" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="distribuidorPhone">Teléfono de contacto</label>
+                            <input type="tel" id="distribuidorPhone" name="telefono" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="distribuidorMessage">Mensaje</label>
+                        <textarea id="distribuidorMessage" name="mensaje" rows="4" placeholder="Cuéntanos sobre tu negocio y cómo podríamos trabajar juntos"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar solicitud</button>
+                </form>
             </div>
         </div>
     </section>
@@ -617,30 +691,42 @@
                     </div>
                 </div>
             </div>
-            <!-- El formulario de contacto rápido se ocultó y se mostrará solo cuando se solicite desde la sección de veterinarias -->
-            <div id="contactFormContainer" class="contact-form-container" style="display: none;">
-                <h3>Información para distribuidores</h3>
-                <p>¿Quieres distribuir BGOR en tu veterinaria o punto de venta? Completa el formulario y te contactaremos.</p>
-                <form name="contacto" method="POST" data-netlify="true" class="contact-form">
-                    <input type="hidden" name="form-name" value="contacto">
-                    <div class="form-group">
-                        <label for="contactName">Nombre</label>
-                        <input type="text" id="contactName" name="nombre" required>
+            <!-- El formulario antiguo de contacto rápido se eliminó y se movió a la sección de veterinarias -->
+        </div>
+    </section>
+
+    <!-- Sección Fichas Técnicas -->
+    <section id="fichas-tecnicas" class="fichas-tecnicas">
+        <div class="container">
+            <h2>Fichas Técnicas</h2>
+            <p class="section-description">Descarga la información detallada de nuestros productos</p>
+            
+            <div class="tech-cards-container">
+                <div class="tech-card fade-in">
+                    <div class="tech-card-icon">
+                        <i class="fas fa-file-pdf"></i>
                     </div>
-                    <div class="form-group">
-                        <label for="contactEmail">Correo electrónico</label>
-                        <input type="email" id="contactEmail" name="email" required>
+                    <div class="tech-card-content">
+                        <h3>BGOR Monogástricos</h3>
+                        <p>Especificaciones técnicas completas de nuestro producto para animales monogástricos.</p>
+                        <a href="fichas-tecnicas/monogastrico.pdf" download class="tech-download-btn">
+                            <i class="fas fa-download"></i> Descargar ficha técnica
+                        </a>
                     </div>
-                    <div class="form-group">
-                        <label for="contactPhone">Teléfono de contacto</label>
-                        <input type="tel" id="contactPhone" name="telefono" required>
+                </div>
+                
+                <div class="tech-card fade-in">
+                    <div class="tech-card-icon">
+                        <i class="fas fa-file-pdf"></i>
                     </div>
-                    <div class="form-group">
-                        <label for="contactMessage">Mensaje</label>
-                        <textarea id="contactMessage" name="mensaje" rows="4" required></textarea>
+                    <div class="tech-card-content">
+                        <h3>BGOR Poligástricos</h3>
+                        <p>Especificaciones técnicas completas de nuestro producto para animales poligástricos.</p>
+                        <a href="fichas-tecnicas/poligastrico.pdf" download class="tech-download-btn">
+                            <i class="fas fa-download"></i> Descargar ficha técnica
+                        </a>
                     </div>
-                    <button type="submit" class="btn btn-primary">Enviar solicitud</button>
-                </form>
+                </div>
             </div>
         </div>
     </section>
@@ -661,6 +747,8 @@
                         <li><a href="#productos">Productos</a></li>
                         <li><a href="#presentaciones">Presentaciones</a></li>
                         <li><a href="#testimonios">Testimonios</a></li>
+                        <li><a href="#veterinarias">Distribuidores</a></li>
+                        <li><a href="#fichas-tecnicas">Fichas Técnicas</a></li>
                         <li><a href="#contacto">Contacto</a></li>
                     </ul>
                 </div>

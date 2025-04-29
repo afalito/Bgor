@@ -112,13 +112,35 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggleOrderFormBtn = document.getElementById('toggleOrderForm');
     const toggleOrderFormFromBtn = document.getElementById('toggleOrderFormFromBtn');
     const orderFormContainer = document.getElementById('orderFormContainer');
-    const toggleContactFormBtn = document.getElementById('toggleContactForm');
-    const contactFormContainer = document.getElementById('contactFormContainer');
+    const toggleDistribuidorFormBtn = document.getElementById('toggleDistribuidorForm');
+    const distribuidorFormContainer = document.getElementById('distribuidorFormContainer');
+    const closeDistribuidorFormBtn = document.getElementById('closeDistribuidorForm');
     const orderForm = document.getElementById('orderForm');
+    
+    // Función para cerrar todos los formularios
+    function closeAllForms() {
+        // Ocultar formulario de pedido
+        if (orderFormContainer) {
+            orderFormContainer.classList.remove('active');
+            if (toggleOrderFormBtn) {
+                toggleOrderFormBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Haz tu pedido';
+            }
+        }
+        
+        // Ocultar formulario de distribuidores
+        if (distribuidorFormContainer) {
+            distribuidorFormContainer.classList.remove('active');
+            distribuidorFormContainer.style.display = 'none';
+        }
+    }
     
     // Mostrar/ocultar el formulario de pedido desde el botón principal
     if (toggleOrderFormBtn && orderFormContainer) {
         toggleOrderFormBtn.addEventListener('click', function() {
+            // Cerrar otros formularios primero
+            closeAllForms();
+            
+            // Mostrar u ocultar el formulario de pedidos
             orderFormContainer.classList.toggle('active');
             
             // Cambiar el texto del botón según el estado
@@ -140,33 +162,100 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mostrar/ocultar el formulario de pedido desde el botón de la sección de presentaciones
     if (toggleOrderFormFromBtn && orderFormContainer) {
         toggleOrderFormFromBtn.addEventListener('click', function() {
+            // Cerrar otros formularios primero
+            closeAllForms();
+            
+            // Mostrar formulario de pedidos
             orderFormContainer.classList.add('active');
             
             if (toggleOrderFormBtn) {
                 toggleOrderFormBtn.innerHTML = '<i class="fas fa-times"></i> Cerrar formulario';
             }
             
-            setTimeout(() => {
-                orderFormContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-            
             // Si estamos en la sección de presentaciones, ir a la sección de contacto
             document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
-        });
-    }
-    
-    // Mostrar/ocultar el formulario de contacto para veterinarias
-    if (toggleContactFormBtn && contactFormContainer) {
-        toggleContactFormBtn.addEventListener('click', function() {
-            // Mostrar el formulario que estaba oculto con display: none
-            contactFormContainer.style.display = 'block';
             
             // Desplazarse al formulario
             setTimeout(() => {
-                contactFormContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                orderFormContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+        });
+    }
+    
+    // Mostrar/ocultar el formulario de distribuidores
+    if (toggleDistribuidorFormBtn && distribuidorFormContainer) {
+        toggleDistribuidorFormBtn.addEventListener('click', function() {
+            // Cerrar otros formularios primero
+            closeAllForms();
+            
+            // Mostrar formulario de distribuidores
+            distribuidorFormContainer.style.display = 'block';
+            distribuidorFormContainer.classList.add('active');
+            
+            // Desplazarse al formulario
+            setTimeout(() => {
+                distribuidorFormContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 100);
         });
     }
+    
+    // Cerrar formulario de distribuidores
+    if (closeDistribuidorFormBtn && distribuidorFormContainer) {
+        closeDistribuidorFormBtn.addEventListener('click', function() {
+            distribuidorFormContainer.classList.remove('active');
+            
+            // Ocultar con un pequeño retraso para permitir la animación
+            setTimeout(() => {
+                distribuidorFormContainer.style.display = 'none';
+            }, 300);
+        });
+    }
+    
+    // Añadir animación a elementos con efecto "fade-in-up" al hacer scroll
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+    
+    const observer = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    // Observar las tarjetas de fichas técnicas
+    const techCards = document.querySelectorAll('.tech-card');
+    techCards.forEach(card => {
+        card.classList.add('fade-in-up');
+        observer.observe(card);
+    });
+    
+    // Observar las tarjetas de beneficios para veterinarias
+    const benefitCards = document.querySelectorAll('.veterinaria-benefit-card');
+    benefitCards.forEach(card => {
+        card.classList.add('fade-in-up');
+        observer.observe(card);
+    });
+    
+    // Cerrar formularios al hacer clic fuera de ellos
+    document.addEventListener('click', function(event) {
+        if (orderFormContainer && orderFormContainer.classList.contains('active')) {
+            // Verificar si el clic fue fuera del formulario y no en el botón de toggle
+            if (!orderFormContainer.contains(event.target) && 
+                event.target !== toggleOrderFormBtn && 
+                !toggleOrderFormBtn.contains(event.target) &&
+                event.target !== toggleOrderFormFromBtn && 
+                !toggleOrderFormFromBtn.contains(event.target)) {
+                
+                orderFormContainer.classList.remove('active');
+                toggleOrderFormBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Haz tu pedido';
+            }
+        }
+    });
     
     // Procesar el formulario de pedido - Netlify Forms + interactividad
     if (orderForm) {
