@@ -325,6 +325,98 @@
                 </div>
             </div>
             
+            <!-- Nueva sección de selección de formatos -->
+            <div class="format-selector-section">
+                <h3>Elige tu formato</h3>
+                <p class="format-selector-description">Selecciona las cantidades que necesitas de cada presentación y completa tu pedido</p>
+                
+                <div class="format-cards">
+                    <div class="format-card">
+                        <div class="format-image">
+                            <img src="images/formato-1kg.png" alt="Formato 1kg">
+                        </div>
+                        <div class="format-info">
+                            <h4>Unidad (1kg)</h4>
+                            <div class="format-price">$84.900</div>
+                            <div class="format-quantity">
+                                <label for="format1kgQuantity">Cantidad:</label>
+                                <div class="quantity-controls">
+                                    <button type="button" class="quantity-btn format-minus" data-format="1kg">-</button>
+                                    <input type="number" id="format1kgQuantity" class="format-quantity-input" value="0" min="0" data-format="1kg" data-price="84900">
+                                    <button type="button" class="quantity-btn format-plus" data-format="1kg">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="format-card">
+                        <div class="format-image">
+                            <img src="images/formato-1kg.png" alt="Promoción 3+1">
+                            <div class="promo-badge">3+1</div>
+                        </div>
+                        <div class="format-info">
+                            <h4>Promoción "Paga 3 lleva 4"</h4>
+                            <div class="format-price">$229.900</div>
+                            <div class="format-quantity">
+                                <label for="formatPromoQuantity">Cantidad:</label>
+                                <div class="quantity-controls">
+                                    <button type="button" class="quantity-btn format-minus" data-format="promo">-</button>
+                                    <input type="number" id="formatPromoQuantity" class="format-quantity-input" value="0" min="0" data-format="promo" data-price="229900">
+                                    <button type="button" class="quantity-btn format-plus" data-format="promo">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="format-card">
+                        <div class="format-image">
+                            <img src="images/formato-12kg.png" alt="Formato 12kg">
+                        </div>
+                        <div class="format-info">
+                            <h4>Balde (12kg)</h4>
+                            <div class="format-price">$559.900</div>
+                            <div class="format-quantity">
+                                <label for="format12kgQuantity">Cantidad:</label>
+                                <div class="quantity-controls">
+                                    <button type="button" class="quantity-btn format-minus" data-format="12kg">-</button>
+                                    <input type="number" id="format12kgQuantity" class="format-quantity-input" value="0" min="0" data-format="12kg" data-price="559900">
+                                    <button type="button" class="quantity-btn format-plus" data-format="12kg">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="format-type-selector">
+                    <h4>¿Cómo deseas tu producto?</h4>
+                    <div class="format-type-options">
+                        <div class="format-type-option">
+                            <input type="radio" id="typeMonogastricos" name="productType" value="monogastricos" checked>
+                            <label for="typeMonogastricos">Todo Monogástricos</label>
+                        </div>
+                        <div class="format-type-option">
+                            <input type="radio" id="typePoligastricos" name="productType" value="poligastricos">
+                            <label for="typePoligastricos">Todo Poligástricos</label>
+                        </div>
+                        <div class="format-type-option">
+                            <input type="radio" id="typeMixed" name="productType" value="mixed">
+                            <label for="typeMixed">Mitad de cada tipo</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="order-summary">
+                    <h4>Resumen de tu pedido</h4>
+                    <div id="orderSummaryTable" class="order-summary-content">
+                        <p class="empty-cart-message">Agrega productos a tu pedido</p>
+                    </div>
+                    <div class="order-total">
+                        <span>Total:</span>
+                        <span id="orderTotalAmount">$0</span>
+                    </div>
+                </div>
+            </div>
+            
             <div class="presentation-cta">
                 <button id="toggleOrderFormFromBtn" class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Haz tu pedido</button>
             </div>

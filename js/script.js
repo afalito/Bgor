@@ -101,6 +101,9 @@ document.addEventListener('DOMContentLoaded', function() {
 // Añadir clase para animaciones CSS
 document.addEventListener('DOMContentLoaded', function() {
     document.body.classList.add('loaded');
+    
+    // Inicializar selector de formatos
+    initFormatSelector();
 });
 
 // Funcionalidad para el formulario de pedido
@@ -301,4 +304,182 @@ function initTestimonials() {
         spaceBetween: 30,
         centeredSlides: true,
     });
+}
+
+// Función para inicializar el selector de formatos
+function initFormatSelector() {
+    // Elementos DOM
+    const formatQuantityInputs = document.querySelectorAll('.format-quantity-input');
+    const formatMinusBtns = document.querySelectorAll('.format-minus');
+    const formatPlusBtns = document.querySelectorAll('.format-plus');
+    const productTypeOptions = document.querySelectorAll('input[name="productType"]');
+    const orderSummaryTable = document.getElementById('orderSummaryTable');
+    const orderTotalAmount = document.getElementById('orderTotalAmount');
+    
+    // Formatos y precios
+    const formats = {
+        '1kg': { name: 'Unidad (1kg)', price: 84900 },
+        'promo': { name: 'Promoción "Paga 3 lleva 4"', price: 229900 },
+        '12kg': { name: 'Balde (12kg)', price: 559900 }
+    };
+    
+    // Event listeners para botones de cantidad
+    formatMinusBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const format = this.dataset.format;
+            const inputEl = document.querySelector(`.format-quantity-input[data-format="${format}"]`);
+            if (inputEl) {
+                const currentValue = parseInt(inputEl.value) || 0;
+                if (currentValue > 0) {
+                    inputEl.value = currentValue - 1;
+                    updateOrderSummary();
+                }
+            }
+        });
+    });
+    
+    formatPlusBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const format = this.dataset.format;
+            const inputEl = document.querySelector(`.format-quantity-input[data-format="${format}"]`);
+            if (inputEl) {
+                const currentValue = parseInt(inputEl.value) || 0;
+                inputEl.value = currentValue + 1;
+                updateOrderSummary();
+            }
+        });
+    });
+    
+    // Event listeners para inputs de cantidad
+    formatQuantityInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            // Asegurar valor mínimo 0
+            if (parseInt(this.value) < 0 || isNaN(parseInt(this.value))) {
+                this.value = 0;
+            }
+            updateOrderSummary();
+        });
+    });
+    
+    // Event listeners para opciones de tipo
+    productTypeOptions.forEach(option => {
+        option.addEventListener('change', updateOrderSummary);
+    });
+    
+    // Función para actualizar resumen de pedido
+    function updateOrderSummary() {
+        // Obtener tipo de producto seleccionado
+        const productType = document.querySelector('input[name="productType"]:checked').value;
+        let productTypeText = '';
+        
+        switch(productType) {
+            case 'monogastricos':
+                productTypeText = 'Monogástricos';
+                break;
+            case 'poligastricos':
+                productTypeText = 'Poligástricos';
+                break;
+            case 'mixed':
+                productTypeText = 'Mitad Mono/Poli';
+                break;
+        }
+        
+        // Recopilar cantidades
+        let orderItems = [];
+        let totalAmount = 0;
+        
+        formatQuantityInputs.forEach(input => {
+            const format = input.dataset.format;
+            const quantity = parseInt(input.value) || 0;
+            
+            if (quantity > 0) {
+                const formatInfo = formats[format];
+                const itemTotal = quantity * formatInfo.price;
+                
+                orderItems.push({
+                    name: `${quantity}x ${formatInfo.name} - ${productTypeText}`,
+                    price: itemTotal
+                });
+                
+                totalAmount += itemTotal;
+            }
+        });
+        
+        // Actualizar HTML del resumen
+        if (orderItems.length === 0) {
+            orderSummaryTable.innerHTML = '<p class="empty-cart-message">Agrega productos a tu pedido</p>';
+        } else {
+            let html = '';
+            
+            orderItems.forEach(item => {
+                html += `
+                <div class="summary-item">
+                    <span class="summary-item-name">${item.name}</span>
+                    <span class="summary-item-price">${formatPrice(item.price)}</span>
+                </div>
+                `;
+            });
+            
+            orderSummaryTable.innerHTML = html;
+        }
+        
+        // Actualizar total
+        orderTotalAmount.textContent = formatPrice(totalAmount);
+        
+        // Actualizar datos del formulario de pedido (para cuando se envíe)
+        updateOrderFormData(orderItems, totalAmount, productTypeText);
+    }
+    
+    // Formatear precios en formato de moneda colombiana
+    function formatPrice(price) {
+        return new Intl.NumberFormat('es-CO', {
+            style: 'currency',
+            currency: 'COP',
+            minimumFractionDigits: 0
+        }).format(price);
+    }
+    
+    // Actualizar datos ocultos en el formulario de pedido
+    function updateOrderFormData(items, total, type) {
+        // Esta función pasará los datos seleccionados al formulario principal cuando
+        // el usuario haga clic en "Haz tu pedido"
+        
+        // Evento para cuando se abre el formulario de pedido
+        const toggleOrderFormFromBtn = document.getElementById('toggleOrderFormFromBtn');
+        if (toggleOrderFormFromBtn) {
+            toggleOrderFormFromBtn.addEventListener('click', function() {
+                // Si hay productos en el carrito, pre-rellenar el formulario de pedido
+                if (items.length > 0) {
+                    // Actualizar el resumen del formulario de pedido
+                    const orderSummary = document.getElementById('orderSummary');
+                    if (orderSummary) {
+                        let summaryHtml = '';
+                        items.forEach(item => {
+                            summaryHtml += `<p>${item.name}</p>`;
+                        });
+                        summaryHtml += `<p class="total">Total: ${formatPrice(total)}</p>`;
+                        orderSummary.innerHTML = summaryHtml;
+                    }
+                    
+                    // Seleccionar el tipo de producto correcto en el formulario
+                    const tipoMono = document.getElementById('tipoMono');
+                    const tipoPoli = document.getElementById('tipoPoli');
+                    const tipoMixto = document.getElementById('tipoMixto');
+                    
+                    if (tipoMono && tipoPoli && tipoMixto) {
+                        if (type === 'Monogástricos') {
+                            tipoMono.checked = true;
+                        } else if (type === 'Poligástricos') {
+                            tipoPoli.checked = true;
+                        } else if (type === 'Mitad Mono/Poli') {
+                            tipoMixto.checked = true;
+                        }
+                    }
+                }
+            });
+        }
+    }
+    
+    // Inicializar resumen
+    updateOrderSummary();
 }

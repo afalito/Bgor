@@ -687,6 +687,267 @@
     font-size: 1.5rem;
 }
 
+/* Estilos para la sección "Elige tu formato" */
+.format-selector-section {
+    margin: 50px 0 30px;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.format-selector-section h3 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.format-selector-description {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 30px;
+    color: var(--secondary-color);
+}
+
+/* Tarjetas de formato */
+.format-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.format-card {
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.format-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+}
+
+.format-image {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+    position: relative;
+    height: 180px;
+}
+
+.format-image img {
+    max-height: 140px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.promo-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.format-info {
+    padding: 20px;
+}
+
+.format-info h4 {
+    color: var(--secondary-color);
+    margin: 0 0 15px;
+    font-size: 1.2rem;
+}
+
+.format-price {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.format-quantity {
+    margin-top: 15px;
+}
+
+.format-quantity label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+/* Controles de cantidad */
+.format-card .quantity-controls {
+    display: flex;
+    max-width: 100%;
+    width: 100%;
+}
+
+.format-card .quantity-btn {
+    width: 40px;
+    height: 40px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.format-card .quantity-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.format-card .quantity-btn.format-minus {
+    border-radius: 4px 0 0 4px;
+}
+
+.format-card .quantity-btn.format-plus {
+    border-radius: 0 4px 4px 0;
+}
+
+.format-card .format-quantity-input {
+    flex: 1;
+    height: 40px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-left: none;
+    border-right: none;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Opciones de tipo de producto */
+.format-type-selector {
+    max-width: 700px;
+    margin: 0 auto 30px;
+    padding: 25px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.format-type-selector h4 {
+    text-align: center;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.format-type-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.format-type-option {
+    position: relative;
+}
+
+.format-type-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.format-type-option label {
+    display: block;
+    padding: 12px 20px;
+    background-color: #f5f5f5;
+    border: 2px solid #ddd;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.format-type-option input[type="radio"]:checked + label {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Resumen de pedido */
+.order-summary {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 25px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.order-summary h4 {
+    text-align: center;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.order-summary-content {
+    min-height: 50px;
+}
+
+.order-summary-content .summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.order-summary-content .summary-item-name {
+    font-weight: 500;
+}
+
+.order-summary-content .summary-item-price {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.empty-cart-message {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}
+
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid #eee;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
 /* Ajustes adicionales para responsive */
 @media (max-width: 768px) {
     .animal-gallery {
@@ -720,5 +981,31 @@
     
     .price-option {
         width: 100%;
+    }
+    
+    .format-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .format-card {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .format-type-options {
+        flex-direction: column;
+    }
+    
+    .format-type-option {
+        width: 100%;
+    }
+    
+    .format-type-option label {
+        text-align: center;
+    }
+    
+    .format-selector-section {
+        padding: 20px 15px;
     }
 }
