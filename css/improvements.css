@@ -458,6 +458,235 @@
     }
 }
 
+/* Estilos para la sección de veterinarias */
+.veterinarias {
+    background-color: #f8f8f8;
+    padding: 80px 0;
+}
+
+.veterinarias .section-description {
+    max-width: 800px;
+    margin: 0 auto 30px;
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+}
+
+.veterinarias-cta {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.veterinarias-cta .btn {
+    padding: 15px 30px;
+    font-size: 1.1rem;
+}
+
+/* Estilos mejorados para el formulario de pedido */
+.form-section {
+    margin-bottom: 30px;
+    padding: 25px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.form-section h3 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+/* Opciones de precio */
+.price-options {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.price-option {
+    flex: 1;
+    min-width: 200px;
+    position: relative;
+}
+
+.price-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.price-option label {
+    display: block;
+    padding: 15px;
+    background-color: #fff;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.price-option input[type="radio"]:checked + label {
+    border-color: var(--primary-color);
+    background-color: rgba(255, 107, 0, 0.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.price-option label h4 {
+    margin: 0 0 10px;
+    color: var(--secondary-color);
+}
+
+.price-option label .price {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+/* Opciones de tipo de producto */
+.product-type {
+    margin-bottom: 25px;
+}
+
+.product-type h4 {
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+.product-type-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.product-type-option {
+    position: relative;
+}
+
+.product-type-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.product-type-option label {
+    display: block;
+    padding: 10px 15px;
+    background-color: #fff;
+    border: 2px solid #ddd;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.product-type-option input[type="radio"]:checked + label {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Control de cantidad */
+.quantity-selector {
+    margin-bottom: 25px;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    max-width: 150px;
+}
+
+.quantity-btn {
+    width: 40px;
+    height: 40px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity-btn.minus {
+    border-radius: 4px 0 0 4px;
+}
+
+.quantity-btn.plus {
+    border-radius: 0 4px 4px 0;
+}
+
+.quantity-controls input {
+    width: 70px;
+    height: 40px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-left: none;
+    border-right: none;
+}
+
+/* Resumen del pedido */
+.order-summary {
+    background-color: #fff;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 25px;
+}
+
+.order-summary h4 {
+    color: var(--secondary-color);
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.summary-content p {
+    margin: 8px 0;
+}
+
+.summary-content .total {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+/* Mensajes de éxito */
+.form-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-radius: 4px;
+    padding: 15px;
+    margin-top: 20px;
+    display: none;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-success.visible {
+    display: flex;
+}
+
+.form-success i {
+    font-size: 1.5rem;
+}
+
 /* Ajustes adicionales para responsive */
 @media (max-width: 768px) {
     .animal-gallery {
@@ -478,5 +707,18 @@
     
     .contact-info .shipping-info {
         display: none;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .price-options {
+        flex-direction: column;
+    }
+    
+    .price-option {
+        width: 100%;
     }
 }

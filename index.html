@@ -16,8 +16,8 @@
     <link rel="canonical" href="https://www.bgor.com/">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/logo.png">
-    <link rel="apple-touch-icon" href="images/logo.png">
+    <link rel="icon" type="image/png" href="images/Recurso 3 (1).png">
+    <link rel="apple-touch-icon" href="images/Recurso 3 (1).png">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -115,7 +115,7 @@
     <section id="beneficios" class="benefits">
         <div class="container">
             <h2>¿Por qué BGOR?</h2>
-            <p class="section-description">En BGOR diseñamos fórmulas específicas para cada tipo de sistema digestivo. Con minerales quelados, aminoácidos esenciales y vitaminas que mejoran conversión alimenticia, desarrollo muscular y sistema inmune.</p>
+            <p class="section-description">En BGOR diseñamos fórmulas específicas para cada tipo de sistema digestivo. Con minerales, aminoácidos esenciales y vitaminas que mejoran conversión alimenticia, desarrollo muscular y sistema inmune.</p>
             
             <div class="animal-gallery">
                 <div class="gallery-item fade-in">
@@ -189,22 +189,22 @@
                             <li><i class="fas fa-bolt"></i> Aminoácidos</li>
                             <li><i class="fas fa-bolt"></i> Vitaminas</li>
                             <li><i class="fas fa-bolt"></i> Minerales</li>
-                            <li><i class="fas fa-bolt"></i> Probióticos</li>
+                            <li><i class="fas fa-bolt"></i> Omega 3, 6 y 9</li>
                         </ul>
                         
                         <div class="performance-data fade-in">
                             <h4>Rendimiento comprobado</h4>
                             <div class="performance-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span>Aumento de 18% en ganancia diaria de peso en cerdos</span>
+                                <span>Hasta un aumento de 18% en ganancia diaria de peso en cerdos</span>
                             </div>
                             <div class="performance-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span>Mejora de 15% en conversión alimenticia en aves</span>
+                                <span>Hasta una mejora de 15% en conversión alimenticia en aves</span>
                             </div>
                             <div class="performance-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span>Reducción de 22% en problemas digestivos</span>
+                                <span>Hasta una reducción de 22% en problemas digestivos</span>
                             </div>
                         </div>
                         
@@ -225,7 +225,6 @@
                         <div class="animal-types">
                             <span class="animal-type"><img src="images/cow_hires.png" alt="Vaca" /> Vacas</span>
                             <span class="animal-type"><img src="images/sheep_hires.png" alt="Oveja" /> Ovejas</span>
-                            <span class="animal-type"><img src="images/horse_hires.png" alt="Equino" /> Cabras</span>
                         </div>
                         
                         <ul class="product-features">
@@ -239,19 +238,19 @@
                             <h4>Rendimiento comprobado</h4>
                             <div class="performance-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span>Aumento de 12% en producción de leche en vacas</span>
+                                <span>Hasta un aumento de 12% en producción de leche en vacas</span>
                             </div>
                             <div class="performance-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span>Mejora de 16% en calidad de lana en ovejas</span>
+                                <span>Hasta un 18% de mejora en índice de reproducción</span>
                             </div>
                             <div class="performance-item">
                                 <i class="fas fa-check-circle"></i>
-                                <span>Incremento de 14% en fertilidad en cabras</span>
+                                <span>Hasta un incremento de 16% en engorde</span>
                             </div>
                         </div>
                         
-                        <p class="product-description">Fórmula diseñada para mejorar la fermentación ruminal y absorción de nutrientes en animales poligástricos como vacas, ovejas y cabras, optimizando su rendimiento productivo.</p>
+                        <p class="product-description">Fórmula diseñada para mejorar la fermentación ruminal y absorción de nutrientes en animales poligástricos como vacas y ovejas, optimizando su rendimiento productivo.</p>
                         
                         <a href="#contacto" class="btn btn-secondary">Solicita más información</a>
                     </div>
@@ -315,7 +314,7 @@
                         <ul class="presentation-features">
                             <li><i class="fas fa-check"></i> Balde reutilizable</li>
                             <li><i class="fas fa-check"></i> Mejor costo-beneficio</li>
-                            <li><i class="fas fa-check"></i> Ideal para granjas</li>
+                            <li><i class="fas fa-check"></i> Mayor economía por kilo</li>
                             <li><i class="fas fa-check"></i> Mayor rendimiento por unidad</li>
                         </ul>
                         <div class="presentation-price">
@@ -327,7 +326,7 @@
             </div>
             
             <div class="presentation-cta">
-                <a href="#contacto" class="btn btn-primary">Solicita tu formato ideal</a>
+                <button id="toggleOrderFormFromBtn" class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Haz tu pedido</button>
             </div>
         </div>
     </section>
@@ -370,6 +369,18 @@
         </div>
     </section>
 
+    <!-- Sección para Veterinarias -->
+    <section id="veterinarias" class="veterinarias">
+        <div class="container">
+            <h2>¿Tienes una veterinaria o punto de venta?</h2>
+            <p class="section-description">Distribuye BGOR con márgenes de rentabilidad entre el 20% y 30%.</p>
+            
+            <div class="veterinarias-cta">
+                <button id="toggleContactForm" class="btn btn-primary">Solicita información</button>
+            </div>
+        </div>
+    </section>
+
     <!-- Sección Contacto -->
     <section id="contacto" class="contact">
         <div class="container">
@@ -381,53 +392,124 @@
                 <a href="https://linktr.ee/BgorOficial" target="_blank" class="btn btn-secondary"><i class="fas fa-headset"></i> Contactar vendedor</a>
             </div>
             
-            <!-- Formulario de pedido (inicialmente oculto) -->
+            <!-- Formulario de pedido moderno (inicialmente oculto) -->
             <div id="orderFormContainer" class="order-form-container">
                 <form id="orderForm" class="order-form" name="pedido" method="POST" data-netlify="true">
                     <input type="hidden" name="form-name" value="pedido">
-                    <div class="form-group">
-                        <label for="nombreApellido">Nombre y apellido</label>
-                        <input type="text" id="nombreApellido" name="nombreApellido" required>
+                    
+                    <div class="form-section personal-info">
+                        <h3>Información de contacto</h3>
+                        <div class="form-group">
+                            <label for="nombreApellido">Nombre y apellido</label>
+                            <input type="text" id="nombreApellido" name="nombreApellido" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="telefono">Teléfono de contacto</label>
+                                <input type="tel" id="telefono" name="telefono" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Correo electrónico</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="departamento">Departamento</label>
-                        <input type="text" id="departamento" name="departamento" required>
+
+                    <div class="form-section shipping-info">
+                        <h3>Dirección de envío</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="departamento">Departamento</label>
+                                <input type="text" id="departamento" name="departamento" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ciudadMunicipio">Ciudad o municipio</label>
+                                <input type="text" id="ciudadMunicipio" name="ciudadMunicipio" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion">Dirección exacta o si desea entrega en oficina</label>
+                            <input type="text" id="direccion" name="direccion" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="ciudadMunicipio">Ciudad o municipio</label>
-                        <input type="text" id="ciudadMunicipio" name="ciudadMunicipio" required>
+
+                    <div class="form-section product-selection">
+                        <h3>Selección de productos</h3>
+                        
+                        <div class="price-options">
+                            <div class="price-option">
+                                <input type="radio" id="option1kg" name="presentacion" value="1kg" checked>
+                                <label for="option1kg">
+                                    <h4>Unidad 1kg</h4>
+                                    <p class="price">$84.900</p>
+                                </label>
+                            </div>
+                            
+                            <div class="price-option">
+                                <input type="radio" id="optionPromo" name="presentacion" value="promo">
+                                <label for="optionPromo">
+                                    <h4>Promoción "Paga 3 lleva 4"</h4>
+                                    <p class="price">$229.900</p>
+                                </label>
+                            </div>
+                            
+                            <div class="price-option">
+                                <input type="radio" id="option12kg" name="presentacion" value="12kg">
+                                <label for="option12kg">
+                                    <h4>Balde 12kg</h4>
+                                    <p class="price">$559.900</p>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="product-type">
+                            <h4>Tipo de producto</h4>
+                            <div class="product-type-options">
+                                <div class="product-type-option">
+                                    <input type="radio" id="tipoMono" name="tipo" value="monogastricos" checked>
+                                    <label for="tipoMono">BGOR Monogástricos</label>
+                                </div>
+                                
+                                <div class="product-type-option">
+                                    <input type="radio" id="tipoPoli" name="tipo" value="poligastricos">
+                                    <label for="tipoPoli">BGOR Poligástricos</label>
+                                </div>
+                                
+                                <div class="product-type-option">
+                                    <input type="radio" id="tipoMixto" name="tipo" value="mixto">
+                                    <label for="tipoMixto">Mitad de cada tipo</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group quantity-selector">
+                            <label for="cantidad">Cantidad</label>
+                            <div class="quantity-controls">
+                                <button type="button" class="quantity-btn minus">-</button>
+                                <input type="number" id="cantidad" name="cantidad" min="1" value="1" required>
+                                <button type="button" class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="order-summary">
+                            <h4>Resumen del pedido</h4>
+                            <div id="orderSummary" class="summary-content">
+                                <p>1x BGOR Monogástricos 1kg</p>
+                                <p class="total">Total: $84.900</p>
+                            </div>
+                        </div>
                     </div>
+                    
                     <div class="form-group">
-                        <label for="direccion">Dirección o si desea entrega en oficina</label>
-                        <input type="text" id="direccion" name="direccion" required>
+                        <label for="observaciones">Observaciones (opcional)</label>
+                        <textarea id="observaciones" name="observaciones" rows="3"></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="cantidad">Cantidad del producto que desea</label>
-                        <input type="number" id="cantidad" name="cantidad" min="1" required>
+                    
+                    <button type="submit" class="btn btn-primary">Finalizar pedido</button>
+                    
+                    <div id="formSuccess" class="form-success">
+                        <i class="fas fa-check-circle"></i> ¡Pedido enviado con éxito! Te contactaremos pronto para confirmar.
                     </div>
-                    <div class="form-group">
-                        <label for="producto">Producto</label>
-                        <select id="producto" name="producto" required>
-                            <option value="">Selecciona un producto</option>
-                            <option value="BGOR Monogástricos 1kg">BGOR Monogástricos 1kg</option>
-                            <option value="BGOR Monogástricos 12kg">BGOR Monogástricos 12kg</option>
-                            <option value="BGOR Poligástricos 1kg">BGOR Poligástricos 1kg</option>
-                            <option value="BGOR Poligástricos 12kg">BGOR Poligástricos 12kg</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="telefono">Teléfono de contacto</label>
-                        <input type="tel" id="telefono" name="telefono" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Correo electrónico</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="mensaje">Mensaje adicional (opcional)</label>
-                        <textarea id="mensaje" name="mensaje" rows="3"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Enviar pedido</button>
                 </form>
             </div>
             
@@ -443,10 +525,10 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="contact-form-container">
-                <h3>Consulta rápida</h3>
-                <p>¿Tienes una pregunta? Escríbenos y te responderemos a la brevedad.</p>
+            <!-- El formulario de contacto rápido se ocultó y se mostrará solo cuando se solicite desde la sección de veterinarias -->
+            <div id="contactFormContainer" class="contact-form-container" style="display: none;">
+                <h3>Información para distribuidores</h3>
+                <p>¿Quieres distribuir BGOR en tu veterinaria o punto de venta? Completa el formulario y te contactaremos.</p>
                 <form name="contacto" method="POST" data-netlify="true" class="contact-form">
                     <input type="hidden" name="form-name" value="contacto">
                     <div class="form-group">
@@ -465,7 +547,7 @@
                         <label for="contactMessage">Mensaje</label>
                         <textarea id="contactMessage" name="mensaje" rows="4" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Enviar consulta</button>
+                    <button type="submit" class="btn btn-primary">Enviar solicitud</button>
                 </form>
             </div>
         </div>
@@ -477,7 +559,7 @@
             <div class="footer-content">
                 <div class="footer-logo">
                     <img src="images/logo.png" alt="BGOR Logo">
-                    <p>Suplementos nutricionales para animales de producción</p>
+                    <p>Un producto de Laboratorios Fluxon</p>
                 </div>
                 <div class="footer-links">
                     <h4>Enlaces rápidos</h4>
