@@ -264,9 +264,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Verificar si el clic fue fuera del formulario y no en el botón de toggle
             if (!orderFormContainer.contains(event.target) && 
                 event.target !== toggleOrderFormBtn && 
-                !toggleOrderFormBtn.contains(event.target) &&
-                event.target !== toggleOrderFormFromBtn && 
-                !toggleOrderFormFromBtn.contains(event.target)) {
+                !toggleOrderFormBtn.contains(event.target)) {
                 
                 orderFormContainer.classList.remove('active');
                 toggleOrderFormBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Haz tu pedido';
@@ -551,9 +549,9 @@ function initFormatSelector() {
         // el usuario haga clic en "Haz tu pedido"
         
         // Evento para cuando se abre el formulario de pedido
-        const toggleOrderFormFromBtn = document.getElementById('toggleOrderFormFromBtn');
-        if (toggleOrderFormFromBtn) {
-            toggleOrderFormFromBtn.addEventListener('click', function() {
+        const toggleOrderFormBtn = document.getElementById('toggleOrderForm');
+        if (toggleOrderFormBtn) {
+            toggleOrderFormBtn.addEventListener('click', function() {
                 // Si hay productos en el carrito, pre-rellenar el formulario de pedido
                 if (items.length > 0) {
                     // Actualizar el resumen del formulario de pedido
