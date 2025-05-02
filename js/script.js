@@ -166,24 +166,31 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Mostrar/ocultar la sección de selección de formatos
-    if (toggleFormatSelectorBtn && formatSelectorSection) {
-        toggleFormatSelectorBtn.addEventListener('click', function() {
+    // Convertimos el botón a un enlace directo al formulario de contacto
+    const formatToOrderBtn = document.getElementById('formatToOrderBtn');
+    if (formatToOrderBtn) {
+        formatToOrderBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
             // Cerrar otros formularios primero
             closeAllForms();
             
-            // Mostrar selector de formatos con animación
-            formatSelectorSection.style.display = 'block';
+            // Dirigir al formulario de contacto y mostrarlo
+            const contactoSection = document.getElementById('contacto');
+            const toggleOrderFormBtn = document.getElementById('toggleOrderForm');
             
-            // Añadir clase para la animación
-            setTimeout(() => {
-                formatSelectorSection.classList.add('fade-in');
-            }, 10);
-            
-            // Scroll hasta la sección
-            setTimeout(() => {
-                formatSelectorSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
+            if (contactoSection) {
+                // Scroll hasta la sección de contacto
+                contactoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Abrir el formulario de pedido automáticamente
+                if (toggleOrderFormBtn && orderFormContainer) {
+                    setTimeout(() => {
+                        orderFormContainer.classList.add('active');
+                        toggleOrderFormBtn.innerHTML = '<i class="fas fa-times"></i> Cerrar formulario';
+                    }, 600);
+                }
+            }
         });
     }
     
