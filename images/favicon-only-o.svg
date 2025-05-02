@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Círculo con la O del logo BGOR en color naranja -->
+  <circle cx="80" cy="80" r="80" fill="#F47920"/>
+  <!-- Contorno de la O y rayo en blanco -->
+  <path d="M80 40C58.0 40 40 58.0 40 80C40 102.0 58.0 120 80 120C102.0 120 120 102.0 120 80C120 58.0 102.0 40 80 40ZM80 110C63.5 110 50 96.5 50 80C50 63.5 63.5 50 80 50C96.5 50 110 63.5 110 80C110 96.5 96.5 110 80 110Z" fill="white"/>
+  <!-- Rayo estilizado dentro de la O -->
+  <path d="M88 55L65 80L75 80L72 105L95 80L85 80L88 55Z" fill="white"/>
+</svg>
