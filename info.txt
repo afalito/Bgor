@@ -1,0 +1,30 @@
+# INFORMACIÓN DEL SITIO BGOR
+
+Sitio Web: https://www.bgor.com
+Empresa: BGOR - Suplementos Nutricionales para Animales
+País: Colombia
+Sector: Veterinario / Agropecuario
+Productos: Suplementos para cerdos, vacas, equinos
+Público: Productores agropecuarios, veterinarios
+
+## URLs Principales:
+- Inicio: https://www.bgor.com/
+- Artículo: https://www.bgor.com/suplementacion-errores.html
+- Sitemap: https://www.bgor.com/sitemap.xml
+- Robots: https://www.bgor.com/robots.txt
+
+## Keywords Objetivo:
+- suplementos animales colombia
+- vitaminas para cerdos
+- suplementos para vacas  
+- nutrición animal colombia
+- BGOR suplementos
+
+## Redes Sociales:
+- Facebook: https://www.facebook.com/profile.php?id=61555580631108
+- Instagram: https://www.instagram.com/bgor_latam
+- LinkTree: https://linktr.ee/BgorOficial
+
+## Contacto:
+- WhatsApp: Via LinkTree
+- Email: A través del formulario web
