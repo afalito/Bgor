@@ -1,3 +1,12 @@
+/* Estilo para navegación activa */
+.nav-menu a.active {
+    color: #F28C28 !important;
+}
+
+.nav-menu a.active::after {
+    width: 100%;
+}
+
 /* Estilos adicionales para mejorar el contraste de las imágenes */
 .product-image, .presentation-image {
     background-color: #f5f5f5 !important; /* Fondo claro para las imágenes de productos */

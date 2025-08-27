@@ -1,0 +1,391 @@
+/* Estilos para el artículo de suplementación */
+
+/* Solución para elementos fade-in en artículo - siempre visibles */
+.article-hero .fade-in,
+.errors-section .fade-in,
+.sabias-que-section .fade-in,
+.motivational-section .fade-in,
+.error-card.fade-in {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+.article-hero {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 120px 0 80px;
+    text-align: center;
+}
+
+.article-hero h1 {
+    font-size: 3rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.article-hero .subtitle {
+    font-size: 1.5rem;
+    color: #F28C28;
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+.article-hero .highlight-phrase {
+    font-size: 1.2rem;
+    color: var(--dark-gray);
+    font-style: italic;
+    margin-bottom: 2rem;
+}
+
+.article-hero-image {
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.article-hero-image img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.article-hero-image i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.intro-section {
+    padding: 80px 0;
+    background: white;
+}
+
+.intro-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.intro-left h2 {
+    font-size: 2.5rem;
+    color: var(--secondary-color);
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: left;
+    margin-bottom: 0;
+}
+
+.intro-right {
+    border-radius: 15px;
+    text-align: center;
+}
+
+.intro-right img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.intro-right i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.errors-section {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.errors-section h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--secondary-color);
+}
+
+.errors-grid {
+    display: grid;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.error-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    align-items: center;
+    min-height: 200px;
+}
+
+.error-card:hover {
+    transform: translateY(-5px);
+}
+
+.error-number {
+    background: #F28C28;
+    color: white !important;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    align-self: flex-start;
+}
+
+.error-card h3 {
+    font-size: 1.4rem;
+    color: #000000 !important;
+    margin-bottom: 0.8rem;
+    margin-top: 0;
+    font-weight: 600;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.error-card p {
+    color: #333333 !important;
+    margin-bottom: 1rem;
+    margin-top: 0;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Asegurar que todo el contenido de error-card sea visible */
+.error-card * {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Contenido del error (texto) */
+.error-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Imagen del error */
+.error-image {
+    width: 100%;
+    max-width: 240px;
+    margin: 0 auto;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.error-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.error-image img:hover {
+    transform: scale(1.05);
+}
+
+.error-image i {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.error-image p {
+    font-size: 0.8rem;
+    margin: 0;
+    color: #6c757d !important;
+}
+
+.error-key-phrase {
+    background: #fff3e0;
+    border-left: 4px solid #F28C28;
+    padding: 12px 16px;
+    font-weight: 600;
+    color: #000000 !important;
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.sabias-que-section {
+    padding: 80px 0;
+    background: white;
+    text-align: center;
+}
+
+.sabias-que-section h2 {
+    color: var(--secondary-color);
+    margin-bottom: 3rem;
+}
+
+.badges-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.badge {
+    background: linear-gradient(135deg, #F28C28, #ff8c00);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    font-weight: 600;
+    box-shadow: 0 5px 15px rgba(242, 140, 40, 0.3);
+}
+
+.motivational-section {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.motivational-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.motivational-left h2 {
+    font-size: 2.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.motivational-left p {
+    font-size: 1.2rem;
+    color: var(--dark-gray);
+    line-height: 1.7;
+}
+
+.motivational-right {
+    border-radius: 15px;
+    text-align: center;
+}
+
+.motivational-right img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.motivational-right i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.cta-section {
+    padding: 80px 0;
+    background: white;
+    text-align: center;
+}
+
+.cta-button {
+    display: inline-block;
+    background: #F28C28;
+    color: white;
+    padding: 20px 40px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+    box-shadow: 0 5px 15px rgba(242, 140, 40, 0.3);
+}
+
+.cta-button:hover {
+    background: #e07b00;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(242, 140, 40, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+.cta-subtitle {
+    color: var(--dark-gray);
+    font-size: 1rem;
+    font-style: italic;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .article-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .article-hero .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .intro-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .intro-left h2 {
+        font-size: 2rem;
+        text-align: center;
+    }
+    
+    .motivational-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .motivational-left h2 {
+        text-align: center;
+    }
+    
+    .badges-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .error-card {
+        padding: 30px 20px;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .error-image {
+        width: 100%;
+        max-width: 250px;
+        height: 180px;
+        margin: 0 auto;
+    }
+    
+    .article-hero {
+        padding: 100px 0 60px;
+    }
+    
+    .intro-section,
+    .errors-section,
+    .sabias-que-section,
+    .motivational-section,
+    .cta-section {
+        padding: 60px 0;
+    }
+}
