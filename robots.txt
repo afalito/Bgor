@@ -1,0 +1,38 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.bgor.com/sitemap.xml
+
+# Optimizaciones SEO
+Allow: /css/
+Allow: /js/  
+Allow: /images/
+Allow: /suplementacion-errores.html
+
+# Archivos técnicos permitidos
+Allow: /favicon.ico
+Allow: /robots.txt
+
+# Social Media Crawlers
+User-agent: facebookexternalhit/*
+Allow: /
+
+User-agent: twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+# Search Console
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot  
+Allow: /
+
+# Crawl delay para ser amigable con el servidor
+Crawl-delay: 1

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Página Principal -->
+  <url>
+    <loc>https://www.bgor.com/</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.bgor.com/images/hero.png</image:loc>
+      <image:title>BGOR Suplementos Nutricionales para Animales</image:title>
+      <image:caption>Suplementos premium para cerdos, vacas y equinos que aumentan 20% el peso</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.bgor.com/images/monogastricos.png</image:loc>
+      <image:title>BGOR Monogástricos</image:title>
+      <image:caption>Suplemento especializado para cerdos, aves y equinos</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.bgor.com/images/poligastricos.png</image:loc>
+      <image:title>BGOR Poligástricos</image:title>
+      <image:caption>Suplemento especializado para vacas y ovejas</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Artículo de Errores de Suplementación -->
+  <url>
+    <loc>https://www.bgor.com/suplementacion-errores.html</loc>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.bgor.com/images/hero.png</image:loc>
+      <image:title>Guía de Errores en Suplementación Animal</image:title>
+      <image:caption>Los 5 errores más comunes que frenan la suplementación en animales de producción</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.bgor.com/images/error1.png</image:loc>
+      <image:title>Error 1: Suplementar cuando se puede</image:title>
+      <image:caption>Calendario mostrando suplementación irregular vs constante</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.bgor.com/images/error2.png</image:loc>
+      <image:title>Error 2: Dosis a ojo</image:title>
+      <image:caption>Comparación entre dosis correctas e incorrectas en suplementación animal</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.bgor.com/images/error3.png</image:loc>
+      <image:title>Error 3: Sin alimento suficiente</image:title>
+      <image:caption>Comparación entre ración vacía y ración completa para animales</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.bgor.com/images/error4.png</image:loc>
+      <image:title>Error 4: No desparasitar</image:title>
+      <image:caption>Intestino con parásitos vs intestino desparasitado</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.bgor.com/images/error5.png</image:loc>
+      <image:title>Error 5: Sin continuidad</image:title>
+      <image:caption>Gráfico de suplementación irregular vs constante y sus resultados</image:caption>
+    </image:image>
+  </url>
+  
+</urlset>
