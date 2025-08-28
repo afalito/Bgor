@@ -8,7 +8,7 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://www.bgor.com/images/hero.png</image:loc>
+      <image:loc>https://www.bgor.com/images/hero2.png</image:loc>
       <image:title>BGOR Suplementos Nutricionales para Animales</image:title>
       <image:caption>Suplementos premium para cerdos, vacas y equinos que aumentan 20% el peso</image:caption>
     </image:image>
@@ -31,7 +31,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://www.bgor.com/images/hero.png</image:loc>
+      <image:loc>https://www.bgor.com/images/hero2.png</image:loc>
       <image:title>Guía de Errores en Suplementación Animal</image:title>
       <image:caption>Los 5 errores más comunes que frenan la suplementación en animales de producción</image:caption>
     </image:image>
