@@ -972,17 +972,16 @@
 }
 
 .tech-cards-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 30px;
-    justify-content: center;
     margin-top: 40px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .tech-card {
-    flex: 1;
-    min-width: 280px;
-    max-width: 400px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
@@ -1247,8 +1246,8 @@
     }
     
     .tech-cards-container {
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
     
     .tech-card {
