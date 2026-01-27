@@ -4102,9 +4102,12 @@
         let lastCustomerIndex = -1;
         let notificationCount = 0;
         const maxNotifications = 3;
+        let notificationInterval = null;
+        let notificationTimeout = null;
+        let isPaused = false;
 
         function showPurchaseNotification() {
-            if (notificationCount >= maxNotifications) return;
+            if (notificationCount >= maxNotifications || isPaused) return;
 
             const notification = document.getElementById('purchaseNotification');
             const customerName = document.getElementById('customerName');
@@ -4131,8 +4134,27 @@
             notificationCount++;
         }
 
-        setTimeout(showPurchaseNotification, 5000);
-        setInterval(showPurchaseNotification, 15000);
+        function pauseNotifications() {
+            isPaused = true;
+            const notification = document.getElementById('purchaseNotification');
+            notification.classList.remove('show');
+            if (notificationTimeout) clearTimeout(notificationTimeout);
+            if (notificationInterval) clearInterval(notificationInterval);
+        }
+
+        function resumeNotifications() {
+            isPaused = false;
+            notificationTimeout = setTimeout(showPurchaseNotification, 5000);
+            notificationInterval = setInterval(showPurchaseNotification, 15000);
+        }
+
+        // Iniciar notificaciones
+        notificationTimeout = setTimeout(showPurchaseNotification, 5000);
+        notificationInterval = setInterval(showPurchaseNotification, 15000);
+
+        // Exponer funciones globalmente para el modal de comentarios
+        window.pausePurchaseNotifications = pauseNotifications;
+        window.resumePurchaseNotifications = resumeNotifications;
 
         // Constante de envío prioritario
         const PRIORITY_SHIPPING_PRICE = 5000;
@@ -4741,12 +4763,22 @@
                 commentsModal.classList.add('show');
                 document.body.style.overflow = 'hidden';
                 loadCommentsToModal();
+
+                // Pausar notificaciones de compra
+                if (typeof window.pausePurchaseNotifications === 'function') {
+                    window.pausePurchaseNotifications();
+                }
             }
 
             // Cerrar modal
             function closeCommentsModal() {
                 commentsModal.classList.remove('show');
                 document.body.style.overflow = '';
+
+                // Reanudar notificaciones de compra
+                if (typeof window.resumePurchaseNotifications === 'function') {
+                    window.resumePurchaseNotifications();
+                }
             }
 
             // Cargar comentarios en el modal
