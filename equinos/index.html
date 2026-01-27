@@ -2317,6 +2317,13 @@
             border-bottom: 1px solid #e4e6eb;
         }
 
+        /* Disclaimer dentro del modal también sticky */
+        .fb-comments-modal .fb-post-disclaimer {
+            position: sticky;
+            top: 69px;
+            z-index: 99;
+        }
+
         .fb-reactions-bar {
             display: flex;
             justify-content: space-between;
@@ -2607,16 +2614,25 @@
             background: #f8f9fa;
         }
 
+        .fb-comment-preview:active {
+            background: #f0f2f5;
+        }
+
         .fb-comment-preview .fb-comment {
             margin-bottom: 0;
         }
 
         .fb-comment-preview-hint {
             text-align: center;
-            color: #65676b;
-            font-size: 13px;
+            color: #1877f2;
+            font-size: 14px;
             margin-top: 10px;
             font-weight: 600;
+            cursor: pointer;
+        }
+
+        .fb-comment-preview-hint:active {
+            opacity: 0.7;
         }
 
         /* Modal de Comentarios */
@@ -2657,11 +2673,15 @@
             align-items: center;
             padding: 16px 20px;
             border-bottom: 1px solid #e4e6eb;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 100;
         }
 
         .fb-comments-modal-header h3 {
             margin: 0;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
             color: #050505;
         }
@@ -2669,20 +2689,25 @@
         .fb-modal-close {
             background: #f0f2f5;
             border: none;
-            width: 36px;
-            height: 36px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             color: #65676b;
-            font-size: 18px;
+            font-size: 20px;
             transition: background 0.2s;
+            flex-shrink: 0;
         }
 
         .fb-modal-close:hover {
             background: #e4e6eb;
+        }
+
+        .fb-modal-close:active {
+            background: #d8dadf;
         }
 
         .fb-comments-modal-body {
@@ -2732,6 +2757,55 @@
             .fb-comments-modal-content {
                 max-height: 100vh;
                 border-radius: 0;
+            }
+
+            .fb-comments-modal-header {
+                padding: 18px 20px;
+            }
+
+            .fb-comments-modal-header h3 {
+                font-size: 22px;
+            }
+
+            .fb-modal-close {
+                width: 48px;
+                height: 48px;
+                font-size: 22px;
+            }
+
+            .fb-comments-modal .fb-post-disclaimer {
+                top: 73px;
+                font-size: 10px;
+                padding: 10px 15px;
+            }
+
+            .fb-comments-modal-body {
+                padding: 15px 15px 20px 15px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .fb-comment-preview-hint {
+                font-size: 15px;
+                padding: 5px;
+            }
+
+            .fb-action-btn {
+                padding: 12px;
+                font-size: 15px;
+                min-height: 48px;
+            }
+
+            .fb-action-btn i {
+                font-size: 18px;
+            }
+
+            .fb-reactions-bar {
+                padding: 12px 15px;
+            }
+
+            .fb-reactions-count,
+            .fb-comments-count {
+                font-size: 15px;
             }
         }
 
