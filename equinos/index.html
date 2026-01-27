@@ -2734,6 +2734,35 @@
                 border-radius: 0;
             }
         }
+
+        /* ===========================
+           DISCLAIMER LEGAL
+        =========================== */
+        .legal-disclaimer {
+            background: #f0f2f5;
+            padding: 30px 20px;
+            text-align: center;
+            margin: 0;
+        }
+
+        .legal-disclaimer p {
+            color: #65676b;
+            font-size: 12px;
+            line-height: 1.6;
+            margin: 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 480px) {
+            .legal-disclaimer {
+                padding: 25px 15px;
+            }
+
+            .legal-disclaimer p {
+                font-size: 11px;
+            }
+        }
     </style>
 
     <!-- Meta Pixel Code -->
@@ -2896,7 +2925,7 @@
     <!-- Clientes Felices -->
     <section class="section clientes-felices">
         <h2 class="section-title">Así se Ven los Caballos de Quienes Ya Usan B-GOR</h2>
-        <p class="section-subtitle">Fotos sin filtros. Caballos reales. Resultados que se ven.</p>
+        <p class="section-subtitle">Resultados que se ven<sup style="font-size: 0.6em;">*</sup></p>
 
         <div class="carousel-wrapper">
             <div class="carousel-track">
@@ -3099,7 +3128,7 @@
 
     <!-- Antes y Después -->
     <section class="section before-after-section">
-        <h2 class="section-title">2 Kilos de B-GOR en 6 Semanas</h2>
+        <h2 class="section-title">2 Kilos de B-GOR en 6 Semanas<sup style="font-size: 0.5em;">*</sup></h2>
         <p class="section-subtitle">De flaco y sin energía → A pura condición<br><span style="font-size: 12px; opacity: 0.8;">(Desliza la línea para ver el cambio)</span></p>
 
         <div class="before-after-container">
@@ -3548,6 +3577,11 @@
             </form>
         </div>
     </section>
+
+    <!-- Disclaimer Legal -->
+    <div class="legal-disclaimer">
+        <p>* Las imágenes y testimonios ilustran dramatizaciones de casos de éxito de usuarios reales. Los resultados pueden variar según el animal, su condición inicial y el cumplimiento de las indicaciones de uso.</p>
+    </div>
 
     <!-- Purchase Notification -->
     <div class="purchase-notification" id="purchaseNotification">
