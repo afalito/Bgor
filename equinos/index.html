@@ -2554,7 +2554,7 @@
             border: none;
             background: none;
             outline: none;
-            font-size: 14px;
+            font-size: 16px;
             color: #050505;
             resize: none;
             max-height: 100px;
@@ -2645,7 +2645,7 @@
             bottom: 0;
             background: rgba(0, 0, 0, 0.6);
             z-index: 9999;
-            overflow-y: auto;
+            overflow: hidden;
             padding: 20px;
         }
 
@@ -2712,12 +2712,26 @@
 
         .fb-comments-modal-body {
             overflow-y: auto;
+            overflow-x: hidden;
             padding: 15px 20px;
             flex: 1;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+            position: relative;
         }
 
         .fb-comments-modal-body .fb-comments-list {
-            margin-bottom: 15px;
+            margin-bottom: 80px;
+        }
+
+        .fb-comments-modal-body .fb-comment-form {
+            position: sticky;
+            bottom: 0;
+            background: white;
+            padding: 15px 20px;
+            margin: 0 -20px;
+            border-top: 1px solid #e4e6eb;
+            z-index: 10;
         }
 
         /* Ajustes de iconos de reacciones */
@@ -2780,8 +2794,16 @@
             }
 
             .fb-comments-modal-body {
-                padding: 15px 15px 20px 15px;
-                -webkit-overflow-scrolling: touch;
+                padding: 15px;
+            }
+
+            .fb-comments-modal-body .fb-comment-form {
+                padding: 15px;
+                margin: 0 -15px;
+            }
+
+            .fb-comment-input {
+                font-size: 16px;
             }
 
             .fb-comment-preview-hint {
