@@ -2139,6 +2139,163 @@
         .tech-sheet-option:last-child {
             margin-bottom: 0;
         }
+
+        /* ===========================
+           SUCCESS POPUP
+        =========================== */
+        .success-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10001;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .success-popup-overlay.show {
+            display: flex;
+        }
+
+        .success-popup-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #FF5700 0%, #E04D00 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 40px;
+            color: white;
+        }
+
+        .success-popup-content h3 {
+            font-size: 26px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 16px;
+        }
+
+        .success-popup-content p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .success-phone-number {
+            background: #f8f9fa;
+            border: 2px solid #FF5700;
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 22px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin: 20px 0;
+            letter-spacing: 1px;
+        }
+
+        .success-whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .success-whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .success-whatsapp-btn:active {
+            transform: scale(0.98);
+        }
+
+        .success-whatsapp-btn i {
+            font-size: 24px;
+        }
+
+        .success-popup-close {
+            background: transparent;
+            border: 2px solid #ddd;
+            color: #666;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .success-popup-close:hover {
+            border-color: #bbb;
+            background: #f8f9fa;
+        }
+
+        .success-popup-close:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 480px) {
+            .success-popup-content {
+                padding: 30px 20px;
+            }
+
+            .success-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 35px;
+            }
+
+            .success-popup-content h3 {
+                font-size: 22px;
+            }
+
+            .success-popup-content p {
+                font-size: 15px;
+            }
+
+            .success-phone-number {
+                font-size: 20px;
+                padding: 14px;
+            }
+        }
     </style>
 
     <!-- Meta Pixel Code -->
@@ -3076,6 +3233,47 @@
         </div>
     </div>
 
+    <!-- Success Popup -->
+    <div class="success-popup-overlay" id="successPopup">
+        <div class="success-popup-content">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h3 id="successPopupTitle">¡Pedido Recibido!</h3>
+            <p id="successPopupMessage">Gracias por tu compra. Te enviaremos confirmación de la guía a más tardar al día hábil siguiente y mantendremos informado del estado del pedido por WhatsApp.</p>
+
+            <div style="background: #fff8e1; border-left: 4px solid #ffc107; padding: 16px; border-radius: 8px; margin: 20px 0; text-align: left;">
+                <p style="font-size: 13px; font-weight: 700; color: #1a1a2e; margin: 0 0 10px 0;">
+                    📋 Recomendaciones importantes:
+                </p>
+                <ul style="margin: 0; padding-left: 20px; font-size: 13px; color: #666; line-height: 1.6;">
+                    <li style="margin-bottom: 8px;">Mantén a alguien en el domicilio para recibir el pedido</li>
+                    <li style="margin-bottom: 8px;">Si es envío a oficina, recógelo lo antes posible cuando te notifiquemos</li>
+                    <li>El pago se realiza contraentrega al recibir tu B-GOR</li>
+                </ul>
+            </div>
+
+            <p style="font-size: 14px; color: #1a1a2e; margin-top: 20px; font-weight: 600;">
+                Para dudas o soporte técnico, guarda nuestro número:
+            </p>
+
+            <div class="success-phone-number">
+                +57 310 3033991
+            </div>
+
+            <a href="https://wa.me/573103033991?text=Hola%2C%20acabo%20de%20realizar%20un%20pedido%20de%20B-GOR"
+               class="success-whatsapp-btn"
+               target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                Guardar en WhatsApp
+            </a>
+
+            <button class="success-popup-close" onclick="closeSuccessPopup()" style="margin-top: 16px;">
+                Entendido
+            </button>
+        </div>
+    </div>
+
     <!-- JavaScript -->
     <script>
         // Gallery functionality
@@ -3372,8 +3570,8 @@
                 body: new URLSearchParams(new FormData(form)).toString()
             })
             .then(() => {
-                alert('Pedido recibido! Te contactaremos pronto por WhatsApp.');
                 closeCheckout();
+                showSuccessPopup();
                 form.reset();
             })
             .catch((error) => {
@@ -3403,7 +3601,11 @@
                 body: new URLSearchParams(new FormData(form)).toString()
             })
             .then(() => {
-                alert('¡Gracias! Te contactaremos pronto para resolver tus dudas.');
+                showSuccessPopup(
+                    '¡Mensaje Recibido!',
+                    'Gracias por contactarnos. Te responderemos lo antes posible para resolver todas tus dudas sobre B-GOR Equinos.',
+                    false
+                );
                 form.reset();
             })
             .catch((error) => {
@@ -3411,6 +3613,30 @@
             });
 
             return false;
+        }
+
+        // Success Popup Functions
+        function showSuccessPopup(title = '¡Pedido Recibido!', message = null, isContactForm = false) {
+            const popup = document.getElementById('successPopup');
+            const titleElement = document.getElementById('successPopupTitle');
+            const messageElement = document.getElementById('successPopupMessage');
+
+            titleElement.textContent = title;
+
+            if (message) {
+                messageElement.innerHTML = message;
+            } else {
+                messageElement.innerHTML = 'Gracias por tu compra. Te enviaremos confirmación de la guía a más tardar al día hábil siguiente y mantendremos informado del estado del pedido por WhatsApp.';
+            }
+
+            popup.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSuccessPopup() {
+            const popup = document.getElementById('successPopup');
+            popup.classList.remove('show');
+            document.body.style.overflow = '';
         }
 
         // Close checkout on overlay click
