@@ -2061,6 +2061,36 @@
             margin-bottom: 0;
         }
     </style>
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+
+        fbq('init', '2100044310527360');
+        fbq('track', 'PageView');
+
+        // ViewContent - Usuario viendo la página de producto
+        fbq('track', 'ViewContent', {
+            content_name: 'B-GOR Equinos - Suplemento Premium',
+            content_category: 'Suplementos Equinos',
+            content_ids: ['bgor-equinos', 'bgor-potros'],
+            content_type: 'product',
+            value: 319.90,
+            currency: 'COP'
+        });
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=2100044310527360&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- End Meta Pixel Code -->
 </head>
 <body>
     <!-- Viewing Counter -->
@@ -2688,7 +2718,7 @@
             <h2 class="contact-form-title">¿Aún no estás listo para comprar?</h2>
             <p class="contact-form-subtitle">Déjanos tus datos y te llamamos para resolver todas tus dudas</p>
 
-            <form class="contact-form" name="contacto-bgor-equinos" method="POST" data-netlify="true">
+            <form class="contact-form" name="contacto-bgor-equinos" method="POST" data-netlify="true" onsubmit="handleContactFormSubmit(event)">
                 <input type="hidden" name="form-name" value="contacto-bgor-equinos">
 
                 <input type="text" name="nombre" placeholder="Tu nombre completo" required>
@@ -2947,6 +2977,18 @@
         function openCheckout() {
             document.getElementById('checkoutOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
+
+            // Meta Pixel - InitiateCheckout
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'InitiateCheckout', {
+                    content_name: 'B-GOR Equinos',
+                    content_category: 'Suplementos Equinos',
+                    content_ids: ['bgor-equinos'],
+                    content_type: 'product',
+                    value: 319.90,
+                    currency: 'COP'
+                });
+            }
         }
 
         function closeCheckout() {
@@ -3096,6 +3138,59 @@
             event.preventDefault();
             const form = event.target;
 
+            // Calcular valor total del pedido para Meta Pixel
+            let totalValue = 0;
+            let contentIds = [];
+            let contentNames = [];
+
+            const tipoProducto = document.getElementById('tipoProducto').value;
+
+            if (tipoProducto === 'equinos' || tipoProducto === 'potros') {
+                // Modo simple
+                const paqueteSimple = document.getElementById('paqueteSimple');
+                const selectedOption = paqueteSimple.options[paqueteSimple.selectedIndex];
+                if (selectedOption && selectedOption.dataset.price) {
+                    totalValue = parseInt(selectedOption.dataset.price);
+                    contentIds.push(selectedOption.value);
+                    contentNames.push(selectedOption.dataset.label || selectedOption.text);
+                }
+            } else if (tipoProducto === 'mixto') {
+                // Modo mixto - sumar todos los seleccionados
+                const selects = ['equinosBolsas', 'equinosBaldes', 'potrosBolsas', 'potrosBaldes'];
+                selects.forEach(selectId => {
+                    const select = document.getElementById(selectId);
+                    if (select) {
+                        const option = select.options[select.selectedIndex];
+                        if (option && option.dataset.price) {
+                            const price = parseInt(option.dataset.price);
+                            if (price > 0) {
+                                totalValue += price;
+                                contentIds.push(option.value);
+                                contentNames.push(option.dataset.label || option.text);
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Aplicar descuento si está activo
+            const descuentoAplicado = document.getElementById('discountField').value === 'Sí';
+            if (descuentoAplicado) {
+                totalValue = totalValue * 0.95; // 5% descuento
+            }
+
+            // Enviar evento Purchase a Meta Pixel
+            if (typeof fbq !== 'undefined' && totalValue > 0) {
+                fbq('track', 'Purchase', {
+                    content_name: contentNames.join(', '),
+                    content_ids: contentIds,
+                    content_type: 'product',
+                    value: (totalValue / 1000).toFixed(2), // Convertir a miles para Meta
+                    currency: 'COP',
+                    num_items: contentIds.length
+                });
+            }
+
             fetch('/', {
                 method: 'POST',
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3108,6 +3203,36 @@
             })
             .catch((error) => {
                 alert('Error al enviar el pedido. Por favor intenta de nuevo.');
+            });
+
+            return false;
+        }
+
+        // Handle contact form submission
+        function handleContactFormSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+
+            // Meta Pixel - Lead event
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Lead', {
+                    content_name: 'Formulario Contacto - B-GOR Equinos',
+                    content_category: 'Consulta'
+                });
+            }
+
+            // Enviar formulario a Netlify
+            fetch('/', {
+                method: 'POST',
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(new FormData(form)).toString()
+            })
+            .then(() => {
+                alert('¡Gracias! Te contactaremos pronto para resolver tus dudas.');
+                form.reset();
+            })
+            .catch((error) => {
+                alert('Error al enviar. Por favor intenta de nuevo.');
             });
 
             return false;
@@ -3260,6 +3385,58 @@
                 faqItem.classList.add('active');
             }
         }
+
+        // Meta Pixel - AddToCart events
+        document.addEventListener('DOMContentLoaded', function() {
+            // Rastrear cuando seleccionan paquete simple
+            const paqueteSimple = document.getElementById('paqueteSimple');
+            if (paqueteSimple) {
+                paqueteSimple.addEventListener('change', function() {
+                    const option = this.options[this.selectedIndex];
+                    if (option && option.dataset.price) {
+                        const price = parseInt(option.dataset.price);
+                        const productName = option.dataset.label || option.text;
+
+                        if (typeof fbq !== 'undefined') {
+                            fbq('track', 'AddToCart', {
+                                content_name: productName,
+                                content_ids: [option.value],
+                                content_type: 'product',
+                                value: (price / 1000).toFixed(2),
+                                currency: 'COP'
+                            });
+                        }
+                    }
+                });
+            }
+
+            // Rastrear selección de productos mixtos
+            const mixedSelects = ['equinosBolsas', 'equinosBaldes', 'potrosBolsas', 'potrosBaldes'];
+            mixedSelects.forEach(selectId => {
+                const select = document.getElementById(selectId);
+                if (select) {
+                    select.addEventListener('change', function() {
+                        const option = this.options[this.selectedIndex];
+                        if (option && option.dataset.price) {
+                            const price = parseInt(option.dataset.price);
+                            if (price > 0) {
+                                const productName = option.dataset.label || option.text;
+
+                                if (typeof fbq !== 'undefined') {
+                                    fbq('track', 'AddToCart', {
+                                        content_name: productName,
+                                        content_ids: [option.value],
+                                        content_type: 'product',
+                                        value: (price / 1000).toFixed(2),
+                                        currency: 'COP'
+                                    });
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        });
 
         // Video Testimonial - Controles Personalizados
         const video = document.getElementById('testimonialVideo');
