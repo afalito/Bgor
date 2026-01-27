@@ -3009,14 +3009,14 @@
 
                     <!-- Envío Prioritario -->
                     <div class="priority-shipping">
-                        <div class="priority-shipping-wrapper" onclick="togglePriorityShipping()">
+                        <label class="priority-shipping-wrapper" for="priorityShippingCheckbox">
                             <input type="checkbox" class="priority-shipping-checkbox" id="priorityShippingCheckbox" name="envio-prioritario" value="no">
                             <div class="priority-shipping-content">
                                 <div class="priority-shipping-title"><i class="fas fa-shipping-fast" style="color: #FF5700;"></i> Envío Prioritario</div>
                                 <div class="priority-shipping-description">Priorizaremos tu pedido en nuestro centro logístico</div>
                             </div>
                             <div class="priority-shipping-price">+$5.000</div>
-                        </div>
+                        </label>
                     </div>
 
                     <!-- Información Personal -->
@@ -3282,21 +3282,24 @@
         const PRIORITY_SHIPPING_PRICE = 5000;
 
         // Toggle envío prioritario
-        function togglePriorityShipping() {
+        document.addEventListener('DOMContentLoaded', function() {
             const checkbox = document.getElementById('priorityShippingCheckbox');
             const container = document.querySelector('.priority-shipping');
 
-            // Toggle estado
-            checkbox.checked = !checkbox.checked;
-            checkbox.value = checkbox.checked ? 'si' : 'no';
+            if (checkbox) {
+                checkbox.addEventListener('change', function() {
+                    // Actualizar valor del checkbox
+                    checkbox.value = checkbox.checked ? 'si' : 'no';
 
-            // Toggle clase visual
-            if (checkbox.checked) {
-                container.classList.add('checked');
-            } else {
-                container.classList.remove('checked');
+                    // Toggle clase visual del container
+                    if (checkbox.checked) {
+                        container.classList.add('checked');
+                    } else {
+                        container.classList.remove('checked');
+                    }
+                });
             }
-        }
+        });
 
         // Handle checkout submission
         function handleCheckout(event) {
