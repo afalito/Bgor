@@ -1064,6 +1064,69 @@
             padding: 30px 25px;
         }
 
+        /* ===========================
+           ENVÍO PRIORITARIO
+        =========================== */
+        .priority-shipping {
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+        }
+
+        .priority-shipping:hover {
+            border-color: #bbb;
+            background: #f0f1f3;
+        }
+
+        .priority-shipping.checked {
+            border-color: #FF5700;
+            background: #fff5f0;
+        }
+
+        .priority-shipping-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .priority-shipping-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #999;
+            border-radius: 6px;
+            cursor: pointer;
+            flex-shrink: 0;
+            accent-color: #FF5700;
+        }
+
+        .priority-shipping-content {
+            flex: 1;
+        }
+
+        .priority-shipping-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .priority-shipping-description {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .priority-shipping-price {
+            font-size: 16px;
+            font-weight: 800;
+            color: #FF5700;
+            white-space: nowrap;
+        }
+
         .form-section {
             margin-bottom: 30px;
         }
@@ -2873,6 +2936,18 @@
                         </div>
                     </div>
 
+                    <!-- Envío Prioritario -->
+                    <div class="priority-shipping">
+                        <div class="priority-shipping-wrapper" onclick="togglePriorityShipping()">
+                            <input type="checkbox" class="priority-shipping-checkbox" id="priorityShippingCheckbox" name="envio-prioritario" value="no">
+                            <div class="priority-shipping-content">
+                                <div class="priority-shipping-title"><i class="fas fa-shipping-fast" style="color: #FF5700;"></i> Envío Prioritario</div>
+                                <div class="priority-shipping-description">Priorizaremos tu pedido en nuestro centro logístico</div>
+                            </div>
+                            <div class="priority-shipping-price">+$5.000</div>
+                        </div>
+                    </div>
+
                     <!-- Información Personal -->
                     <div class="form-section">
                         <div class="form-section-title">
@@ -3132,6 +3207,26 @@
         setTimeout(showPurchaseNotification, 5000);
         setInterval(showPurchaseNotification, 15000);
 
+        // Constante de envío prioritario
+        const PRIORITY_SHIPPING_PRICE = 5000;
+
+        // Toggle envío prioritario
+        function togglePriorityShipping() {
+            const checkbox = document.getElementById('priorityShippingCheckbox');
+            const container = document.querySelector('.priority-shipping');
+
+            // Toggle estado
+            checkbox.checked = !checkbox.checked;
+            checkbox.value = checkbox.checked ? 'si' : 'no';
+
+            // Toggle clase visual
+            if (checkbox.checked) {
+                container.classList.add('checked');
+            } else {
+                container.classList.remove('checked');
+            }
+        }
+
         // Handle checkout submission
         function handleCheckout(event) {
             event.preventDefault();
@@ -3178,13 +3273,20 @@
                 totalValue = totalValue * 0.95; // 5% descuento
             }
 
+            // Agregar envío prioritario si está seleccionado
+            const priorityShipping = document.getElementById('priorityShippingCheckbox');
+            const hasPriorityShipping = priorityShipping && priorityShipping.checked;
+            if (hasPriorityShipping) {
+                totalValue += PRIORITY_SHIPPING_PRICE;
+            }
+
             // Enviar evento Purchase a Meta Pixel
             if (typeof fbq !== 'undefined' && totalValue > 0) {
                 fbq('track', 'Purchase', {
-                    content_name: contentNames.join(', '),
+                    content_name: contentNames.join(', ') + (hasPriorityShipping ? ' + Envío Prioritario' : ''),
                     content_ids: contentIds,
                     content_type: 'product',
-                    value: totalValue, // Valor completo en COP
+                    value: totalValue, // Valor completo en COP (incluye envío prioritario si aplica)
                     currency: 'COP',
                     num_items: contentIds.length
                 });
