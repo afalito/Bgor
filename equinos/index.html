@@ -2296,6 +2296,444 @@
                 padding: 14px;
             }
         }
+
+        /* ===========================
+           POST TIPO FACEBOOK
+        =========================== */
+        .fb-post-container {
+            background: white;
+            margin: 30px 0 0 0;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .fb-post-disclaimer {
+            background: #f0f2f5;
+            padding: 8px 20px;
+            font-size: 11px;
+            color: #65676b;
+            text-align: center;
+            border-bottom: 1px solid #e4e6eb;
+        }
+
+        .fb-reactions-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            border-bottom: 1px solid #e4e6eb;
+        }
+
+        .fb-reactions-summary {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .fb-reaction-icons {
+            display: flex;
+            align-items: center;
+            gap: -2px;
+        }
+
+        .fb-reaction-icon {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            background: white;
+            border-radius: 50%;
+            border: 1px solid white;
+            margin-left: -3px;
+        }
+
+        .fb-reaction-icon:first-child {
+            margin-left: 0;
+        }
+
+        .fb-reactions-count {
+            font-size: 14px;
+            color: #65676b;
+        }
+
+        .fb-comments-count {
+            font-size: 14px;
+            color: #65676b;
+        }
+
+        .fb-actions-bar {
+            display: flex;
+            justify-content: space-around;
+            padding: 4px 0;
+            border-bottom: 1px solid #e4e6eb;
+            position: relative;
+        }
+
+        .fb-action-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: #65676b;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .fb-action-btn:hover {
+            background: #f0f2f5;
+        }
+
+        .fb-action-btn.active {
+            color: #1877f2;
+        }
+
+        .fb-action-btn.active.liked {
+            color: #1877f2;
+        }
+
+        .fb-action-btn.active.loved {
+            color: #f33e58;
+        }
+
+        .fb-action-btn.active.laughed {
+            color: #f7b125;
+        }
+
+        .fb-action-btn i {
+            font-size: 16px;
+        }
+
+        .fb-reactions-picker {
+            position: absolute;
+            bottom: 100%;
+            left: 20px;
+            background: white;
+            border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            padding: 4px 8px;
+            display: none;
+            gap: 4px;
+            z-index: 10;
+            margin-bottom: 8px;
+        }
+
+        .fb-reactions-picker.show {
+            display: flex;
+        }
+
+        .fb-reaction-option {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+
+        .fb-reaction-option:hover {
+            transform: scale(1.3);
+        }
+
+        .fb-comments-section {
+            padding: 15px;
+        }
+
+        .fb-comments-list {
+            margin-bottom: 15px;
+        }
+
+        .fb-comment {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .fb-comment.user-comment {
+            background: #f0f2f5;
+            border-radius: 8px;
+            padding: 10px;
+            margin-left: -8px;
+            margin-right: -8px;
+        }
+
+        .fb-comment-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .fb-comment-content {
+            flex: 1;
+        }
+
+        .fb-comment-bubble {
+            background: #f0f2f5;
+            padding: 8px 12px;
+            border-radius: 18px;
+            display: inline-block;
+            max-width: 100%;
+        }
+
+        .fb-comment.brand-comment .fb-comment-bubble {
+            background: #e7f3ff;
+        }
+
+        .fb-comment-author {
+            font-size: 13px;
+            font-weight: 600;
+            color: #050505;
+            margin-bottom: 2px;
+        }
+
+        .fb-comment-text {
+            font-size: 14px;
+            color: #050505;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .fb-comment-meta {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-top: 4px;
+            padding-left: 12px;
+            font-size: 12px;
+            color: #65676b;
+        }
+
+        .fb-comment-time {
+            font-weight: 600;
+        }
+
+        .fb-comment-reply {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            padding-left: 40px;
+        }
+
+        .fb-comment-form {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+        }
+
+        .fb-comment-input-wrapper {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            background: #f0f2f5;
+            border-radius: 18px;
+            padding: 8px 45px 8px 12px;
+        }
+
+        .fb-comment-input {
+            width: 100%;
+            border: none;
+            background: none;
+            outline: none;
+            font-size: 14px;
+            color: #050505;
+            resize: none;
+            max-height: 100px;
+            font-family: inherit;
+            line-height: 1.4;
+        }
+
+        .fb-comment-input::placeholder {
+            color: #65676b;
+        }
+
+        .fb-comment-submit {
+            position: absolute;
+            right: 8px;
+            bottom: 8px;
+            background: none;
+            border: none;
+            color: #1877f2;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 50%;
+            transition: background 0.2s;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .fb-comment-submit.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .fb-comment-submit.active:hover {
+            background: rgba(24, 119, 242, 0.1);
+        }
+
+        .fb-brand-badge {
+            display: inline-block;
+            background: #1877f2;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-left: 4px;
+            font-weight: 700;
+        }
+
+        /* Preview de Comentario */
+        .fb-comment-preview {
+            padding: 15px;
+            border-top: 1px solid #e4e6eb;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .fb-comment-preview:hover {
+            background: #f8f9fa;
+        }
+
+        .fb-comment-preview .fb-comment {
+            margin-bottom: 0;
+        }
+
+        .fb-comment-preview-hint {
+            text-align: center;
+            color: #65676b;
+            font-size: 13px;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        /* Modal de Comentarios */
+        .fb-comments-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .fb-comments-modal.show {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 40px;
+        }
+
+        .fb-comments-modal-content {
+            background: white;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+        }
+
+        .fb-comments-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e4e6eb;
+        }
+
+        .fb-comments-modal-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #050505;
+        }
+
+        .fb-modal-close {
+            background: #f0f2f5;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #65676b;
+            font-size: 18px;
+            transition: background 0.2s;
+        }
+
+        .fb-modal-close:hover {
+            background: #e4e6eb;
+        }
+
+        .fb-comments-modal-body {
+            overflow-y: auto;
+            padding: 15px 20px;
+            flex: 1;
+        }
+
+        .fb-comments-modal-body .fb-comments-list {
+            margin-bottom: 15px;
+        }
+
+        /* Ajustes de iconos de reacciones */
+        .fb-reaction-icon i {
+            font-size: 12px;
+        }
+
+        .fb-reaction-option {
+            font-size: 24px;
+        }
+
+        .fb-reaction-option i {
+            font-size: 24px;
+        }
+
+        .fb-reaction-option[data-reaction="like"]:hover i {
+            color: #1877f2;
+        }
+
+        .fb-reaction-option[data-reaction="love"]:hover i {
+            color: #f33e58;
+        }
+
+        .fb-reaction-option[data-reaction="laugh"]:hover i {
+            color: #f7b125;
+        }
+
+        @media (max-width: 480px) {
+            .fb-comments-modal {
+                padding: 0;
+            }
+
+            .fb-comments-modal.show {
+                padding-top: 0;
+            }
+
+            .fb-comments-modal-content {
+                max-height: 100vh;
+                border-radius: 0;
+            }
+        }
     </style>
 
     <!-- Meta Pixel Code -->
@@ -2681,6 +3119,95 @@
                 <div class="before-after-slider" id="baSlider">
                     <div class="before-after-handle">
                         <i class="fas fa-arrows-alt-h"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post tipo Facebook -->
+        <div class="fb-post-container">
+            <!-- Sección de Reacciones -->
+            <div class="fb-reactions-bar">
+                <div class="fb-reactions-summary">
+                    <div class="fb-reaction-icons">
+                        <span class="fb-reaction-icon fb-icon-like">
+                            <i class="fas fa-thumbs-up" style="color: #1877f2;"></i>
+                        </span>
+                        <span class="fb-reaction-icon fb-icon-love">
+                            <i class="fas fa-heart" style="color: #f33e58;"></i>
+                        </span>
+                        <span class="fb-reaction-icon fb-icon-laugh">
+                            <i class="fas fa-grin-squint" style="color: #f7b125;"></i>
+                        </span>
+                    </div>
+                    <span class="fb-reactions-count" id="fbReactionsCount">879</span>
+                </div>
+                <div class="fb-comments-count" id="fbCommentsCountTop">63 comentarios</div>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="fb-actions-bar">
+                <button class="fb-action-btn" id="fbLikeBtn">
+                    <i class="far fa-thumbs-up"></i>
+                    <span>Me gusta</span>
+                </button>
+                <button class="fb-action-btn" id="fbCommentBtn">
+                    <i class="far fa-comment-alt"></i>
+                    <span>Comentar</span>
+                </button>
+            </div>
+
+            <!-- Selector de Reacciones (aparece al hover/click) -->
+            <div class="fb-reactions-picker" id="fbReactionsPicker">
+                <button class="fb-reaction-option" data-reaction="like" title="Me gusta">
+                    <i class="fas fa-thumbs-up"></i>
+                </button>
+                <button class="fb-reaction-option" data-reaction="love" title="Me encanta">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <button class="fb-reaction-option" data-reaction="laugh" title="Me divierte">
+                    <i class="fas fa-grin-squint"></i>
+                </button>
+            </div>
+
+            <!-- Preview de Comentario (click para abrir) -->
+            <div class="fb-comment-preview" id="fbCommentPreview">
+                <!-- Se carga dinámicamente el primer comentario -->
+            </div>
+        </div>
+
+        <!-- Modal de Comentarios -->
+        <div class="fb-comments-modal" id="fbCommentsModal">
+            <div class="fb-comments-modal-content">
+                <div class="fb-comments-modal-header">
+                    <h3>Comentarios</h3>
+                    <button class="fb-modal-close" id="fbModalClose">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <!-- Disclaimer sutil -->
+                <div class="fb-post-disclaimer">
+                    Dramatizado - Basado en experiencias reales de usuarios
+                </div>
+                <div class="fb-comments-modal-body">
+                    <div class="fb-comments-list" id="fbCommentsList">
+                        <!-- Los comentarios se cargarán dinámicamente aquí -->
+                    </div>
+
+                    <!-- Formulario para Nuevo Comentario -->
+                    <div class="fb-comment-form">
+                        <img src="assets/images/1.png" alt="Usuario" class="fb-comment-avatar">
+                        <div class="fb-comment-input-wrapper">
+                            <textarea
+                                class="fb-comment-input"
+                                id="fbCommentInput"
+                                placeholder="Escribe un comentario..."
+                                rows="1"
+                            ></textarea>
+                            <button class="fb-comment-submit" id="fbCommentSubmit">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -3706,6 +4233,523 @@
                     updatePosition(e.clientX);
                 }
             });
+        })();
+
+        // ===========================
+        // SISTEMA DE POST TIPO FACEBOOK
+        // ===========================
+        (function() {
+            // Base de datos de comentarios (20 comentarios en 4 sets de 5)
+            const commentSets = [
+                // SET 1
+                [
+                    {
+                        author: "Carolina Mejía",
+                        avatar: "assets/images/3.png",
+                        text: "Alguien ya lo ha probado? Me interesa pero quiero saber si de verdad funciona",
+                        time: "Hace 2 horas",
+                        reply: {
+                            author: "Andrés Gómez",
+                            avatar: "assets/images/1.png",
+                            text: "Yo lo llevo usando 5 semanas y si funciona, mi yegua estaba muy flaca y ya se ve mucho mejor",
+                            time: "Hace 1 hora"
+                        }
+                    },
+                    {
+                        author: "Luis Fernando Ríos",
+                        avatar: "assets/images/2.png",
+                        text: "El pelaje de mi caballo mejoró un monton, ahora si brilla y los cascos que los tenia bien astillados ya se ven mejor 👍",
+                        time: "Hace 3 días"
+                    },
+                    {
+                        author: "Diego Morales",
+                        avatar: "assets/images/4.png",
+                        text: "Excelente producto, el caballo tiene mas energia y mejor condicion",
+                        time: "Hace 5 días"
+                    },
+                    {
+                        author: "Roberto Silva",
+                        avatar: "assets/images/5.png",
+                        text: "Muy bueno lo pedí y llego rapido, ya voy en la segunda semana y se nota la mejoria",
+                        time: "Hace 1 semana"
+                    },
+                    {
+                        author: "Julián Parra",
+                        avatar: "assets/images/6.png",
+                        text: "Sirve para el timpanismo? tengo un caballo con ese problema",
+                        time: "Hace 3 días",
+                        reply: {
+                            author: "B-GOR Colombia",
+                            avatar: "assets/images/LOGO B-GOR.png",
+                            text: "Hola Julián, B-GOR no cura el timpanismo, sin embargo puede ayudar a mantener una nutrición eficiente que es clave para la salud digestiva general 🐴",
+                            time: "Hace 2 días",
+                            isBrand: true
+                        }
+                    }
+                ],
+                // SET 2
+                [
+                    {
+                        author: "Miguel Ángel Pérez",
+                        avatar: "assets/images/7.png",
+                        text: "Sera que esto si sirve o es puro cuento? 🤔",
+                        time: "Hace 4 horas",
+                        reply: {
+                            author: "Fernando López",
+                            avatar: "assets/images/8.png",
+                            text: "Yo era esceptico tambien pero ya llevo 6 semanas y mi caballo esta irreconocible totalmente recomendado",
+                            time: "Hace 2 horas"
+                        }
+                    },
+                    {
+                        author: "Javier Muñoz",
+                        avatar: "assets/images/9.png",
+                        text: "Me funciono muy bien el pelaje se le puso super fuerte y brillante.. Lo unico que no me gusto es que Interrapidisimo en mi pueblo es malisimo y me toco ir hasta el pueblo de al lado a buscarlo 😅 pero el producto excelente",
+                        time: "Hace 2 días"
+                    },
+                    {
+                        author: "Carlos Ospina",
+                        avatar: "assets/images/10.png",
+                        text: "Mi caballo estaba decaido y sin animo, con B-GOR recupero la energia increible",
+                        time: "Hace 4 días"
+                    },
+                    {
+                        author: "Ricardo Montoya",
+                        avatar: "assets/images/1.png",
+                        text: "Buen producto se ven los resultados en pocas semanas, vale la pena",
+                        time: "Hace 1 semana"
+                    },
+                    {
+                        author: "Héctor Vargas",
+                        avatar: "assets/images/2.png",
+                        text: "Tengo un caballo con problemas articulares graves esto le sirve?",
+                        time: "Hace 5 días",
+                        reply: {
+                            author: "B-GOR Colombia",
+                            avatar: "assets/images/LOGO B-GOR.png",
+                            text: "Hola Héctor, B-GOR ayuda a fortalecer articulaciones gracias a sus minerales quelados, pero no cura problemas articulares graves. Te recomendamos consultar con tu veterinario para un tratamiento específico 🩺",
+                            time: "Hace 4 días",
+                            isBrand: true
+                        }
+                    }
+                ],
+                // SET 3
+                [
+                    {
+                        author: "Sebastián Rojas",
+                        avatar: "assets/images/3.png",
+                        text: "Alguien que ya lo haya usado? quiero estar seguro antes de comprarlo",
+                        time: "Hace 3 horas",
+                        reply: {
+                            author: "Pablo Martínez",
+                            avatar: "assets/images/4.png",
+                            text: "Yo si llevo 4 semanas y la verdad funciona, mi caballo gano peso y se ve mucho mejor",
+                            time: "Hace 1 hora"
+                        }
+                    },
+                    {
+                        author: "Andrés Gutiérrez",
+                        avatar: "assets/images/5.png",
+                        text: "Muy buen suplemento los cascos de mi caballo estaban lastimados y se recuperaron rapido, el pelaje quedo brillante.. ahora solo falta que el mayordomo si se los de bien jajaja 😂",
+                        time: "Hace 5 días"
+                    },
+                    {
+                        author: "Gabriel Torres",
+                        avatar: "assets/images/6.png",
+                        text: "Excelente calidad mi caballo tenia el pelaje opaco y ahora se ve saludable",
+                        time: "Hace 1 semana"
+                    },
+                    {
+                        author: "Mauricio Sánchez",
+                        avatar: "assets/images/7.png",
+                        text: "Lo compre por recomendacion y no me arrepiento el cambio es visible",
+                        time: "Hace 3 días"
+                    },
+                    {
+                        author: "Patricia Herrera",
+                        avatar: "assets/images/8.png",
+                        text: "Sirve para colicos? mi caballo sufre de eso seguido",
+                        time: "Hace 6 días",
+                        reply: {
+                            author: "B-GOR Colombia",
+                            avatar: "assets/images/LOGO B-GOR.png",
+                            text: "Hola Patricia, B-GOR no está formulado para tratar o prevenir cólicos. Para ese problema te sugerimos consultar con tu veterinario de confianza 🐴💚",
+                            time: "Hace 5 días",
+                            isBrand: true
+                        }
+                    }
+                ],
+                // SET 4
+                [
+                    {
+                        author: "Felipe Moreno",
+                        avatar: "assets/images/9.png",
+                        text: "Alguien lo ha probado con buenos resultados?",
+                        time: "Hace 5 horas",
+                        reply: {
+                            author: "David Castro",
+                            avatar: "assets/images/10.png",
+                            text: "Si yo lo uso hace 2 meses, mi caballo mejoro muchisimo en condicion y pelaje lo super recomiendo",
+                            time: "Hace 3 horas"
+                        }
+                    },
+                    {
+                        author: "Jorge Medina",
+                        avatar: "assets/images/1.png",
+                        text: "Me fue super bien el pelaje se le ve mas fuerte y brillante, los cascos los tenia muy lastimados y ya estan mucho mejor 👍 lo unico que no me gusto fue que el envio se demoro una semana en llegar pero el producto 10/10",
+                        time: "Hace 4 días"
+                    },
+                    {
+                        author: "Camilo Duarte",
+                        avatar: "assets/images/2.png",
+                        text: "Mi caballo recupero energia y peso muy satisfecho con los resultados",
+                        time: "Hace 6 días"
+                    },
+                    {
+                        author: "Alejandro Ruiz",
+                        avatar: "assets/images/3.png",
+                        text: "Buen producto se nota la diferencia en la condicion fisica del animal",
+                        time: "Hace 1 semana"
+                    },
+                    {
+                        author: "Eduardo Ramírez",
+                        avatar: "assets/images/4.png",
+                        text: "Una pregunta esto ayuda con los colicos? he visto que mejora digestion",
+                        time: "Hace 3 días",
+                        reply: {
+                            author: "B-GOR Colombia",
+                            avatar: "assets/images/LOGO B-GOR.png",
+                            text: "Hola Eduardo, aunque B-GOR contiene probióticos que apoyan la salud digestiva, no está diseñado para tratar cólicos. Siempre recomendamos trabajar con tu veterinario para estos casos 🩺",
+                            time: "Hace 2 días",
+                            isBrand: true
+                        }
+                    }
+                ]
+            ];
+
+            // Estado del post
+            let currentReaction = null;
+            let reactionCount = 879;
+            let commentCount = 63;
+            let userComments = [];
+
+            // Elementos del DOM
+            const reactionsCountEl = document.getElementById('fbReactionsCount');
+            const commentsCountTopEl = document.getElementById('fbCommentsCountTop');
+            const likeBtn = document.getElementById('fbLikeBtn');
+            const commentBtn = document.getElementById('fbCommentBtn');
+            const reactionsPicker = document.getElementById('fbReactionsPicker');
+            const commentsListEl = document.getElementById('fbCommentsList');
+            const commentInput = document.getElementById('fbCommentInput');
+            const commentSubmit = document.getElementById('fbCommentSubmit');
+            const commentPreviewEl = document.getElementById('fbCommentPreview');
+            const commentsModal = document.getElementById('fbCommentsModal');
+            const modalClose = document.getElementById('fbModalClose');
+
+            // Cargar estado guardado
+            function loadState() {
+                const saved = sessionStorage.getItem('fbPostState');
+                if (saved) {
+                    const state = JSON.parse(saved);
+                    currentReaction = state.reaction;
+                    reactionCount = state.reactionCount;
+                    commentCount = state.commentCount;
+                    userComments = state.userComments || [];
+                    updateReactionButton();
+                }
+            }
+
+            // Guardar estado
+            function saveState() {
+                sessionStorage.setItem('fbPostState', JSON.stringify({
+                    reaction: currentReaction,
+                    reactionCount: reactionCount,
+                    commentCount: commentCount,
+                    userComments: userComments
+                }));
+            }
+
+            // Actualizar contador de reacciones
+            function updateReactionsCount() {
+                reactionsCountEl.textContent = reactionCount;
+            }
+
+            // Actualizar contador de comentarios
+            function updateCommentsCount() {
+                commentsCountTopEl.textContent = `${commentCount} comentarios`;
+            }
+
+            // Actualizar botón de reacción
+            function updateReactionButton() {
+                likeBtn.classList.remove('active', 'liked', 'loved', 'laughed');
+                const icon = likeBtn.querySelector('i');
+                const text = likeBtn.querySelector('span');
+
+                if (currentReaction === 'like') {
+                    likeBtn.classList.add('active', 'liked');
+                    icon.className = 'fas fa-thumbs-up';
+                    text.textContent = 'Me gusta';
+                } else if (currentReaction === 'love') {
+                    likeBtn.classList.add('active', 'loved');
+                    icon.className = 'fas fa-heart';
+                    text.textContent = 'Me encanta';
+                } else if (currentReaction === 'laugh') {
+                    likeBtn.classList.add('active', 'laughed');
+                    icon.className = 'fas fa-grin-squint';
+                    text.textContent = 'Me divierte';
+                } else {
+                    icon.className = 'far fa-thumbs-up';
+                    text.textContent = 'Me gusta';
+                }
+            }
+
+            // Mostrar selector de reacciones
+            let reactionTimeout;
+            likeBtn.addEventListener('mouseenter', () => {
+                clearTimeout(reactionTimeout);
+                reactionTimeout = setTimeout(() => {
+                    reactionsPicker.classList.add('show');
+                }, 300);
+            });
+
+            likeBtn.addEventListener('mouseleave', () => {
+                clearTimeout(reactionTimeout);
+                setTimeout(() => {
+                    if (!reactionsPicker.matches(':hover')) {
+                        reactionsPicker.classList.remove('show');
+                    }
+                }, 200);
+            });
+
+            reactionsPicker.addEventListener('mouseleave', () => {
+                reactionsPicker.classList.remove('show');
+            });
+
+            // Click en botón Me gusta (toggle simple)
+            likeBtn.addEventListener('click', () => {
+                if (currentReaction === 'like') {
+                    // Quitar reacción
+                    currentReaction = null;
+                    reactionCount--;
+                } else if (currentReaction) {
+                    // Cambiar a like
+                    currentReaction = 'like';
+                } else {
+                    // Agregar like
+                    currentReaction = 'like';
+                    reactionCount++;
+                }
+                updateReactionButton();
+                updateReactionsCount();
+                saveState();
+            });
+
+            // Click en reacciones del picker
+            document.querySelectorAll('.fb-reaction-option').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const reaction = e.currentTarget.dataset.reaction;
+
+                    if (currentReaction === reaction) {
+                        // Quitar reacción
+                        currentReaction = null;
+                        reactionCount--;
+                    } else if (currentReaction) {
+                        // Cambiar reacción (no aumenta contador)
+                        currentReaction = reaction;
+                    } else {
+                        // Nueva reacción
+                        currentReaction = reaction;
+                        reactionCount++;
+                    }
+
+                    updateReactionButton();
+                    updateReactionsCount();
+                    saveState();
+                    reactionsPicker.classList.remove('show');
+                });
+            });
+
+            // Renderizar comentario
+            function renderComment(comment, isUserComment = false) {
+                const commentDiv = document.createElement('div');
+                commentDiv.className = 'fb-comment' + (isUserComment ? ' user-comment' : '');
+
+                const brandBadge = comment.isBrand ? '<span class="fb-brand-badge">OFICIAL</span>' : '';
+
+                commentDiv.innerHTML = `
+                    <img src="${comment.avatar}" alt="${comment.author}" class="fb-comment-avatar">
+                    <div class="fb-comment-content">
+                        <div class="fb-comment-bubble">
+                            <div class="fb-comment-author">${comment.author}${brandBadge}</div>
+                            <div class="fb-comment-text">${comment.text}</div>
+                        </div>
+                        <div class="fb-comment-meta">
+                            <span class="fb-comment-time">${comment.time}</span>
+                        </div>
+                        ${comment.reply ? `
+                            <div class="fb-comment-reply">
+                                <img src="${comment.reply.avatar}" alt="${comment.reply.author}" class="fb-comment-avatar">
+                                <div class="fb-comment-content">
+                                    <div class="fb-comment-bubble ${comment.reply.isBrand ? 'brand-comment' : ''}">
+                                        <div class="fb-comment-author">${comment.reply.author}${comment.reply.isBrand ? '<span class="fb-brand-badge">OFICIAL</span>' : ''}</div>
+                                        <div class="fb-comment-text">${comment.reply.text}</div>
+                                    </div>
+                                    <div class="fb-comment-meta">
+                                        <span class="fb-comment-time">${comment.reply.time}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+
+                return commentDiv;
+            }
+
+            // Abrir modal de comentarios
+            function openCommentsModal() {
+                commentsModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                loadCommentsToModal();
+            }
+
+            // Cerrar modal
+            function closeCommentsModal() {
+                commentsModal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+
+            // Cargar comentarios en el modal
+            function loadCommentsToModal() {
+                commentsListEl.innerHTML = '';
+
+                // Seleccionar un set aleatorio de 5 comentarios
+                const saved = sessionStorage.getItem('fbPostCommentsSet');
+                let randomSet;
+
+                if (saved) {
+                    randomSet = commentSets[parseInt(saved)];
+                } else {
+                    const randomIndex = Math.floor(Math.random() * commentSets.length);
+                    sessionStorage.setItem('fbPostCommentsSet', randomIndex.toString());
+                    randomSet = commentSets[randomIndex];
+                }
+
+                // Renderizar los 5 comentarios del set
+                randomSet.forEach(comment => {
+                    commentsListEl.appendChild(renderComment(comment));
+                });
+
+                // Agregar comentarios del usuario al final
+                userComments.forEach(comment => {
+                    commentsListEl.appendChild(renderComment(comment, true));
+                });
+            }
+
+            // Cargar preview del primer comentario
+            function loadCommentPreview() {
+                const saved = sessionStorage.getItem('fbPostCommentsSet');
+                let randomSet;
+
+                if (saved) {
+                    randomSet = commentSets[parseInt(saved)];
+                } else {
+                    const randomIndex = Math.floor(Math.random() * commentSets.length);
+                    sessionStorage.setItem('fbPostCommentsSet', randomIndex.toString());
+                    randomSet = commentSets[randomIndex];
+                }
+
+                const firstComment = randomSet[0];
+                commentPreviewEl.innerHTML = '';
+                commentPreviewEl.appendChild(renderComment(firstComment));
+
+                // Agregar hint para ver más
+                const hint = document.createElement('div');
+                hint.className = 'fb-comment-preview-hint';
+                hint.textContent = 'Ver todos los comentarios';
+                commentPreviewEl.appendChild(hint);
+            }
+
+            // Activar/desactivar botón submit según contenido
+            commentInput.addEventListener('input', () => {
+                if (commentInput.value.trim().length > 0) {
+                    commentSubmit.classList.add('active');
+                } else {
+                    commentSubmit.classList.remove('active');
+                }
+            });
+
+            // Auto-resize del textarea
+            commentInput.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+            });
+
+            // Enviar comentario
+            function submitComment() {
+                const text = commentInput.value.trim();
+                if (text.length === 0) return;
+
+                const newComment = {
+                    author: "Tú",
+                    avatar: "assets/images/1.png",
+                    text: text,
+                    time: "Justo ahora"
+                };
+
+                userComments.push(newComment);
+                commentCount++;
+
+                // Solo agregar al modal si está abierto
+                if (commentsModal.classList.contains('show')) {
+                    commentsListEl.appendChild(renderComment(newComment, true));
+
+                    // Scroll al nuevo comentario
+                    setTimeout(() => {
+                        commentsListEl.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 100);
+                }
+
+                commentInput.value = '';
+                commentInput.style.height = 'auto';
+                commentSubmit.classList.remove('active');
+
+                updateCommentsCount();
+                saveState();
+            }
+
+            commentSubmit.addEventListener('click', submitComment);
+            commentInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    submitComment();
+                }
+            });
+
+            // Abrir modal al hacer click en botón Comentar
+            commentBtn.addEventListener('click', () => {
+                openCommentsModal();
+                setTimeout(() => commentInput.focus(), 300);
+            });
+
+            // Abrir modal al hacer click en el preview
+            commentPreviewEl.addEventListener('click', () => {
+                openCommentsModal();
+            });
+
+            // Cerrar modal
+            modalClose.addEventListener('click', closeCommentsModal);
+            commentsModal.addEventListener('click', (e) => {
+                if (e.target === commentsModal) {
+                    closeCommentsModal();
+                }
+            });
+
+            // Inicializar
+            loadState();
+            updateReactionsCount();
+            updateCommentsCount();
+            loadCommentPreview();
         })();
 
         // El carrusel usa animación CSS automática, no requiere JavaScript
