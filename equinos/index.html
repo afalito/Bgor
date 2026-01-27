@@ -2082,7 +2082,7 @@
             content_category: 'Suplementos Equinos',
             content_ids: ['bgor-equinos', 'bgor-potros'],
             content_type: 'product',
-            value: 319.90,
+            value: 319900,
             currency: 'COP'
         });
     </script>
@@ -2985,7 +2985,7 @@
                     content_category: 'Suplementos Equinos',
                     content_ids: ['bgor-equinos'],
                     content_type: 'product',
-                    value: 319.90,
+                    value: 319900,
                     currency: 'COP'
                 });
             }
@@ -3185,7 +3185,7 @@
                     content_name: contentNames.join(', '),
                     content_ids: contentIds,
                     content_type: 'product',
-                    value: (totalValue / 1000).toFixed(2), // Convertir a miles para Meta
+                    value: totalValue, // Valor completo en COP
                     currency: 'COP',
                     num_items: contentIds.length
                 });
@@ -3402,7 +3402,7 @@
                                 content_name: productName,
                                 content_ids: [option.value],
                                 content_type: 'product',
-                                value: (price / 1000).toFixed(2),
+                                value: price,
                                 currency: 'COP'
                             });
                         }
@@ -3427,7 +3427,7 @@
                                         content_name: productName,
                                         content_ids: [option.value],
                                         content_type: 'product',
-                                        value: (price / 1000).toFixed(2),
+                                        value: price,
                                         currency: 'COP'
                                     });
                                 }
