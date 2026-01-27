@@ -3124,6 +3124,9 @@
             const afterImage = document.querySelector('.after-image');
             const container = document.querySelector('.before-after-wrapper');
             let isDragging = false;
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let isHorizontalDrag = false;
 
             function updatePosition(clientX) {
                 const rect = container.getBoundingClientRect();
@@ -3143,17 +3146,42 @@
                 }
             });
 
-            // Touch events
+            // Touch events - con detección de dirección
             slider.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
                 isDragging = true;
-                e.preventDefault();
+                isHorizontalDrag = false;
+                // NO hacer preventDefault aquí para permitir detección de dirección
             });
-            document.addEventListener('touchend', () => isDragging = false);
+
+            document.addEventListener('touchend', () => {
+                isDragging = false;
+                isHorizontalDrag = false;
+            });
+
             document.addEventListener('touchmove', (e) => {
                 if (isDragging) {
-                    updatePosition(e.touches[0].clientX);
+                    const touchX = e.touches[0].clientX;
+                    const touchY = e.touches[0].clientY;
+                    const deltaX = Math.abs(touchX - touchStartX);
+                    const deltaY = Math.abs(touchY - touchStartY);
+
+                    // Detectar dirección en el primer movimiento
+                    if (!isHorizontalDrag && (deltaX > 5 || deltaY > 5)) {
+                        isHorizontalDrag = deltaX > deltaY;
+                    }
+
+                    // Solo interceptar si es movimiento horizontal
+                    if (isHorizontalDrag) {
+                        e.preventDefault();
+                        updatePosition(touchX);
+                    } else if (deltaY > 10) {
+                        // Si es vertical, dejar de interceptar para permitir scroll
+                        isDragging = false;
+                    }
                 }
-            });
+            }, { passive: false });
 
             // Container click
             container.addEventListener('click', (e) => {
