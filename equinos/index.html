@@ -3069,7 +3069,8 @@
                 <form name="pedido-bgor" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleCheckout(event)">
                     <input type="hidden" name="bot-field" />
                     <input type="hidden" name="form-name" value="pedido-bgor" />
-                    <input type="hidden" name="descuento_aplicado" id="discountField" value="No" />
+                    <input type="hidden" name="Descuento Aplicado" id="discountField" value="No" />
+                    <input type="hidden" name="💰 VALOR TOTAL DEL PEDIDO" id="valorTotalField" value="$0 COP" />
 
                     <!-- Selección de Paquete -->
                     <div class="form-section">
@@ -3079,7 +3080,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <select name="tipo_producto" id="tipoProducto" required onchange="updateProductOptions()" style="font-size: 14px; padding: 12px;">
+                                <select name="Tipo de Producto" id="tipoProducto" required onchange="updateProductOptions()" style="font-size: 14px; padding: 12px;">
                                     <option value="">Seleccionar...</option>
                                     <option value="equinos">Para Equinos (Caballos adultos)</option>
                                     <option value="potros">Para Potros (Crías)</option>
@@ -3097,7 +3098,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <select name="paquete_simple" id="paqueteSimple" style="font-size: 14px; padding: 12px;">
+                                <select name="Paquete Seleccionado" id="paqueteSimple" style="font-size: 14px; padding: 12px;">
                                     <option value="">Seleccionar paquete...</option>
                                     <option value="1-bolsa-1kg-$114.900" data-price="114900" data-label="1 Bolsa 1kg">1 Bolsa 1kg - $114.900</option>
                                     <option value="4-bolsas-1kg-$319.900" data-price="319900" data-label="Paga 3 Lleva 4: 4 Bolsas 1kg">Paga 3 Lleva 4: 4 Bolsas 1kg - $319.900</option>
@@ -3120,20 +3121,20 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label style="font-size: 14px;">Bolsas de 1kg</label>
-                                    <select name="equinos_bolsas" id="equinosBolsas" style="font-size: 14px; padding: 12px;">
+                                    <select name="Equinos - Bolsas 1kg" id="equinosBolsas" style="font-size: 14px; padding: 12px;">
                                         <option value="0">0 bolsas</option>
-                                        <option value="1-$114.900" data-price="114900" data-label="1 bolsa">1 bolsa - $114.900</option>
-                                        <option value="4-$319.900" data-price="319900" data-label="4 bolsas - (Paga 3, Lleva 4)">4 bolsas - $319.900 (Paga 3, Lleva 4)</option>
+                                        <option value="1 bolsa - $114.900" data-price="114900" data-label="1 bolsa">1 bolsa - $114.900</option>
+                                        <option value="4 bolsas (Paga 3 Lleva 4) - $319.900" data-price="319900" data-label="4 bolsas - (Paga 3, Lleva 4)">4 bolsas - $319.900 (Paga 3, Lleva 4)</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
                                     <label style="font-size: 14px;">Baldes de 12kg</label>
-                                    <select name="equinos_baldes" id="equinosBaldes" style="font-size: 14px; padding: 12px;">
+                                    <select name="Equinos - Baldes 12kg" id="equinosBaldes" style="font-size: 14px; padding: 12px;">
                                         <option value="0">0 baldes</option>
-                                        <option value="1-$792.400" data-price="792400" data-label="1 balde">1 balde - $792.400</option>
-                                        <option value="2-$1.536.480" data-price="1536480" data-label="2 baldes">2 baldes - $1.536.480</option>
+                                        <option value="1 balde - $792.400" data-price="792400" data-label="1 balde">1 balde - $792.400</option>
+                                        <option value="2 baldes - $1.536.480" data-price="1536480" data-label="2 baldes">2 baldes - $1.536.480</option>
                                     </select>
                                 </div>
                             </div>
@@ -3144,20 +3145,20 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label style="font-size: 14px;">Bolsas de 1kg</label>
-                                    <select name="potros_bolsas" id="potrosBolsas" style="font-size: 14px; padding: 12px;">
+                                    <select name="Potros - Bolsas 1kg" id="potrosBolsas" style="font-size: 14px; padding: 12px;">
                                         <option value="0">0 bolsas</option>
-                                        <option value="1-$114.900" data-price="114900" data-label="1 bolsa">1 bolsa - $114.900</option>
-                                        <option value="4-$319.900" data-price="319900" data-label="4 bolsas - (Paga 3, Lleva 4)">4 bolsas - $319.900 (Paga 3, Lleva 4)</option>
+                                        <option value="1 bolsa - $114.900" data-price="114900" data-label="1 bolsa">1 bolsa - $114.900</option>
+                                        <option value="4 bolsas (Paga 3 Lleva 4) - $319.900" data-price="319900" data-label="4 bolsas - (Paga 3, Lleva 4)">4 bolsas - $319.900 (Paga 3, Lleva 4)</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
                                     <label style="font-size: 14px;">Baldes de 12kg</label>
-                                    <select name="potros_baldes" id="potrosBaldes" style="font-size: 14px; padding: 12px;">
+                                    <select name="Potros - Baldes 12kg" id="potrosBaldes" style="font-size: 14px; padding: 12px;">
                                         <option value="0">0 baldes</option>
-                                        <option value="1-$792.400" data-price="792400" data-label="1 balde">1 balde - $792.400</option>
-                                        <option value="2-$1.536.480" data-price="1536480" data-label="2 baldes">2 baldes - $1.536.480</option>
+                                        <option value="1 balde - $792.400" data-price="792400" data-label="1 balde">1 balde - $792.400</option>
+                                        <option value="2 baldes - $1.536.480" data-price="1536480" data-label="2 baldes">2 baldes - $1.536.480</option>
                                     </select>
                                 </div>
                             </div>
@@ -3167,7 +3168,7 @@
                     <!-- Envío Prioritario -->
                     <div class="priority-shipping">
                         <label class="priority-shipping-wrapper" for="priorityShippingCheckbox">
-                            <input type="checkbox" class="priority-shipping-checkbox" id="priorityShippingCheckbox" name="envio-prioritario" value="no">
+                            <input type="checkbox" class="priority-shipping-checkbox" id="priorityShippingCheckbox" name="Envío Prioritario (+$5.000)" value="no">
                             <div class="priority-shipping-content">
                                 <div class="priority-shipping-title"><i class="fas fa-shipping-fast" style="color: #FF5700;"></i> Envío Prioritario</div>
                                 <div class="priority-shipping-description">Priorizaremos tu pedido en nuestro centro logístico</div>
@@ -3552,6 +3553,12 @@
                 totalValue += PRIORITY_SHIPPING_PRICE;
             }
 
+            // Actualizar campo oculto con valor total formateado
+            const valorTotalField = document.getElementById('valorTotalField');
+            if (valorTotalField) {
+                valorTotalField.value = '$' + totalValue.toLocaleString('es-CO') + ' COP';
+            }
+
             // Enviar evento Purchase a Meta Pixel
             if (typeof fbq !== 'undefined' && totalValue > 0) {
                 fbq('track', 'Purchase', {
@@ -3752,20 +3759,36 @@
             const paqueteSimple = document.getElementById('paqueteSimple');
 
             if (tipoProducto === 'equinos' || tipoProducto === 'potros') {
+                // Modo Simple: mostrar selector único
                 seccionSimple.style.display = 'block';
                 seccionMixta.style.display = 'none';
                 paqueteSimple.required = true;
+                paqueteSimple.disabled = false;
 
-                // Clear mixed selections
+                // Limpiar y deshabilitar selecciones mixtas
                 document.getElementById('equinosBolsas').value = '0';
+                document.getElementById('equinosBolsas').disabled = true;
                 document.getElementById('equinosBaldes').value = '0';
+                document.getElementById('equinosBaldes').disabled = true;
                 document.getElementById('potrosBolsas').value = '0';
+                document.getElementById('potrosBolsas').disabled = true;
                 document.getElementById('potrosBaldes').value = '0';
+                document.getElementById('potrosBaldes').disabled = true;
             } else if (tipoProducto === 'mixto') {
+                // Modo Mixto: mostrar selectores separados
                 seccionSimple.style.display = 'none';
                 seccionMixta.style.display = 'block';
                 paqueteSimple.required = false;
+                paqueteSimple.disabled = true;
+                paqueteSimple.value = ''; // Limpiar selección simple
+
+                // Habilitar selecciones mixtas
+                document.getElementById('equinosBolsas').disabled = false;
+                document.getElementById('equinosBaldes').disabled = false;
+                document.getElementById('potrosBolsas').disabled = false;
+                document.getElementById('potrosBaldes').disabled = false;
             } else {
+                // Sin selección
                 seccionSimple.style.display = 'none';
                 seccionMixta.style.display = 'none';
             }
