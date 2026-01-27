@@ -1173,7 +1173,7 @@
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-            touch-action: none;
+            touch-action: pan-y; /* Permitir scroll vertical */
             user-select: none;
         }
 
@@ -1209,6 +1209,7 @@
             cursor: ew-resize;
             z-index: 10;
             transform: translateX(-50%);
+            touch-action: none; /* Capturar gestos en la línea del slider */
         }
 
         .before-after-handle {
@@ -1226,6 +1227,7 @@
             justify-content: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             cursor: ew-resize;
+            touch-action: none; /* Capturar gestos solo en el handle */
         }
 
         .before-after-handle i {
@@ -3124,9 +3126,6 @@
             const afterImage = document.querySelector('.after-image');
             const container = document.querySelector('.before-after-wrapper');
             let isDragging = false;
-            let touchStartX = 0;
-            let touchStartY = 0;
-            let isHorizontalDrag = false;
 
             function updatePosition(clientX) {
                 const rect = container.getBoundingClientRect();
@@ -3137,53 +3136,38 @@
                 afterImage.style.clipPath = `polygon(0 0, ${percentage}% 0, ${percentage}% 100%, 0 100%)`;
             }
 
-            // Mouse events
-            slider.addEventListener('mousedown', () => isDragging = true);
+            // Mouse events - solo en el handle
+            slider.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                e.preventDefault();
+            });
+
             document.addEventListener('mouseup', () => isDragging = false);
+
             document.addEventListener('mousemove', (e) => {
                 if (isDragging) {
                     updatePosition(e.clientX);
                 }
             });
 
-            // Touch events - con detección de dirección
+            // Touch events - el CSS touch-action controla qué gestos capturar
             slider.addEventListener('touchstart', (e) => {
-                touchStartX = e.touches[0].clientX;
-                touchStartY = e.touches[0].clientY;
                 isDragging = true;
-                isHorizontalDrag = false;
-                // NO hacer preventDefault aquí para permitir detección de dirección
+                e.preventDefault(); // Prevenir solo en el handle/slider
             });
 
             document.addEventListener('touchend', () => {
                 isDragging = false;
-                isHorizontalDrag = false;
             });
 
             document.addEventListener('touchmove', (e) => {
                 if (isDragging) {
-                    const touchX = e.touches[0].clientX;
-                    const touchY = e.touches[0].clientY;
-                    const deltaX = Math.abs(touchX - touchStartX);
-                    const deltaY = Math.abs(touchY - touchStartY);
-
-                    // Detectar dirección en el primer movimiento
-                    if (!isHorizontalDrag && (deltaX > 5 || deltaY > 5)) {
-                        isHorizontalDrag = deltaX > deltaY;
-                    }
-
-                    // Solo interceptar si es movimiento horizontal
-                    if (isHorizontalDrag) {
-                        e.preventDefault();
-                        updatePosition(touchX);
-                    } else if (deltaY > 10) {
-                        // Si es vertical, dejar de interceptar para permitir scroll
-                        isDragging = false;
-                    }
+                    e.preventDefault(); // Prevenir scroll solo cuando arrastran el handle
+                    updatePosition(e.touches[0].clientX);
                 }
             }, { passive: false });
 
-            // Container click
+            // Container click - para saltar al punto tocado
             container.addEventListener('click', (e) => {
                 if (e.target !== slider && !slider.contains(e.target)) {
                     updatePosition(e.clientX);
