@@ -1193,7 +1193,7 @@
             padding: 12px 14px;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 15px;
             font-family: inherit;
             transition: all 0.3s;
             background: white;
@@ -1211,6 +1211,302 @@
             outline: none;
             border-color: #FF5700;
             box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+        }
+
+        /* ===========================
+           PACKAGE CARDS (Modo Simple)
+        =========================== */
+        .package-cards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        .package-card {
+            position: relative;
+            background: white;
+            border: 3px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .package-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .package-card:active {
+            transform: translateY(0);
+        }
+
+        /* Radio input oculto */
+        .package-radio {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Estado seleccionado */
+        .package-radio:checked + .package-card-badge,
+        .package-radio:checked ~ .package-card-content {
+            /* El borde se maneja en el label */
+        }
+
+        .package-card:has(.package-radio:checked) {
+            border-color: #FF5700;
+            background: linear-gradient(135deg, rgba(255, 87, 0, 0.02) 0%, rgba(255, 87, 0, 0.05) 100%);
+            box-shadow: 0 4px 20px rgba(255, 87, 0, 0.25);
+        }
+
+        /* Badge superior (MÁS POPULAR / MEJOR PRECIO) */
+        .package-card-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #FF5700 0%, #E04D00 100%);
+            color: white;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(255, 87, 0, 0.4);
+        }
+
+        .package-card-badge-green {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4);
+        }
+
+        /* Header con nombre y check */
+        .package-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .package-card-name {
+            font-size: 14px;
+            font-weight: 800;
+            color: #1a1a1a;
+        }
+
+        .package-card-check {
+            font-size: 20px;
+            color: #e0e0e0;
+            transition: all 0.3s;
+        }
+
+        .package-card:has(.package-radio:checked) .package-card-check {
+            color: #FF5700;
+        }
+
+        /* Subtítulo (ejemplo: "4 Bolsas 1kg") */
+        .package-card-subtitle {
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        /* Precio principal */
+        .package-card-price {
+            font-size: 26px;
+            font-weight: 900;
+            color: #FF5700;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        /* Fila de precio (precio + precio tachado) */
+        .package-card-price-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .package-card-price-row .package-card-price {
+            margin-bottom: 0;
+        }
+
+        .package-card-old-price {
+            font-size: 14px;
+            color: #999;
+            text-decoration: line-through;
+            font-weight: 600;
+        }
+
+        /* Indicador de ahorro */
+        .package-card-savings {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #e8f8f5;
+            color: #27ae60;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+        }
+
+        .package-card-savings i {
+            font-size: 11px;
+        }
+
+        /* Detalle inferior (ejemplo: "$5.745/ración - 20 raciones") */
+        .package-card-detail {
+            font-size: 12px;
+            color: #666;
+            margin-top: 6px;
+        }
+
+        /* Tarjetas destacadas */
+        .package-card-featured {
+            /* El badge ya hace el trabajo visual */
+        }
+
+        .package-card-best {
+            /* El badge verde ya hace el trabajo visual */
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 430px) {
+            .package-card {
+                min-height: 48px; /* Mínimo touch target para accesibilidad */
+            }
+
+            .package-card-name {
+                font-size: 16px;
+            }
+
+            .package-card-price {
+                font-size: 28px;
+            }
+        }
+
+        /* ===========================
+           MIXED MODE (Modo Mixto)
+        =========================== */
+        .mixed-mode-card {
+            background: #f8f9fa;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+
+        .mixed-mode-card:hover {
+            border-color: #FF5700;
+            box-shadow: 0 2px 8px rgba(255, 87, 0, 0.1);
+        }
+
+        .mixed-mode-card-title {
+            margin: 0 0 12px 0;
+            color: #FF5700;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mixed-mode-card-title i {
+            font-size: 16px;
+        }
+
+        .mixed-mode-select {
+            font-size: 15px !important;
+            padding: 12px !important;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            transition: all 0.3s;
+            background: white;
+            font-weight: 500;
+        }
+
+        .mixed-mode-select:focus {
+            border-color: #FF5700;
+            box-shadow: 0 0 0 3px rgba(255, 87, 0, 0.1);
+        }
+
+        /* Totalizador Dinámico */
+        .mixed-total-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 20px;
+            border-radius: 16px;
+            margin-top: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border: 2px solid #FF5700;
+        }
+
+        .mixed-total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mixed-total-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .mixed-total-label {
+            font-size: 15px;
+            color: #ccc;
+            font-weight: 600;
+        }
+
+        .mixed-total-value {
+            font-size: 16px;
+            color: white;
+            font-weight: 700;
+        }
+
+        .mixed-total-savings {
+            background: rgba(39, 174, 96, 0.15);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 8px 0;
+            border: 1px solid rgba(39, 174, 96, 0.3);
+        }
+
+        .mixed-total-savings .mixed-total-label,
+        .mixed-total-savings .mixed-total-value {
+            color: #27ae60;
+        }
+
+        .mixed-total-savings i {
+            margin-right: 4px;
+        }
+
+        .mixed-total-final {
+            padding-top: 12px;
+            margin-top: 8px;
+            border-top: 2px solid #FF5700 !important;
+        }
+
+        .mixed-total-final .mixed-total-label {
+            font-size: 18px;
+            color: white;
+            font-weight: 800;
+        }
+
+        .mixed-total-price {
+            font-size: 28px !important;
+            color: #FF5700 !important;
+            font-weight: 900 !important;
         }
 
         .checkout-submit {
@@ -3737,7 +4033,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <select name="Tipo de Producto" id="tipoProducto" required onchange="updateProductOptions()" style="font-size: 14px; padding: 12px;">
+                                <select name="Tipo de Producto" id="tipoProducto" required onchange="updateProductOptions()" style="font-size: 15px; padding: 12px;">
                                     <option value="">Seleccionar...</option>
                                     <option value="equinos">Para Equinos (Caballos adultos)</option>
                                     <option value="potros">Para Potros (Crías)</option>
@@ -3753,16 +4049,71 @@
                             <i class="fas fa-shopping-cart"></i>
                             Paso 2: Elige tu paquete
                         </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <select name="Paquete Seleccionado" id="paqueteSimple" style="font-size: 14px; padding: 12px;">
-                                    <option value="">Seleccionar paquete...</option>
-                                    <option value="1-bolsa-1kg-$114.900" data-price="114900" data-label="1 Bolsa 1kg">1 Bolsa 1kg - $114.900</option>
-                                    <option value="4-bolsas-1kg-$319.900" data-price="319900" data-label="Paga 3 Lleva 4: 4 Bolsas 1kg">Paga 3 Lleva 4: 4 Bolsas 1kg - $319.900</option>
-                                    <option value="1-balde-12kg-$792.400" data-price="792400" data-label="1 Balde 12kg - (8 meses)">1 Balde 12kg - $792.400 (8 meses)</option>
-                                    <option value="2-baldes-12kg-$1.536.480" data-price="1536480" data-label="2 Baldes 12kg - (16 meses)">2 Baldes 12kg - $1.536.480 (16 meses)</option>
-                                </select>
-                            </div>
+
+                        <div class="package-cards-grid">
+                            <!-- Opción 1: 1 Bolsa -->
+                            <label class="package-card">
+                                <input type="radio" name="Paquete Seleccionado" value="1-bolsa-1kg-$114.900" data-price="114900" data-label="1 Bolsa 1kg" class="package-radio">
+                                <div class="package-card-content">
+                                    <div class="package-card-header">
+                                        <div class="package-card-name">1 Bolsa 1kg</div>
+                                        <div class="package-card-check"><i class="fas fa-check-circle"></i></div>
+                                    </div>
+                                    <div class="package-card-price">$114.900</div>
+                                    <div class="package-card-detail">$5.745/ración - 20 raciones</div>
+                                </div>
+                            </label>
+
+                            <!-- Opción 2: PAGA 3 LLEVA 4 -->
+                            <label class="package-card package-card-featured">
+                                <input type="radio" name="Paquete Seleccionado" value="4-bolsas-1kg-$319.900" data-price="319900" data-label="Paga 3 Lleva 4: 4 Bolsas 1kg" class="package-radio" checked>
+                                <div class="package-card-badge">MÁS POPULAR</div>
+                                <div class="package-card-content">
+                                    <div class="package-card-header">
+                                        <div class="package-card-name">Paga 3 Lleva 4</div>
+                                        <div class="package-card-check"><i class="fas fa-check-circle"></i></div>
+                                    </div>
+                                    <div class="package-card-subtitle">4 Bolsas 1kg</div>
+                                    <div class="package-card-price-row">
+                                        <div class="package-card-price">$319.900</div>
+                                        <div class="package-card-old-price">$459.600</div>
+                                    </div>
+                                    <div class="package-card-savings">
+                                        <i class="fas fa-tag"></i> AHORRAS $139.700
+                                    </div>
+                                    <div class="package-card-detail">$3.999/ración - 80 raciones</div>
+                                </div>
+                            </label>
+
+                            <!-- Opción 3: 1 Balde -->
+                            <label class="package-card">
+                                <input type="radio" name="Paquete Seleccionado" value="1-balde-12kg-$792.400" data-price="792400" data-label="1 Balde 12kg - (8 meses)" class="package-radio">
+                                <div class="package-card-content">
+                                    <div class="package-card-header">
+                                        <div class="package-card-name">1 Balde 12kg</div>
+                                        <div class="package-card-check"><i class="fas fa-check-circle"></i></div>
+                                    </div>
+                                    <div class="package-card-price">$792.400</div>
+                                    <div class="package-card-detail">$3.301/ración - 240 raciones</div>
+                                </div>
+                            </label>
+
+                            <!-- Opción 4: 2 Baldes -->
+                            <label class="package-card package-card-best">
+                                <input type="radio" name="Paquete Seleccionado" value="2-baldes-12kg-$1.536.480" data-price="1536480" data-label="2 Baldes 12kg - (16 meses)" class="package-radio">
+                                <div class="package-card-badge package-card-badge-green">MEJOR PRECIO</div>
+                                <div class="package-card-content">
+                                    <div class="package-card-header">
+                                        <div class="package-card-name">2 Baldes 12kg</div>
+                                        <div class="package-card-check"><i class="fas fa-check-circle"></i></div>
+                                    </div>
+                                    <div class="package-card-price">$1.536.480</div>
+                                    <div class="package-card-savings">
+                                        <i class="fas fa-tag"></i> AHORRAS $48.320
+                                    </div>
+                                    <div class="package-card-detail">$3.200/ración - 480 raciones</div>
+                                </div>
+                            </label>
                         </div>
                     </div>
 
@@ -3773,51 +4124,71 @@
                             Paso 2: Elige cantidades para cada uno
                         </div>
 
-                        <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
-                            <h4 style="margin: 0 0 10px 0; color: #FF5700; font-size: 15px;">B-GOR Equinos (Adultos)</h4>
+                        <div class="mixed-mode-card">
+                            <h4 class="mixed-mode-card-title">
+                                <i class="fas fa-horse"></i> B-GOR Equinos (Adultos)
+                            </h4>
                             <div class="form-row">
                                 <div class="form-group">
                                     <label style="font-size: 14px;">Bolsas de 1kg</label>
-                                    <select name="Equinos - Bolsas 1kg" id="equinosBolsas" style="font-size: 14px; padding: 12px;">
-                                        <option value="0">0 bolsas</option>
+                                    <select name="Equinos - Bolsas 1kg" id="equinosBolsas" class="mixed-mode-select" onchange="updateMixedTotal()">
+                                        <option value="0" data-price="0">0 bolsas</option>
                                         <option value="1 bolsa - $114.900" data-price="114900" data-label="1 bolsa">1 bolsa - $114.900</option>
-                                        <option value="4 bolsas (Paga 3 Lleva 4) - $319.900" data-price="319900" data-label="4 bolsas - (Paga 3, Lleva 4)">4 bolsas - $319.900 (Paga 3, Lleva 4)</option>
+                                        <option value="4 bolsas (Paga 3 Lleva 4) - $319.900" data-price="319900" data-savings="139700" data-label="4 bolsas - (Paga 3, Lleva 4)">🏆 4 bolsas - $319.900 (Paga 3, Lleva 4) - AHORRA $139.700</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
                                     <label style="font-size: 14px;">Baldes de 12kg</label>
-                                    <select name="Equinos - Baldes 12kg" id="equinosBaldes" style="font-size: 14px; padding: 12px;">
-                                        <option value="0">0 baldes</option>
+                                    <select name="Equinos - Baldes 12kg" id="equinosBaldes" class="mixed-mode-select" onchange="updateMixedTotal()">
+                                        <option value="0" data-price="0">0 baldes</option>
                                         <option value="1 balde - $792.400" data-price="792400" data-label="1 balde">1 balde - $792.400</option>
-                                        <option value="2 baldes - $1.536.480" data-price="1536480" data-label="2 baldes">2 baldes - $1.536.480</option>
+                                        <option value="2 baldes - $1.536.480" data-price="1536480" data-savings="48320" data-label="2 baldes">💰 2 baldes - $1.536.480 - AHORRA $48.320</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
 
-                        <div style="background: #f8f9fa; padding: 15px; border-radius: 10px;">
-                            <h4 style="margin: 0 0 10px 0; color: #FF5700; font-size: 15px;">B-GOR Potros (Crías)</h4>
+                        <div class="mixed-mode-card">
+                            <h4 class="mixed-mode-card-title">
+                                <i class="fas fa-baby"></i> B-GOR Potros (Crías)
+                            </h4>
                             <div class="form-row">
                                 <div class="form-group">
                                     <label style="font-size: 14px;">Bolsas de 1kg</label>
-                                    <select name="Potros - Bolsas 1kg" id="potrosBolsas" style="font-size: 14px; padding: 12px;">
-                                        <option value="0">0 bolsas</option>
+                                    <select name="Potros - Bolsas 1kg" id="potrosBolsas" class="mixed-mode-select" onchange="updateMixedTotal()">
+                                        <option value="0" data-price="0">0 bolsas</option>
                                         <option value="1 bolsa - $114.900" data-price="114900" data-label="1 bolsa">1 bolsa - $114.900</option>
-                                        <option value="4 bolsas (Paga 3 Lleva 4) - $319.900" data-price="319900" data-label="4 bolsas - (Paga 3, Lleva 4)">4 bolsas - $319.900 (Paga 3, Lleva 4)</option>
+                                        <option value="4 bolsas (Paga 3 Lleva 4) - $319.900" data-price="319900" data-savings="139700" data-label="4 bolsas - (Paga 3, Lleva 4)">🏆 4 bolsas - $319.900 (Paga 3, Lleva 4) - AHORRA $139.700</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
                                     <label style="font-size: 14px;">Baldes de 12kg</label>
-                                    <select name="Potros - Baldes 12kg" id="potrosBaldes" style="font-size: 14px; padding: 12px;">
-                                        <option value="0">0 baldes</option>
+                                    <select name="Potros - Baldes 12kg" id="potrosBaldes" class="mixed-mode-select" onchange="updateMixedTotal()">
+                                        <option value="0" data-price="0">0 baldes</option>
                                         <option value="1 balde - $792.400" data-price="792400" data-label="1 balde">1 balde - $792.400</option>
-                                        <option value="2 baldes - $1.536.480" data-price="1536480" data-label="2 baldes">2 baldes - $1.536.480</option>
+                                        <option value="2 baldes - $1.536.480" data-price="1536480" data-savings="48320" data-label="2 baldes">💰 2 baldes - $1.536.480 - AHORRA $48.320</option>
                                     </select>
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- Totalizador Dinámico -->
+                        <div class="mixed-total-card" id="mixedTotalCard" style="display: none;">
+                            <div class="mixed-total-row">
+                                <span class="mixed-total-label">Subtotal:</span>
+                                <span class="mixed-total-value" id="mixedSubtotal">$0</span>
+                            </div>
+                            <div class="mixed-total-row mixed-total-savings" id="mixedSavingsRow" style="display: none;">
+                                <span class="mixed-total-label"><i class="fas fa-tag"></i> Ahorras:</span>
+                                <span class="mixed-total-value">$<span id="mixedSavings">0</span></span>
+                            </div>
+                            <div class="mixed-total-row mixed-total-final">
+                                <span class="mixed-total-label">Total:</span>
+                                <span class="mixed-total-value mixed-total-price" id="mixedTotal">$0</span>
                             </div>
                         </div>
                     </div>
@@ -3825,7 +4196,7 @@
                     <!-- Envío Prioritario -->
                     <div class="priority-shipping">
                         <label class="priority-shipping-wrapper" for="priorityShippingCheckbox">
-                            <input type="checkbox" class="priority-shipping-checkbox" id="priorityShippingCheckbox" name="Envío Prioritario (+$5.000)" value="no">
+                            <input type="checkbox" class="priority-shipping-checkbox" id="priorityShippingCheckbox" name="Envío Prioritario" value="no">
                             <div class="priority-shipping-content">
                                 <div class="priority-shipping-title"><i class="fas fa-shipping-fast" style="color: #FF5700;"></i> Envío Prioritario</div>
                                 <div class="priority-shipping-description">Priorizaremos tu pedido en nuestro centro logístico</div>
@@ -4184,6 +4555,16 @@
             event.preventDefault();
             const form = event.target;
 
+            // Validar celular (10 dígitos)
+            const celularInput = document.getElementById('celular');
+            const celular = celularInput.value.trim();
+
+            if (!/^[0-9]{10}$/.test(celular)) {
+                alert('Por favor ingresa un número de celular válido de 10 dígitos');
+                celularInput.focus();
+                return false;
+            }
+
             // Calcular valor total del pedido para Meta Pixel
             let totalValue = 0;
             let contentIds = [];
@@ -4192,17 +4573,25 @@
             const tipoProducto = document.getElementById('tipoProducto').value;
 
             if (tipoProducto === 'equinos' || tipoProducto === 'potros') {
-                // Modo simple
-                const paqueteSimple = document.getElementById('paqueteSimple');
-                const selectedOption = paqueteSimple.options[paqueteSimple.selectedIndex];
-                if (selectedOption && selectedOption.dataset.price) {
-                    totalValue = parseInt(selectedOption.dataset.price);
-                    contentIds.push(selectedOption.value);
-                    contentNames.push(selectedOption.dataset.label || selectedOption.text);
+                // Modo simple - radio buttons
+                const selectedRadio = document.querySelector('input[name="Paquete Seleccionado"]:checked');
+
+                // Validación crítica: verificar que hay un radio seleccionado
+                if (!selectedRadio) {
+                    alert('Por favor selecciona un paquete');
+                    return false;
+                }
+
+                if (selectedRadio && selectedRadio.dataset.price) {
+                    totalValue = parseInt(selectedRadio.dataset.price);
+                    contentIds.push(selectedRadio.value);
+                    contentNames.push(selectedRadio.dataset.label || selectedRadio.value);
                 }
             } else if (tipoProducto === 'mixto') {
                 // Modo mixto - sumar todos los seleccionados
                 const selects = ['equinosBolsas', 'equinosBaldes', 'potrosBolsas', 'potrosBaldes'];
+                let hasSelection = false;
+
                 selects.forEach(selectId => {
                     const select = document.getElementById(selectId);
                     if (select) {
@@ -4210,6 +4599,7 @@
                         if (option && option.dataset.price) {
                             const price = parseInt(option.dataset.price);
                             if (price > 0) {
+                                hasSelection = true;
                                 totalValue += price;
                                 contentIds.push(option.value);
                                 contentNames.push(option.dataset.label || option.text);
@@ -4217,6 +4607,12 @@
                         }
                     }
                 });
+
+                // Validación crítica: verificar que hay al menos 1 producto seleccionado
+                if (!hasSelection) {
+                    alert('Por favor selecciona al menos un producto (bolsas o baldes)');
+                    return false;
+                }
             }
 
             // Aplicar descuento si está activo
@@ -4962,14 +5358,18 @@
             const tipoProducto = document.getElementById('tipoProducto').value;
             const seccionSimple = document.getElementById('seccionSimple');
             const seccionMixta = document.getElementById('seccionMixta');
-            const paqueteSimple = document.getElementById('paqueteSimple');
+            const packageRadios = document.querySelectorAll('input[name="Paquete Seleccionado"]');
 
             if (tipoProducto === 'equinos' || tipoProducto === 'potros') {
-                // Modo Simple: mostrar selector único
+                // Modo Simple: mostrar tarjetas de paquetes
                 seccionSimple.style.display = 'block';
                 seccionMixta.style.display = 'none';
-                paqueteSimple.required = true;
-                paqueteSimple.disabled = false;
+
+                // Habilitar radio buttons
+                packageRadios.forEach(radio => {
+                    radio.disabled = false;
+                    radio.required = true;
+                });
 
                 // Limpiar y deshabilitar selecciones mixtas
                 document.getElementById('equinosBolsas').value = '0';
@@ -4980,23 +5380,86 @@
                 document.getElementById('potrosBolsas').disabled = true;
                 document.getElementById('potrosBaldes').value = '0';
                 document.getElementById('potrosBaldes').disabled = true;
+
+                // Ocultar totalizador mixto
+                const mixedTotalCard = document.getElementById('mixedTotalCard');
+                if (mixedTotalCard) mixedTotalCard.style.display = 'none';
             } else if (tipoProducto === 'mixto') {
                 // Modo Mixto: mostrar selectores separados
                 seccionSimple.style.display = 'none';
                 seccionMixta.style.display = 'block';
-                paqueteSimple.required = false;
-                paqueteSimple.disabled = true;
-                paqueteSimple.value = ''; // Limpiar selección simple
+
+                // Deshabilitar radio buttons
+                packageRadios.forEach(radio => {
+                    radio.disabled = true;
+                    radio.required = false;
+                    radio.checked = false;
+                });
 
                 // Habilitar selecciones mixtas
                 document.getElementById('equinosBolsas').disabled = false;
                 document.getElementById('equinosBaldes').disabled = false;
                 document.getElementById('potrosBolsas').disabled = false;
                 document.getElementById('potrosBaldes').disabled = false;
+
+                // Actualizar totalizador
+                updateMixedTotal();
             } else {
                 // Sin selección
                 seccionSimple.style.display = 'none';
                 seccionMixta.style.display = 'none';
+            }
+        }
+
+        // Actualizar totalizador del modo mixto
+        function updateMixedTotal() {
+            let total = 0;
+            let totalSavings = 0;
+
+            // Obtener valores de cada select
+            const selects = ['equinosBolsas', 'equinosBaldes', 'potrosBolsas', 'potrosBaldes'];
+            selects.forEach(selectId => {
+                const select = document.getElementById(selectId);
+                const option = select.options[select.selectedIndex];
+
+                if (option && option.dataset.price) {
+                    const price = parseInt(option.dataset.price) || 0;
+                    total += price;
+
+                    // Sumar ahorros si existen
+                    if (option.dataset.savings) {
+                        totalSavings += parseInt(option.dataset.savings) || 0;
+                    }
+                }
+            });
+
+            // Actualizar UI del totalizador
+            const mixedTotalCard = document.getElementById('mixedTotalCard');
+            const mixedSubtotal = document.getElementById('mixedSubtotal');
+            const mixedTotal = document.getElementById('mixedTotal');
+            const mixedSavings = document.getElementById('mixedSavings');
+            const mixedSavingsRow = document.getElementById('mixedSavingsRow');
+
+            if (total > 0) {
+                mixedTotalCard.style.display = 'block';
+                mixedSubtotal.textContent = '$' + total.toLocaleString('es-CO');
+                mixedTotal.textContent = '$' + total.toLocaleString('es-CO');
+
+                // Mostrar ahorros si hay
+                if (totalSavings > 0) {
+                    mixedSavingsRow.style.display = 'flex';
+                    mixedSavings.textContent = totalSavings.toLocaleString('es-CO');
+                } else {
+                    mixedSavingsRow.style.display = 'none';
+                }
+            } else {
+                mixedTotalCard.style.display = 'none';
+            }
+
+            // Actualizar campo oculto para Netlify
+            const valorTotalField = document.getElementById('valorTotalField');
+            if (valorTotalField) {
+                valorTotalField.value = '$' + total.toLocaleString('es-CO') + ' COP';
             }
         }
 
@@ -5018,19 +5481,18 @@
 
         // Meta Pixel - AddToCart events
         document.addEventListener('DOMContentLoaded', function() {
-            // Rastrear cuando seleccionan paquete simple
-            const paqueteSimple = document.getElementById('paqueteSimple');
-            if (paqueteSimple) {
-                paqueteSimple.addEventListener('change', function() {
-                    const option = this.options[this.selectedIndex];
-                    if (option && option.dataset.price) {
-                        const price = parseInt(option.dataset.price);
-                        const productName = option.dataset.label || option.text;
+            // Rastrear cuando seleccionan paquete simple (radio buttons)
+            const packageRadios = document.querySelectorAll('input[name="Paquete Seleccionado"]');
+            packageRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.checked && this.dataset.price) {
+                        const price = parseInt(this.dataset.price);
+                        const productName = this.dataset.label || this.value;
 
                         if (typeof fbq !== 'undefined') {
                             fbq('track', 'AddToCart', {
                                 content_name: productName,
-                                content_ids: [option.value],
+                                content_ids: [this.value],
                                 content_type: 'product',
                                 value: price,
                                 currency: 'COP'
@@ -5038,7 +5500,7 @@
                         }
                     }
                 });
-            }
+            });
 
             // Rastrear selección de productos mixtos
             const mixedSelects = ['equinosBolsas', 'equinosBaldes', 'potrosBolsas', 'potrosBaldes'];
