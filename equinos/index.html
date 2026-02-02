@@ -3187,6 +3187,17 @@
     </noscript>
     <!-- End Meta Pixel Code -->
 
+    <!-- Función para generar eventID único y evitar duplicados -->
+    <script>
+        // Genera un eventID único usando timestamp + random
+        function generateEventID() {
+            return 'evt_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        // Flag para evitar múltiples disparos de InitiateCheckout en la misma sesión
+        let initiateCheckoutFired = sessionStorage.getItem('initiateCheckoutFired') === 'true';
+    </script>
+
     <!-- Microsoft Clarity -->
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
@@ -4350,8 +4361,9 @@
             document.getElementById('checkoutOverlay').classList.add('active');
             document.body.style.overflow = 'hidden';
 
-            // Meta Pixel - InitiateCheckout
-            if (typeof fbq !== 'undefined') {
+            // Meta Pixel - InitiateCheckout (solo se dispara una vez por sesión)
+            if (typeof fbq !== 'undefined' && !initiateCheckoutFired) {
+                const eventID = generateEventID();
                 fbq('track', 'InitiateCheckout', {
                     content_name: 'B-GOR Equinos',
                     content_category: 'Suplementos Equinos',
@@ -4359,7 +4371,11 @@
                     content_type: 'product',
                     value: 319900,
                     currency: 'COP'
-                });
+                }, { eventID: eventID });
+
+                // Marcar como disparado en esta sesión
+                initiateCheckoutFired = true;
+                sessionStorage.setItem('initiateCheckoutFired', 'true');
             }
         }
 
@@ -4634,17 +4650,8 @@
                 valorTotalField.value = '$' + totalValue.toLocaleString('es-CO') + ' COP';
             }
 
-            // Enviar evento Purchase a Meta Pixel
-            if (typeof fbq !== 'undefined' && totalValue > 0) {
-                fbq('track', 'Purchase', {
-                    content_name: contentNames.join(', ') + (hasPriorityShipping ? ' + Envío Prioritario' : ''),
-                    content_ids: contentIds,
-                    content_type: 'product',
-                    value: totalValue, // Valor completo en COP (incluye envío prioritario si aplica)
-                    currency: 'COP',
-                    num_items: contentIds.length
-                });
-            }
+            // Generar eventID único para este pedido
+            const purchaseEventID = generateEventID();
 
             fetch('/', {
                 method: 'POST',
@@ -4652,12 +4659,31 @@
                 body: new URLSearchParams(new FormData(form)).toString()
             })
             .then(() => {
+                // ✅ SOLO disparar Purchase después de envío exitoso
+                // Verificar que no se haya disparado ya (prevenir duplicados por recarga)
+                const alreadyFired = sessionStorage.getItem('purchase_' + purchaseEventID);
+
+                if (typeof fbq !== 'undefined' && totalValue > 0 && !alreadyFired) {
+                    fbq('track', 'Purchase', {
+                        content_name: contentNames.join(', ') + (hasPriorityShipping ? ' + Envío Prioritario' : ''),
+                        content_ids: contentIds,
+                        content_type: 'product',
+                        value: totalValue, // Valor completo en COP (incluye envío prioritario si aplica)
+                        currency: 'COP',
+                        num_items: contentIds.length
+                    }, { eventID: purchaseEventID });
+
+                    // Marcar como disparado para prevenir duplicados
+                    sessionStorage.setItem('purchase_' + purchaseEventID, 'true');
+                }
+
                 closeCheckout();
                 showSuccessPopup();
                 form.reset();
             })
             .catch((error) => {
                 alert('Error al enviar el pedido. Por favor intenta de nuevo.');
+                // ⚠️ NO disparar Purchase si hubo error
             });
 
             return false;
@@ -4668,13 +4694,8 @@
             event.preventDefault();
             const form = event.target;
 
-            // Meta Pixel - Lead event
-            if (typeof fbq !== 'undefined') {
-                fbq('track', 'Lead', {
-                    content_name: 'Formulario Contacto - B-GOR Equinos',
-                    content_category: 'Consulta'
-                });
-            }
+            // Generar eventID único para este lead
+            const leadEventID = generateEventID();
 
             // Enviar formulario a Netlify
             fetch('/', {
@@ -4683,6 +4704,14 @@
                 body: new URLSearchParams(new FormData(form)).toString()
             })
             .then(() => {
+                // ✅ Disparar Lead solo después de envío exitoso
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'Lead', {
+                        content_name: 'Formulario Contacto - B-GOR Equinos',
+                        content_category: 'Consulta'
+                    }, { eventID: leadEventID });
+                }
+
                 showSuccessPopup(
                     '¡Mensaje Recibido!',
                     'Gracias por contactarnos. Te responderemos lo antes posible para resolver todas tus dudas sobre B-GOR Equinos.',
@@ -4692,6 +4721,7 @@
             })
             .catch((error) => {
                 alert('Error al enviar. Por favor intenta de nuevo.');
+                // ⚠️ NO disparar Lead si hubo error
             });
 
             return false;
@@ -5490,13 +5520,14 @@
                         const productName = this.dataset.label || this.value;
 
                         if (typeof fbq !== 'undefined') {
+                            const eventID = generateEventID();
                             fbq('track', 'AddToCart', {
                                 content_name: productName,
                                 content_ids: [this.value],
                                 content_type: 'product',
                                 value: price,
                                 currency: 'COP'
-                            });
+                            }, { eventID: eventID });
                         }
                     }
                 });
@@ -5515,13 +5546,14 @@
                                 const productName = option.dataset.label || option.text;
 
                                 if (typeof fbq !== 'undefined') {
+                                    const eventID = generateEventID();
                                     fbq('track', 'AddToCart', {
                                         content_name: productName,
                                         content_ids: [option.value],
                                         content_type: 'product',
                                         value: price,
                                         currency: 'COP'
-                                    });
+                                    }, { eventID: eventID });
                                 }
                             }
                         }
