@@ -191,7 +191,7 @@ section {
 
 /* Hero Section */
 .hero {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/adorable-baby-pigs-farm.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../assets/images/adorable-baby-pigs-farm.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
