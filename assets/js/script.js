@@ -382,16 +382,16 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!orderSummary) return;
             
             const cantidad = parseInt(cantidadInput.value);
-            let precio = 84900; // Precio base 1kg
+            let precio = 89900; // Precio base 1kg
             let presentacion = '1kg';
             let tipo = 'Monogástricos';
-            
+
             // Determinar precio según opción seleccionada
             if (optionPromo.checked) {
-                precio = 229900;
+                precio = 249900;
                 presentacion = 'Promoción 3+1';
             } else if (option12kg.checked) {
-                precio = 559900;
+                precio = 624900;
                 presentacion = '12kg';
             }
             
@@ -476,9 +476,9 @@ function initFormatSelector() {
     
     // Formatos y precios
     const formats = {
-        '1kg': { name: 'Unidad (1kg)', price: 84900 },
-        'promo': { name: 'Promoción "Paga 3 lleva 4"', price: 229900 },
-        '12kg': { name: 'Balde (12kg)', price: 559900 }
+        '1kg': { name: 'Unidad (1kg)', price: 89900 },
+        'promo': { name: 'Promoción "Paga 3 lleva 4"', price: 249900 },
+        '12kg': { name: 'Balde (12kg)', price: 624900 }
     };
     
     // Event listeners para botones de cantidad
