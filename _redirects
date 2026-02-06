@@ -1,8 +1,15 @@
-# Configuración de redirecciones para formularios de Netlify
+# Redirects para reorganización del sitio
 
-# Redirección para el formulario de pedido
-/gracias-pedido              /    200
-/thankyou                    /    200
+# Blog
+/blog-ganadero/*  /contenido/blog/:splat  301
+/suplementacion-errores.html  /contenido/guias/suplementacion.html  301
 
-# Redirección para el formulario de contacto
-/gracias-contacto            /    200
+# Equinos
+/equinos/*  /productos/equinos/:splat  301
+
+# Fichas técnicas
+/fichas-tecnicas/*  /documentos/fichas-tecnicas/:splat  301
+
+# Landing pages
+/campana.html  /landing/campanas/campana.html  301
+/campaña.html  /landing/campanas/campana.html  301

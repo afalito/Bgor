@@ -1,7 +1,35 @@
-[build]
-  publish = "."
-  
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+  from = "/blog-ganadero/*"
+  to = "/contenido/blog/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/suplementacion-errores.html"
+  to = "/contenido/guias/suplementacion.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/equinos/*"
+  to = "/productos/equinos/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/fichas-tecnicas/*"
+  to = "/documentos/fichas-tecnicas/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/campana.html"
+  to = "/landing/campanas/campana.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/campaña.html"
+  to = "/landing/campanas/campana.html"
+  status = 301
+  force = true
