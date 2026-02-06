@@ -650,3 +650,103 @@ figcaption {
         margin: 50px 0;
     }
 }
+
+/* ==========================================
+   ESTILOS PARA MENÚ DROPDOWN
+   ========================================== */
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.dropdown-toggle i {
+    font-size: 0.7rem;
+    transition: transform 0.3s ease;
+}
+
+.dropdown.active .dropdown-toggle i {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    z-index: 1000;
+    list-style: none;
+    padding: 10px 0;
+}
+
+@media (min-width: 769px) {
+    .dropdown:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+.dropdown.active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu li {
+    margin: 0;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 12px 20px;
+    color: var(--light-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.dropdown-menu a:hover {
+    background-color: rgba(255, 107, 0, 0.1);
+    border-left-color: var(--primary-color);
+    color: var(--primary-color);
+    padding-left: 25px;
+}
+
+@media (max-width: 768px) {
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        margin-left: 15px;
+        box-shadow: none;
+        border-radius: 0;
+        background-color: rgba(255, 255, 255, 0.05);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .dropdown.active .dropdown-menu {
+        max-height: 500px;
+        padding: 10px 0;
+    }
+
+    .dropdown-menu a {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+}

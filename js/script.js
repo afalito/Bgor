@@ -9,14 +9,61 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Cerrar menú al hacer clic en un enlace
-    const navLinks = document.querySelectorAll('.nav-menu a');
+    // Cerrar menú al hacer clic en un enlace (excepto dropdowns)
+    const navLinks = document.querySelectorAll('.nav-menu a:not(.dropdown-toggle)');
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
             navMenu.classList.remove('active');
         });
     });
-    
+
+    // Funcionalidad para Dropdowns
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    dropdowns.forEach(dropdown => {
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        const menu = dropdown.querySelector('.dropdown-menu');
+
+        if (toggle && menu) {
+            // Click en mobile para abrir/cerrar
+            toggle.addEventListener('click', function(e) {
+                // En mobile (cuando el menú está visible), permitir toggle
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+
+                    // Cerrar otros dropdowns
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.classList.remove('active');
+                        }
+                    });
+
+                    // Toggle el dropdown actual
+                    dropdown.classList.toggle('active');
+                }
+                // En desktop, dejar que funcione el hover (no prevenir el clic en el enlace principal)
+            });
+        }
+    });
+
+    // Cerrar dropdowns al hacer clic fuera
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        }
+    });
+
+    // Cerrar dropdowns al cambiar de tamaño de ventana
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        }
+    });
+
     // Inicializar testimonios
     initTestimonials();
     

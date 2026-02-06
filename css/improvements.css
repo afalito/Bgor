@@ -1263,3 +1263,137 @@
         width: 100%;
     }
 }
+
+/* ==========================================
+   ESTILOS PARA MENÚ DROPDOWN MEJORADO
+   ========================================== */
+
+/* Navegación con Dropdowns */
+.nav-menu {
+    display: flex;
+    align-items: center;
+}
+
+.nav-menu > li {
+    position: relative;
+    list-style: none;
+}
+
+/* Dropdown Toggle (enlaces con flecha) */
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.dropdown-toggle i {
+    font-size: 0.7rem;
+    transition: transform 0.3s ease;
+}
+
+/* Rotar la flecha cuando el dropdown está activo */
+.dropdown.active .dropdown-toggle i {
+    transform: rotate(180deg);
+}
+
+/* Menú Dropdown */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    z-index: 1000;
+    list-style: none;
+    padding: 10px 0;
+}
+
+/* Mostrar dropdown al hacer hover en desktop */
+@media (min-width: 769px) {
+    .dropdown:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+/* Dropdown activo (para mobile con click) */
+.dropdown.active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Enlaces dentro del dropdown */
+.dropdown-menu li {
+    margin: 0;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 12px 20px;
+    color: var(--light-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.dropdown-menu a:hover {
+    background-color: rgba(255, 107, 0, 0.1);
+    border-left-color: var(--primary-color);
+    color: var(--primary-color);
+    padding-left: 25px;
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    .nav-menu {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-menu > li {
+        width: 100%;
+    }
+
+    .nav-menu > li > a {
+        width: 100%;
+        padding: 12px 10px;
+    }
+
+    /* Dropdown en mobile aparece debajo del item */
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        margin-top: 0;
+        margin-left: 15px;
+        box-shadow: none;
+        border-radius: 0;
+        background-color: rgba(255, 255, 255, 0.05);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, opacity 0.3s ease;
+    }
+
+    .dropdown.active .dropdown-menu {
+        max-height: 500px;
+        padding: 10px 0;
+    }
+
+    .dropdown-menu a {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+
+    .dropdown-menu a:hover {
+        padding-left: 20px;
+    }
+}
