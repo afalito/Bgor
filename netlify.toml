@@ -1,4 +1,10 @@
 [[redirects]]
+  from = "/blog-ganadero/manejo-animal/*"
+  to = "/contenido/blog/articulos/manejo-animal/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/blog-ganadero/*"
   to = "/contenido/blog/:splat"
   status = 301

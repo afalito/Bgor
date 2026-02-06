@@ -1,6 +1,7 @@
 # Redirects para reorganización del sitio
 
-# Blog
+# Blog - artículos específicos
+/blog-ganadero/manejo-animal/*  /contenido/blog/articulos/manejo-animal/:splat  301
 /blog-ganadero/*  /contenido/blog/:splat  301
 /suplementacion-errores.html  /contenido/guias/suplementacion.html  301
 
