@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Garantía de Satisfacción 30 Días - BGOR Equinos y Potros</title>
+    <meta name="description" content="Garantía de satisfacción de 30 días en equinos y potros con BGOR. Si no ves mejora, te devolvemos tu dinero.">
+    <meta name="keywords" content="BGOR garantía, garantía equinos, suplemento garantizado, BGOR potros">
+    <meta name="author" content="BGOR">
+    <meta name="robots" content="index, follow">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/O de B-GOR.png">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- jsPDF library for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="assets/images/logo.png" alt="BGOR Logo">
+                </a>
+            </div>
+            <a href="../index.html" class="btn-volver">
+                <i class="fas fa-arrow-left"></i> Volver al inicio
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-garantia">
+        <div class="container">
+            <div class="hero-content">
+                <div class="garantia-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>30 Días</span>
+                </div>
+                <h1>Garantía de Satisfacción para Equinos y Potros</h1>
+                <p class="subtitle">30 días completos de prueba</p>
+                <p class="hero-description">
+                    Úsalo 30 días completos según indicaciones.
+                    <strong>Si no ves mejora, te devolvemos tu dinero</strong>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Términos y Condiciones -->
+    <section class="terminos-section">
+        <div class="container">
+            <h2><i class="fas fa-file-contract"></i> Términos y Condiciones de la Garantía</h2>
+
+            <!-- 1. Vigencia -->
+            <div class="termino-card">
+                <div class="termino-header">
+                    <span class="numero">1</span>
+                    <h3>Vigencia de la Garantía</h3>
+                </div>
+                <div class="termino-content">
+                    <p>La garantía tiene una vigencia de <strong>30 días calendario</strong> a partir de la fecha de compra del producto BGOR Equinos o BGOR Potros.</p>
+                    <div class="info-box">
+                        <i class="fas fa-info-circle"></i>
+                        <p>El periodo de 30 días es el tiempo adecuado para observar mejoras en el rendimiento y condición general de tu equino.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Dosificación Requerida -->
+            <div class="termino-card">
+                <div class="termino-header">
+                    <span class="numero">2</span>
+                    <h3>Dosificación Requerida</h3>
+                </div>
+                <div class="termino-content">
+                    <p>Para que la garantía sea válida, el producto debe ser administrado siguiendo estrictamente las siguientes dosis diarias:</p>
+
+                    <div class="dosificacion-grid">
+                        <div class="dosificacion-card potros">
+                            <div class="icon-animal">
+                                <i class="fas fa-horse"></i>
+                            </div>
+                            <h4>BGOR Potros</h4>
+                            <div class="dosis-destacada">
+                                <span class="dosis-numero">25</span>
+                                <span class="dosis-texto">gramos diarios</span>
+                            </div>
+                            <p class="animales-aplicables">Aplicable a: Potros en crecimiento</p>
+                            <div class="ejemplo">
+                                <strong>Ejemplo:</strong> Un potro debe recibir 25 gramos diarios, sin importar su peso actual
+                            </div>
+                        </div>
+
+                        <div class="dosificacion-card equinos">
+                            <div class="icon-animal">
+                                <i class="fas fa-horse-head"></i>
+                            </div>
+                            <h4>BGOR Equinos</h4>
+                            <div class="dosis-destacada">
+                                <span class="dosis-numero">50</span>
+                                <span class="dosis-texto">gramos diarios</span>
+                            </div>
+                            <p class="animales-aplicables">Aplicable a: Equinos adultos</p>
+                            <div class="ejemplo">
+                                <strong>Ejemplo:</strong> Un equino adulto debe recibir 50 gramos diarios, sin importar su peso actual
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="warning-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div>
+                            <strong>Importante:</strong>
+                            <p>El incumplimiento de las dosis indicadas puede resultar en la invalidación de la garantía. Se requiere constancia de uso continuo durante los 30 días.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Indicadores de Mejora -->
+            <div class="termino-card">
+                <div class="termino-header">
+                    <span class="numero">3</span>
+                    <h3>Indicadores de Mejora</h3>
+                </div>
+                <div class="termino-content">
+                    <p>La garantía se aplica si no observas mejora en <strong>ninguno</strong> de los siguientes aspectos durante el periodo de 30 días:</p>
+
+                    <div class="indicadores-grid">
+                        <div class="indicador-item">
+                            <i class="fas fa-heart"></i>
+                            <h4>Condición Corporal</h4>
+                            <p>Mejora visible en la condición corporal general del equino</p>
+                        </div>
+
+                        <div class="indicador-item">
+                            <i class="fas fa-star"></i>
+                            <h4>Pelaje y Brillo</h4>
+                            <p>Mayor brillo, suavidad y calidad del pelaje</p>
+                        </div>
+
+                        <div class="indicador-item">
+                            <i class="fas fa-bolt"></i>
+                            <h4>Energía y Vitalidad</h4>
+                            <p>Incremento en los niveles de energía y disposición</p>
+                        </div>
+
+                        <div class="indicador-item">
+                            <i class="fas fa-running"></i>
+                            <h4>Rendimiento</h4>
+                            <p>Mejor desempeño en trabajo, entrenamiento o competencia</p>
+                        </div>
+
+                        <div class="indicador-item">
+                            <i class="fas fa-dumbbell"></i>
+                            <h4>Recuperación Muscular</h4>
+                            <p>Mejor recuperación post-ejercicio y menor fatiga</p>
+                        </div>
+
+                        <div class="indicador-item">
+                            <i class="fas fa-utensils"></i>
+                            <h4>Apetito</h4>
+                            <p>Mejora en el apetito y consumo de alimento</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Evidencias Requeridas -->
+            <div class="termino-card">
+                <div class="termino-header">
+                    <span class="numero">4</span>
+                    <h3>Evidencias Requeridas</h3>
+                </div>
+                <div class="termino-content">
+                    <p>Para hacer válida la garantía, el cliente debe presentar las siguientes evidencias documentadas:</p>
+
+                    <div class="evidencias-list">
+                        <div class="evidencia-item">
+                            <div class="evidencia-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="evidencia-content">
+                                <h4>Formato de Seguimiento Diligenciado</h4>
+                                <p>Formato oficial de BGOR completamente diligenciado con datos del día 0 (inicio) y día 30 (final).</p>
+                                <button class="btn-descargar" onclick="descargarFormato()">
+                                    <i class="fas fa-download"></i> Descargar formato
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="evidencia-item">
+                            <div class="evidencia-icon">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <div class="evidencia-content">
+                                <h4>Fotografías Antes y Después</h4>
+                                <p>Fotografías claras del equino en el día 0 y día 30 que permitan comparar la condición corporal, pelaje y estado general.</p>
+                                <ul class="sub-requisitos">
+                                    <li>Foto frontal, lateral y trasera</li>
+                                    <li>Buena iluminación</li>
+                                    <li>Misma ubicación y ángulo</li>
+                                    <li>Fecha visible o comprobable</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="evidencia-item">
+                            <div class="evidencia-icon">
+                                <i class="fas fa-weight"></i>
+                            </div>
+                            <div class="evidencia-content">
+                                <h4>Registro de Peso</h4>
+                                <p>Peso del equino o potro en el día 0 y día 30.</p>
+                                <ul class="sub-requisitos">
+                                    <li>Pesaje con báscula calibrada</li>
+                                    <li>Registro de fecha de cada pesaje</li>
+                                    <li>Identificación del animal</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="evidencia-item">
+                            <div class="evidencia-icon">
+                                <i class="fas fa-shipping-fast"></i>
+                            </div>
+                            <div class="evidencia-content">
+                                <h4>Número de Guía de Envío</h4>
+                                <p>Número de guía de envío del producto BGOR adquirido.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="warning-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div>
+                            <strong>Importante:</strong>
+                            <p>Las fotografías deben ser tomadas en condiciones similares (luz, ubicación, ángulo) para permitir una comparación válida.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Condiciones de Aplicación -->
+            <div class="termino-card">
+                <div class="termino-header">
+                    <span class="numero">5</span>
+                    <h3>Condiciones de Aplicación</h3>
+                </div>
+                <div class="termino-content">
+                    <p>La garantía aplica únicamente si se cumplen las siguientes condiciones:</p>
+
+                    <div class="condiciones-list">
+                        <div class="condicion-item">
+                            <i class="fas fa-check-circle"></i>
+                            <p>El producto debe ser adquirido a través de canales oficiales de BGOR o distribuidores autorizados</p>
+                        </div>
+                        <div class="condicion-item">
+                            <i class="fas fa-check-circle"></i>
+                            <p>Se debe seguir estrictamente el protocolo de dosificación indicado (25g potros, 50g adultos)</p>
+                        </div>
+                        <div class="condicion-item">
+                            <i class="fas fa-check-circle"></i>
+                            <p>El equino debe mantener un manejo nutricional básico adecuado durante el periodo de evaluación</p>
+                        </div>
+                        <div class="condicion-item">
+                            <i class="fas fa-check-circle"></i>
+                            <p>No deben presentarse enfermedades graves diagnosticadas por veterinario durante el periodo</p>
+                        </div>
+                        <div class="condicion-item">
+                            <i class="fas fa-check-circle"></i>
+                            <p>El cliente debe mantener comunicación con el equipo técnico de BGOR durante el periodo de evaluación</p>
+                        </div>
+                        <div class="condicion-item">
+                            <i class="fas fa-check-circle"></i>
+                            <p>La solicitud de garantía debe presentarse dentro de los 7 días siguientes al cumplimiento de los 30 días</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Proceso de Reclamación -->
+            <div class="termino-card">
+                <div class="termino-header">
+                    <span class="numero">6</span>
+                    <h3>Proceso de Reclamación de Garantía</h3>
+                </div>
+                <div class="termino-content">
+                    <p>Para hacer efectiva la garantía, siga estos pasos:</p>
+
+                    <div class="proceso-steps">
+                        <div class="step">
+                            <div class="step-numero">1</div>
+                            <div class="step-content">
+                                <h4>Contacto Inicial</h4>
+                                <p>Comuníquese con nuestro equipo de soporte al finalizar los 30 días a través de WhatsApp:</p>
+                                <ul>
+                                    <li><i class="fab fa-whatsapp"></i> WhatsApp: <a href="https://linktr.ee/BgorOficial" target="_blank">Contactar</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-numero">2</div>
+                            <div class="step-content">
+                                <h4>Envío de Documentación</h4>
+                                <p>Envíe toda la documentación requerida (formato, fotografías, pesos, número de guía) en formato digital según se le indique.</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-numero">3</div>
+                            <div class="step-content">
+                                <h4>Evaluación Técnica</h4>
+                                <p>Nuestro equipo técnico evaluará la documentación en un plazo máximo de <strong>10 días hábiles</strong>.</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-numero">4</div>
+                            <div class="step-content">
+                                <h4>Resolución</h4>
+                                <p>Si la reclamación es aprobada, recibirás:</p>
+                                <div class="opciones-resolucion">
+                                    <div class="opcion">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                        <span>Devolución del 100% del dinero</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. Exclusiones -->
+            <div class="termino-card">
+                <div class="termino-header">
+                    <span class="numero">7</span>
+                    <h3>Exclusiones de la Garantía</h3>
+                </div>
+                <div class="termino-content">
+                    <p>La garantía NO aplica en los siguientes casos:</p>
+
+                    <div class="exclusiones-list">
+                        <div class="exclusion-item">
+                            <i class="fas fa-times-circle"></i>
+                            <p>Incumplimiento de las dosis indicadas o uso irregular del producto</p>
+                        </div>
+                        <div class="exclusion-item">
+                            <i class="fas fa-times-circle"></i>
+                            <p>Falta de fotografías, registros o documentación incompleta</p>
+                        </div>
+                        <div class="exclusion-item">
+                            <i class="fas fa-times-circle"></i>
+                            <p>Presencia de enfermedades diagnosticadas por veterinario durante el periodo</p>
+                        </div>
+                        <div class="exclusion-item">
+                            <i class="fas fa-times-circle"></i>
+                            <p>Manejo nutricional deficiente o condiciones sanitarias inadecuadas</p>
+                        </div>
+                        <div class="exclusion-item">
+                            <i class="fas fa-times-circle"></i>
+                            <p>Producto adquirido a través de canales no autorizados</p>
+                        </div>
+                        <div class="exclusion-item">
+                            <i class="fas fa-times-circle"></i>
+                            <p>Producto vencido o almacenado inadecuadamente</p>
+                        </div>
+                        <div class="exclusion-item">
+                            <i class="fas fa-times-circle"></i>
+                            <p>Casos fortuitos o de fuerza mayor (desastres naturales, accidentes, etc.)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. Acompañamiento Técnico -->
+            <div class="termino-card">
+                <div class="termino-header">
+                    <span class="numero">8</span>
+                    <h3>Acompañamiento Técnico Incluido</h3>
+                </div>
+                <div class="termino-content">
+                    <p>Durante los 30 días de la garantía, el cliente tiene acceso a:</p>
+
+                    <div class="acompanamiento-grid">
+                        <div class="acompanamiento-item">
+                            <i class="fas fa-user-md"></i>
+                            <h4>Asesoría Técnica</h4>
+                            <p>Consultas con nuestro equipo técnico para resolver dudas sobre dosificación y manejo</p>
+                        </div>
+                        <div class="acompanamiento-item">
+                            <i class="fas fa-phone-volume"></i>
+                            <h4>Soporte Continuo</h4>
+                            <p>Línea de atención disponible para seguimiento del proceso</p>
+                        </div>
+                        <div class="acompanamiento-item">
+                            <i class="fas fa-clipboard-check"></i>
+                            <h4>Revisión de Registros</h4>
+                            <p>Validación periódica de que los registros se estén llevando correctamente</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Sección de Descarga del Formato -->
+    <section class="descarga-formato">
+        <div class="container">
+            <div class="descarga-card">
+                <div class="descarga-icon">
+                    <i class="fas fa-file-download"></i>
+                </div>
+                <div class="descarga-content">
+                    <h3>Descarga el Formato de Seguimiento</h3>
+                    <p>Descarga el formato oficial de BGOR para registrar los datos de tu equino durante los 30 días de garantía.</p>
+                    <button class="btn-primary" onclick="descargarFormato()">
+                        <i class="fas fa-download"></i> Descargar Formato PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Contacto -->
+    <section class="contacto-garantia">
+        <div class="container">
+            <h2>¿Tienes dudas sobre la garantía?</h2>
+            <p>Escríbenos por WhatsApp y te acompañamos en todo el proceso</p>
+
+            <div class="contacto-opciones">
+                <a href="https://linktr.ee/BgorOficial" target="_blank" class="contacto-btn whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>Contactar por WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="assets/images/logo.png" alt="BGOR Logo">
+                    <p>Un producto de Laboratorios Fluxon</p>
+                </div>
+                <div class="footer-info">
+                    <p>&copy; 2025 BGOR. Todos los derechos reservados.</p>
+                    <p>Garantía de satisfacción respaldada por Laboratorios Fluxon</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
