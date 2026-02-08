@@ -137,7 +137,7 @@ function descargarFormato() {
     doc.setFontSize(10);
     doc.setTextColor(textColor[0], textColor[1], textColor[2]);
     doc.setFont(undefined, 'normal');
-    doc.text('Tipo de producto:  ☐ Poligástricos    ☐ Monogástricos', margin, currentY);
+    doc.text('Tipo de producto:  [ ] Poligástricos    [ ] Monogástricos', margin, currentY);
     currentY += 8;
 
     currentY = addFormField('Fecha de compra:', currentY);
@@ -155,7 +155,7 @@ function descargarFormato() {
     doc.setFontSize(10);
     doc.setTextColor(textColor[0], textColor[1], textColor[2]);
     doc.setFont(undefined, 'normal');
-    doc.text('Especie:  ☐ Bovinos  ☐ Porcinos  ☐ Equinos  ☐ Ovinos  ☐ Caprinos  ☐ Aves', margin, currentY);
+    doc.text('Especie:  [ ] Bovinos  [ ] Porcinos  [ ] Equinos  [ ] Ovinos  [ ] Caprinos  [ ] Aves', margin, currentY);
     currentY += 8;
 
     currentY = addFormField('Número total de animales en el lote:', currentY);
@@ -165,7 +165,7 @@ function descargarFormato() {
     doc.setFontSize(10);
     doc.setTextColor(textColor[0], textColor[1], textColor[2]);
     doc.setFont(undefined, 'normal');
-    doc.text('Propósito:  ☐ Leche  ☐ Carne  ☐ Levante  ☐ Reproducción', margin, currentY);
+    doc.text('Propósito:  [ ] Leche  [ ] Carne  [ ] Levante  [ ] Reproducción', margin, currentY);
     currentY += 10;
 
     // === PÁGINA 2: DOSIFICACIÓN Y MEDICIONES ===
@@ -204,17 +204,17 @@ function descargarFormato() {
 
     doc.setFont(undefined, 'normal');
     doc.setFontSize(10);
-    doc.text('☐ Producción de leche (litros/día)', margin + 5, currentY);
+    doc.text('[ ] Producción de leche (litros/día)', margin + 5, currentY);
     currentY += 6;
-    doc.text('☐ Ganancia de peso (kg)', margin + 5, currentY);
+    doc.text('[ ] Ganancia de peso (kg)', margin + 5, currentY);
     currentY += 6;
-    doc.text('☐ Consumo de alimento (kg/día)', margin + 5, currentY);
+    doc.text('[ ] Consumo de alimento (kg/día)', margin + 5, currentY);
     currentY += 6;
-    doc.text('☐ Condición corporal (escala 1-5)', margin + 5, currentY);
+    doc.text('[ ] Condición corporal (escala 1-5)', margin + 5, currentY);
     currentY += 6;
-    doc.text('☐ Recuperación posparto (días)', margin + 5, currentY);
+    doc.text('[ ] Recuperación posparto (días)', margin + 5, currentY);
     currentY += 6;
-    doc.text('☐ Desempeño del lote', margin + 5, currentY);
+    doc.text('[ ] Desempeño del lote', margin + 5, currentY);
     currentY += 10;
 
     // Mediciones iniciales
@@ -313,10 +313,10 @@ function descargarFormato() {
 
     const resultHeaders = ['Indicador', 'Día 0', 'Día 45', 'Mejora', '¿Mejoró?'];
     const resultRows = [
-        ['Leche', '', '', '', '☐ Sí  ☐ No'],
-        ['Peso', '', '', '', '☐ Sí  ☐ No'],
-        ['Consumo', '', '', '', '☐ Sí  ☐ No'],
-        ['Cond. Corp.', '', '', '', '☐ Sí  ☐ No']
+        ['Leche', '', '', '', '[ ] Sí  [ ] No'],
+        ['Peso', '', '', '', '[ ] Sí  [ ] No'],
+        ['Consumo', '', '', '', '[ ] Sí  [ ] No'],
+        ['Cond. Corp.', '', '', '', '[ ] Sí  [ ] No']
     ];
     currentY = addTable(resultHeaders, resultRows, currentY, 10);
 
