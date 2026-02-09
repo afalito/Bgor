@@ -118,6 +118,10 @@ async function procesarPago(event) {
                 } else {
                     window.location.href = '/pagos/confirmacion.html?status=pending&ref=' + reference;
                 }
+            } else {
+                // Usuario cerró el widget sin completar el pago
+                console.log('Pago cancelado por el usuario');
+                alert('Pago cancelado. Si tienes alguna duda, contáctanos por WhatsApp.');
             }
         });
 
