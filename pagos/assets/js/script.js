@@ -2,37 +2,11 @@
 const WOMPI_PUBLIC_KEY = 'pub_prod_nEQz86DNHu6WNWkdW4FNNjJhox1YPcee';
 
 // Elementos del DOM
-const productSelect = document.getElementById('productType');
-const quantityInput = document.getElementById('quantity');
-const totalDisplay = document.getElementById('totalDisplay');
 const paymentForm = document.getElementById('paymentForm');
 const btnPagar = document.getElementById('btnPagar');
 const loadingOverlay = document.getElementById('loadingOverlay');
-
-// Función para formatear precio
-function formatPrice(price) {
-    return new Intl.NumberFormat('es-CO', {
-        style: 'currency',
-        currency: 'COP',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-    }).format(price);
-}
-
-// Función para calcular y mostrar el total
-function updateTotal() {
-    const selectedOption = productSelect.options[productSelect.selectedIndex];
-    const price = parseInt(selectedOption.getAttribute('data-price')) || 0;
-    const quantity = parseInt(quantityInput.value) || 1;
-    const total = price * quantity;
-
-    totalDisplay.textContent = formatPrice(total);
-    return total;
-}
-
-// Event listeners para actualizar el total
-productSelect.addEventListener('change', updateTotal);
-quantityInput.addEventListener('input', updateTotal);
+const amountInput = document.getElementById('amount');
+const phoneInput = document.getElementById('phone');
 
 // Generar referencia única
 function generateReference() {
@@ -84,40 +58,36 @@ async function procesarPago(event) {
         return;
     }
 
+    // Validar que el monto sea válido
+    const amount = parseInt(amountInput.value);
+    if (isNaN(amount) || amount < 1000) {
+        alert('El valor mínimo de pago es $1.000 COP');
+        return;
+    }
+
     // Mostrar loading
     loadingOverlay.style.display = 'flex';
 
     try {
         // Obtener datos del formulario
-        const total = updateTotal();
-        const amountInCents = total * 100; // Wompi requiere el monto en centavos
+        const amountInCents = amount * 100; // Wompi requiere el monto en centavos
         const reference = generateReference();
+        const fullName = document.getElementById('fullName').value;
+        const phone = phoneInput.value;
 
         // Obtener la firma de seguridad
         const signature = await getSignature(reference, amountInCents);
 
-        // Preparar datos del cliente
+        // Generar email temporal basado en el teléfono
+        const tempEmail = `cliente${phone}@bgor.com.co`;
+
+        // Preparar datos del cliente (mínimos requeridos por Wompi)
         const customerData = {
-            email: document.getElementById('email').value,
-            fullName: document.getElementById('fullName').value,
-            phoneNumber: document.getElementById('phone').value,
-            phoneNumberPrefix: '+57',
-            legalId: document.getElementById('legalId').value,
-            legalIdType: document.getElementById('idType').value
+            email: tempEmail,
+            fullName: fullName,
+            phoneNumber: phone,
+            phoneNumberPrefix: '+57'
         };
-
-        // Preparar datos de envío
-        const shippingAddress = {
-            addressLine1: document.getElementById('address').value,
-            city: document.getElementById('city').value,
-            phoneNumber: document.getElementById('phoneShipping').value,
-            region: document.getElementById('region').value,
-            country: 'CO'
-        };
-
-        // Datos del producto seleccionado
-        const selectedOption = productSelect.options[productSelect.selectedIndex];
-        const productName = selectedOption.text;
 
         // Configurar checkout de Wompi
         const checkout = new WidgetCheckout({
@@ -129,12 +99,7 @@ async function procesarPago(event) {
                 integrity: signature
             },
             redirectUrl: window.location.origin + '/pagos/confirmacion.html',
-            customerData: customerData,
-            shippingAddress: shippingAddress,
-            taxInCents: {
-                vat: 0,
-                consumption: 0
-            }
+            customerData: customerData
         });
 
         // Abrir el widget de pago
@@ -167,6 +132,3 @@ async function procesarPago(event) {
 
 // Event listener para el formulario
 paymentForm.addEventListener('submit', procesarPago);
-
-// Inicializar el total en carga
-updateTotal();
