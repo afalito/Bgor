@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pagos Seguros - BGOR</title>
+    <meta name="description" content="Realiza tu pago de forma segura. Pagas directamente a FLUXON SAS, laboratorio productor de BGOR.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/O de B-GOR.png">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Wompi Widget -->
+    <script type="text/javascript" src="https://checkout.wompi.co/widget.js"></script>
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../assets/images/logo.png" alt="BGOR Logo">
+                </a>
+            </div>
+            <a href="../index.html" class="btn-volver">
+                <i class="fas fa-arrow-left"></i> Volver al inicio
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-pagos">
+        <div class="container">
+            <div class="hero-content">
+                <div class="seguridad-badge">
+                    <i class="fas fa-shield-check"></i>
+                    <span>Pago Seguro</span>
+                </div>
+                <h1>Completa tu Compra de Forma Segura</h1>
+                <p class="subtitle">Tu pedido de BGOR está casi listo</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Principal de Pago -->
+    <section class="pagos-section">
+        <div class="container">
+            <div class="pagos-grid">
+
+                <!-- Columna Izquierda: Información de Confianza -->
+                <div class="info-column">
+                    <div class="confianza-card">
+                        <div class="card-header">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>Información Importante de Seguridad</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="info-item">
+                                <i class="fas fa-check-circle"></i>
+                                <div>
+                                    <h4>Pago a Empresa Legalmente Constituida</h4>
+                                    <p>Tu pago se realizará directamente a <strong>FLUXON SAS</strong>, laboratorio farmacéutico productor y responsable de BGOR.</p>
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <i class="fas fa-building"></i>
+                                <div>
+                                    <h4>Datos de la Empresa</h4>
+                                    <p><strong>Razón Social:</strong> FLUXON SAS</p>
+                                    <p><strong>Producto:</strong> BGOR Suplementos Nutricionales</p>
+                                    <p><strong>País:</strong> Colombia</p>
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <i class="fas fa-lock"></i>
+                                <div>
+                                    <h4>Transacción 100% Segura</h4>
+                                    <p>Procesada a través de Wompi, plataforma de pagos certificada con estándares de seguridad bancaria.</p>
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <i class="fas fa-credit-card"></i>
+                                <div>
+                                    <h4>Métodos de Pago Aceptados</h4>
+                                    <p>Tarjetas de crédito, débito, PSE y Nequi</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sellos de Seguridad -->
+                    <div class="sellos-seguridad">
+                        <h4>Protección Garantizada</h4>
+                        <div class="sellos-grid">
+                            <div class="sello">
+                                <i class="fas fa-lock"></i>
+                                <span>SSL Seguro</span>
+                            </div>
+                            <div class="sello">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Certificado</span>
+                            </div>
+                            <div class="sello">
+                                <i class="fas fa-user-shield"></i>
+                                <span>Datos Protegidos</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aviso Importante -->
+                    <div class="aviso-importante">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div>
+                            <strong>¡Atención!</strong>
+                            <p>Siempre verifica que estés pagando a <strong>FLUXON SAS</strong>. BGOR nunca te solicitará pagos a cuentas personales o diferentes razones sociales.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Formulario de Pago -->
+                <div class="pago-column">
+                    <div class="pago-card">
+                        <div class="card-header">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h3>Resumen de tu Pedido</h3>
+                        </div>
+                        <div class="card-content">
+
+                            <!-- Formulario de Datos -->
+                            <form id="paymentForm" class="payment-form">
+
+                                <div class="form-group">
+                                    <label for="productType">
+                                        <i class="fas fa-box"></i> Producto
+                                    </label>
+                                    <select id="productType" required>
+                                        <option value="">Selecciona un producto</option>
+                                        <option value="mono-1kg" data-price="89900">BGOR Monogástricos 1kg - $89.900</option>
+                                        <option value="mono-promo" data-price="249900">BGOR Monogástricos Promo 3+1 - $249.900</option>
+                                        <option value="mono-12kg" data-price="624900">BGOR Monogástricos 12kg - $624.900</option>
+                                        <option value="poli-1kg" data-price="89900">BGOR Poligástricos 1kg - $89.900</option>
+                                        <option value="poli-promo" data-price="249900">BGOR Poligástricos Promo 3+1 - $249.900</option>
+                                        <option value="poli-12kg" data-price="624900">BGOR Poligástricos 12kg - $624.900</option>
+                                        <option value="equinos" data-price="149900">BGOR Equinos - $149.900</option>
+                                        <option value="potros" data-price="129900">BGOR Potros - $129.900</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="quantity">
+                                            <i class="fas fa-sort-numeric-up"></i> Cantidad
+                                        </label>
+                                        <input type="number" id="quantity" min="1" value="1" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Total</label>
+                                        <div class="total-display" id="totalDisplay">
+                                            $0
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="divider"></div>
+
+                                <h4 class="section-title">
+                                    <i class="fas fa-user"></i> Datos del Comprador
+                                </h4>
+
+                                <div class="form-group">
+                                    <label for="fullName">Nombre completo</label>
+                                    <input type="text" id="fullName" placeholder="Ej: Juan Pérez" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Correo electrónico</label>
+                                    <input type="email" id="email" placeholder="correo@ejemplo.com" required>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="phone">Teléfono</label>
+                                        <input type="tel" id="phone" placeholder="3001234567" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="idType">Tipo de documento</label>
+                                        <select id="idType" required>
+                                            <option value="CC">Cédula de Ciudadanía</option>
+                                            <option value="CE">Cédula de Extranjería</option>
+                                            <option value="NIT">NIT</option>
+                                            <option value="PP">Pasaporte</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="legalId">Número de documento</label>
+                                    <input type="text" id="legalId" placeholder="1234567890" required>
+                                </div>
+
+                                <div class="divider"></div>
+
+                                <h4 class="section-title">
+                                    <i class="fas fa-shipping-fast"></i> Dirección de Envío
+                                </h4>
+
+                                <div class="form-group">
+                                    <label for="address">Dirección completa</label>
+                                    <input type="text" id="address" placeholder="Calle 123 #45-67" required>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="city">Ciudad</label>
+                                        <input type="text" id="city" placeholder="Bogotá" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="region">Departamento</label>
+                                        <input type="text" id="region" placeholder="Cundinamarca" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="phoneShipping">Teléfono de contacto en destino</label>
+                                    <input type="tel" id="phoneShipping" placeholder="3001234567" required>
+                                </div>
+
+                                <div class="terminos-checkbox">
+                                    <input type="checkbox" id="acceptTerms" required>
+                                    <label for="acceptTerms">
+                                        Acepto los <a href="#" target="_blank">términos y condiciones</a> y autorizo el tratamiento de mis datos personales
+                                    </label>
+                                </div>
+
+                                <button type="submit" class="btn-pagar" id="btnPagar">
+                                    <i class="fas fa-lock"></i>
+                                    Proceder al Pago Seguro
+                                </button>
+
+                                <div class="info-envio">
+                                    <i class="fas fa-truck"></i>
+                                    <p>Envío GRATIS a todo Colombia</p>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="../assets/images/logo.png" alt="BGOR Logo">
+                    <p>Un producto de Laboratorios Fluxon</p>
+                </div>
+                <div class="footer-info">
+                    <p>&copy; 2025 BGOR - FLUXON SAS. Todos los derechos reservados.</p>
+                    <p>Pagos procesados de forma segura</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p>Procesando tu pago de forma segura...</p>
+            <small>No cierres esta ventana</small>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
