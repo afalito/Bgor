@@ -73,17 +73,15 @@ async function procesarPago(event) {
         const amountInCents = amount * 100; // Wompi requiere el monto en centavos
         const reference = generateReference();
         const fullName = document.getElementById('fullName').value;
+        const email = document.getElementById('email').value;
         const phone = phoneInput.value;
 
         // Obtener la firma de seguridad
         const signature = await getSignature(reference, amountInCents);
 
-        // Generar email temporal basado en el teléfono
-        const tempEmail = `cliente${phone}@bgor.com.co`;
-
         // Preparar datos del cliente (mínimos requeridos por Wompi)
         const customerData = {
-            email: tempEmail,
+            email: email,
             fullName: fullName,
             phoneNumber: phone,
             phoneNumberPrefix: '+57'
