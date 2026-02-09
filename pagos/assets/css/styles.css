@@ -1,15 +1,20 @@
-/* Variables CSS - Colores Corporativos BGOR */
+/* Variables CSS - Colores para Checkout Seguro */
 :root {
-    --primary-color: #FF6B00;
+    --primary-color: #4a5568;
+    --accent-color: #FF6B00;
     --secondary-color: #000000;
-    --text-color: #333333;
+    --text-color: #2d3748;
+    --text-light: #4a5568;
     --light-color: #FFFFFF;
-    --gray-light: #F5F5F5;
-    --gray-medium: #6c757d;
-    --success-color: #28a745;
-    --danger-color: #e74c3c;
-    --border-radius: 10px;
-    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --gray-light: #F7FAFC;
+    --gray-medium: #718096;
+    --gray-dark: #2d3748;
+    --success-color: #48bb78;
+    --warning-color: #ed8936;
+    --border-color: #e2e8f0;
+    --border-radius: 8px;
+    --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    --box-shadow-lg: 0 4px 6px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s ease;
 }
 
@@ -23,7 +28,7 @@ body {
     font-family: 'Roboto', sans-serif;
     color: var(--text-color);
     line-height: 1.6;
-    background: var(--gray-light);
+    background: #f8f9fa;
 }
 
 .container {
@@ -57,24 +62,26 @@ body {
     align-items: center;
     gap: 8px;
     padding: 10px 20px;
-    background: var(--primary-color);
+    background: transparent;
     color: white;
     text-decoration: none;
-    border-radius: var(--border-radius);
+    border-radius: 6px;
     font-weight: 500;
     transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: 0.9rem;
 }
 
 .btn-volver:hover {
-    background: #e05a00;
-    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 /* Hero Section */
 .hero-pagos {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
     color: white;
-    padding: 60px 0 40px;
+    padding: 50px 0 35px;
     text-align: center;
 }
 
@@ -82,27 +89,31 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 10px 25px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 8px 20px;
     border-radius: 50px;
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 0.95rem;
+    font-weight: 500;
     margin-bottom: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .seguridad-badge i {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    color: var(--success-color);
 }
 
 .hero-pagos h1 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     margin-bottom: 10px;
-    font-weight: 700;
+    font-weight: 600;
+    letter-spacing: -0.5px;
 }
 
 .subtitle {
-    font-size: 1.2rem;
-    opacity: 0.9;
+    font-size: 1.1rem;
+    opacity: 0.85;
+    font-weight: 400;
 }
 
 /* Sección de Pagos */
@@ -124,28 +135,35 @@ body {
     box-shadow: var(--box-shadow);
     overflow: hidden;
     margin-bottom: 20px;
+    border: 1px solid var(--border-color);
 }
 
 .card-header {
-    background: var(--gray-medium);
+    background: var(--gray-dark);
     color: white;
-    padding: 20px;
+    padding: 18px 20px;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
 }
 
 .card-header i {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
+    opacity: 0.9;
 }
 
 .card-header h3 {
-    font-size: 1.3rem;
+    font-size: 1.15rem;
     font-weight: 600;
+    letter-spacing: -0.3px;
 }
 
 .card-content {
-    padding: 25px;
+    padding: 24px;
+}
+
+.payment-form {
+    padding: 0;
 }
 
 .info-item {
@@ -163,26 +181,36 @@ body {
 }
 
 .info-item i {
-    font-size: 1.8rem;
-    color: var(--primary-color);
+    font-size: 1.5rem;
+    color: var(--gray-medium);
     flex-shrink: 0;
     margin-top: 3px;
 }
 
 .info-item h4 {
-    font-size: 1.1rem;
-    margin-bottom: 5px;
-    color: var(--secondary-color);
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: var(--gray-dark);
+    font-weight: 600;
 }
 
 .info-item p {
-    font-size: 0.95rem;
-    color: var(--text-color);
+    font-size: 0.93rem;
+    color: var(--text-light);
     margin-bottom: 5px;
+    line-height: 1.6;
 }
 
 .info-item strong {
-    color: var(--secondary-color);
+    color: var(--gray-dark);
+    font-weight: 600;
+}
+
+.info-item .info-note {
+    font-size: 0.88rem;
+    color: var(--gray-medium);
+    font-style: italic;
+    margin-top: 8px;
 }
 
 /* Sellos de Seguridad */
@@ -192,12 +220,15 @@ body {
     padding: 20px;
     box-shadow: var(--box-shadow);
     margin-bottom: 20px;
+    border: 1px solid var(--border-color);
 }
 
 .sellos-seguridad h4 {
     text-align: center;
     margin-bottom: 15px;
-    color: var(--secondary-color);
+    color: var(--gray-dark);
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 .sellos-grid {
@@ -214,65 +245,67 @@ body {
 }
 
 .sello i {
-    font-size: 2rem;
-    color: var(--success-color);
+    font-size: 1.8rem;
+    color: var(--gray-medium);
     margin-bottom: 8px;
 }
 
 .sello span {
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 500;
-    color: var(--text-color);
+    color: var(--text-light);
 }
 
 /* Aviso Importante */
 .aviso-importante {
-    background: #fff3cd;
-    border-left: 4px solid #ffc107;
-    padding: 15px;
-    border-radius: 5px;
+    background: #edf2f7;
+    border-left: 3px solid var(--gray-medium);
+    padding: 16px 18px;
+    border-radius: 6px;
     display: flex;
-    gap: 15px;
+    gap: 14px;
 }
 
 .aviso-importante i {
-    font-size: 1.5rem;
-    color: #ffc107;
+    font-size: 1.4rem;
+    color: var(--gray-medium);
     flex-shrink: 0;
+    margin-top: 2px;
 }
 
 .aviso-importante strong {
     display: block;
-    margin-bottom: 5px;
-    color: var(--secondary-color);
+    margin-bottom: 6px;
+    color: var(--gray-dark);
+    font-size: 0.95rem;
+    font-weight: 600;
 }
 
 .aviso-importante p {
-    font-size: 0.9rem;
-    color: var(--text-color);
+    font-size: 0.88rem;
+    color: var(--text-light);
+    line-height: 1.5;
 }
 
 /* Formulario de Pago */
 .pago-card {
     background: white;
     border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
+    box-shadow: var(--box-shadow-lg);
     overflow: hidden;
     position: sticky;
     top: 90px;
+    border: 1px solid var(--border-color);
 }
 
 .pago-card .card-header {
-    background: var(--primary-color);
+    background: var(--gray-dark);
 }
 
-.payment-form {
-    padding: 25px;
-}
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
 .form-row {
@@ -285,30 +318,46 @@ body {
     display: block;
     font-weight: 500;
     margin-bottom: 8px;
-    color: var(--secondary-color);
-    font-size: 0.95rem;
+    color: var(--gray-dark);
+    font-size: 0.9rem;
 }
 
 .form-group label i {
-    color: var(--primary-color);
-    margin-right: 5px;
+    color: var(--gray-medium);
+    margin-right: 6px;
+    font-size: 0.9rem;
 }
 
 .form-group input,
 .form-group select {
     width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 1rem;
+    padding: 12px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.95rem;
     transition: var(--transition);
     font-family: 'Roboto', sans-serif;
+    color: var(--text-color);
+    background: white;
 }
 
 .form-group input:focus,
 .form-group select:focus {
     outline: none;
-    border-color: var(--primary-color);
+    border-color: var(--gray-medium);
+    box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+}
+
+.form-group input::placeholder {
+    color: #a0aec0;
+}
+
+.form-group input:invalid:not(:placeholder-shown) {
+    border-color: #fc8181;
+}
+
+.form-group input:valid:not(:placeholder-shown) {
+    border-color: var(--success-color);
 }
 
 .total-display {
@@ -323,8 +372,8 @@ body {
 
 .divider {
     height: 1px;
-    background: var(--gray-light);
-    margin: 25px 0;
+    background: var(--border-color);
+    margin: 20px 0;
 }
 
 .section-title {
@@ -356,14 +405,16 @@ body {
 }
 
 .terminos-checkbox label {
-    font-size: 0.9rem;
-    color: var(--text-color);
+    font-size: 0.88rem;
+    color: var(--text-light);
     cursor: pointer;
+    line-height: 1.5;
 }
 
 .terminos-checkbox a {
-    color: var(--primary-color);
+    color: var(--accent-color);
     text-decoration: none;
+    font-weight: 500;
 }
 
 .terminos-checkbox a:hover {
@@ -372,12 +423,12 @@ body {
 
 .btn-pagar {
     width: 100%;
-    padding: 18px;
-    background: var(--primary-color);
+    padding: 16px;
+    background: var(--accent-color);
     color: white;
     border: none;
-    border-radius: var(--border-radius);
-    font-size: 1.2rem;
+    border-radius: 8px;
+    font-size: 1.05rem;
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
@@ -385,36 +436,41 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    letter-spacing: 0.3px;
 }
 
 .btn-pagar:hover {
     background: #e05a00;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(255, 107, 0, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.25);
 }
 
 .btn-pagar:disabled {
     background: var(--gray-medium);
     cursor: not-allowed;
     transform: none;
+    opacity: 0.6;
 }
 
 .info-envio {
     text-align: center;
     margin-top: 15px;
-    padding: 10px;
-    background: #d4edda;
-    border-radius: 8px;
-    color: var(--success-color);
+    padding: 12px;
+    background: var(--gray-light);
+    border-radius: 6px;
+    color: var(--text-light);
     font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color);
 }
 
 .info-envio i {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    color: var(--gray-medium);
 }
 
 /* Loading Overlay */
