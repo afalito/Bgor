@@ -15,6 +15,16 @@ function generateReference() {
     return `BGOR-${timestamp}-${random}`;
 }
 
+// Codificar datos de pago en Base64 para ofuscar URL
+function encodePaymentData(status, reference, amount) {
+    const data = {
+        s: status,
+        r: reference,
+        a: amount
+    };
+    return btoa(JSON.stringify(data));
+}
+
 // Función para obtener la firma desde Netlify Function
 async function getSignature(reference, amountInCents) {
     try {
@@ -110,14 +120,16 @@ async function procesarPago(event) {
                 const transaction = result.transaction;
                 console.log('Transacción:', transaction);
 
-                // Redirigir según el estado
+                // Redirigir según el estado con datos codificados
+                let status = 'pending';
                 if (transaction.status === 'APPROVED') {
-                    window.location.href = '/pagos/confirmacion.html?status=success&ref=' + reference;
+                    status = 'success';
                 } else if (transaction.status === 'DECLINED') {
-                    window.location.href = '/pagos/confirmacion.html?status=declined&ref=' + reference;
-                } else {
-                    window.location.href = '/pagos/confirmacion.html?status=pending&ref=' + reference;
+                    status = 'declined';
                 }
+
+                const encodedData = encodePaymentData(status, reference, amount);
+                window.location.href = '/pagos/confirmacion.html?d=' + encodedData;
             } else {
                 // Usuario cerró el widget sin completar el pago
                 console.log('Pago cancelado por el usuario');

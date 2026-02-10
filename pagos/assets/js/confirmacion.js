@@ -1,10 +1,32 @@
-// Obtener parámetros de URL
-function getUrlParams() {
+// Decodificar datos de pago desde Base64
+function decodePaymentData() {
     const params = new URLSearchParams(window.location.search);
-    return {
-        status: params.get('status') || 'pending',
-        ref: params.get('ref') || 'N/A'
-    };
+    const encoded = params.get('d');
+
+    if (!encoded) {
+        // Fallback para URLs antiguas sin codificar
+        return {
+            status: params.get('status') || 'pending',
+            ref: params.get('ref') || 'N/A',
+            amount: null
+        };
+    }
+
+    try {
+        const decoded = JSON.parse(atob(encoded));
+        return {
+            status: decoded.s || 'pending',
+            ref: decoded.r || 'N/A',
+            amount: decoded.a || null
+        };
+    } catch (error) {
+        console.error('Error decodificando datos:', error);
+        return {
+            status: 'pending',
+            ref: 'N/A',
+            amount: null
+        };
+    }
 }
 
 // Configuración de estados
@@ -44,9 +66,19 @@ const ESTADOS = {
     }
 };
 
+// Formatear monto en COP
+function formatAmount(amount) {
+    if (!amount) return null;
+    return new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: 'COP',
+        minimumFractionDigits: 0
+    }).format(amount);
+}
+
 // Actualizar contenido de la página
 function actualizarContenido() {
-    const params = getUrlParams();
+    const params = decodePaymentData();
     const estado = ESTADOS[params.status] || ESTADOS.pending;
 
     // Actualizar icono
@@ -60,6 +92,14 @@ function actualizarContenido() {
 
     // Actualizar referencia
     document.getElementById('refNumber').textContent = params.ref;
+
+    // Actualizar monto si existe
+    const montoElement = document.getElementById('montoNumber');
+    if (params.amount && montoElement) {
+        const formattedAmount = formatAmount(params.amount);
+        montoElement.textContent = formattedAmount;
+        document.getElementById('montoBox').style.display = 'block';
+    }
 
     // Actualizar instrucciones
     const instruccionesHtml = estado.instrucciones

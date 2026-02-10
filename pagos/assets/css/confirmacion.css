@@ -67,7 +67,7 @@
     border: 2px dashed var(--border-color);
     border-radius: 8px;
     padding: 20px;
-    margin: 30px 0;
+    margin: 15px 0;
 }
 
 .ref-label {
@@ -83,6 +83,12 @@
     color: var(--gray-dark);
     font-family: 'Courier New', monospace;
     letter-spacing: 1px;
+}
+
+.monto-number {
+    font-size: 1.8rem;
+    color: var(--accent-color);
+    font-family: 'Roboto', sans-serif;
 }
 
 /* Instrucciones */
