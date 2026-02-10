@@ -109,12 +109,9 @@ function actualizarContenido() {
     const instruccionesContainer = document.getElementById('instrucciones');
     instruccionesContainer.querySelector('ul').innerHTML = instruccionesHtml;
 
-    // Actualizar enlace de WhatsApp con la referencia
-    const btnWhatsapp = document.getElementById('btnWhatsapp');
-    const mensaje = encodeURIComponent(`Hola, acabo de realizar un pago en BGOR. Mi referencia es: ${params.ref}`);
-    btnWhatsapp.href = `https://wa.me/573022491916?text=${mensaje}`;
-
+    // El botón siempre apunta al LinkTree, no necesita cambios dinámicos
     // Si el pago fue declinado, cambiar el texto del botón
+    const btnWhatsapp = document.getElementById('btnWhatsapp');
     if (params.status === 'declined') {
         btnWhatsapp.innerHTML = '<i class="fab fa-whatsapp"></i> Contactar Soporte';
     }
