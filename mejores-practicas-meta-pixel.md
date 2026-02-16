@@ -1,4 +1,4 @@
-# 📘 Mejores Prácticas - Meta Pixel de Facebook
+c# 📘 Mejores Prácticas - Meta Pixel de Facebook
 
 > Documentación completa de implementación, eventos, códigos y aprendizajes para BGOR
 
