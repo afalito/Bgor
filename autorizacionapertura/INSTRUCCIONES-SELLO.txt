@@ -1,0 +1,35 @@
+═══════════════════════════════════════════════════════════════════════
+  INSTRUCCIONES PARA AGREGAR EL SELLO DE FLUXON SAS
+═══════════════════════════════════════════════════════════════════════
+
+Para que el sello oficial de FLUXON SAS aparezca en los PDFs generados:
+
+📍 UBICACIÓN DEL ARCHIVO:
+   Guarda la imagen del sello en esta ruta exacta:
+
+   autorizacionapertura/assets/sello-fluxon.png
+
+📋 ESPECIFICACIONES DE LA IMAGEN:
+   - Formato: PNG
+   - Fondo: Transparente (recomendado)
+   - Tamaño: 500x500 pixeles o similar (cuadrado)
+   - Nombre exacto: sello-fluxon.png
+
+🖼️  IMAGEN DEL SELLO:
+   La imagen del sello que compartiste muestra:
+   - Texto circular: "FLUXON SAS"
+   - En el centro: "NIT 901762720-2"
+   - Diseño circular tipo estampilla
+
+📝 NOTA IMPORTANTE:
+   El sistema tiene un fallback automático: si no encuentra el sello,
+   usará el logo de BGOR como respaldo, así que la página funcionará
+   de todas formas.
+
+✅ PARA VERIFICAR:
+   1. Abre la página: bgor.com.co/autorizacionapertura
+   2. Completa el formulario con datos de prueba
+   3. Genera el PDF
+   4. Verifica que el sello aparezca en la esquina inferior derecha
+
+═══════════════════════════════════════════════════════════════════════

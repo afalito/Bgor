@@ -1,0 +1,23 @@
+══════════════════════════════════════════════════════════════════
+ IMPORTANTE: AGREGAR SELLO DE FLUXON SAS
+══════════════════════════════════════════════════════════════════
+
+Para que el sello aparezca en los PDFs generados:
+
+1. Guarda la imagen del sello (que me compartiste) en esta carpeta con el nombre:
+
+   sello-fluxon.png
+
+2. La ruta completa debe ser:
+
+   autorizacionapertura/assets/sello-fluxon.png
+
+3. El sello que compartiste muestra:
+   - Texto circular: "FLUXON SAS"
+   - Centro: "NIT 901762720-2"
+   - Diseño circular tipo estampilla
+
+══════════════════════════════════════════════════════════════════
+NOTA: Si no agregas el sello, el sistema usará el logo de BGOR
+como respaldo y la página funcionará normalmente.
+══════════════════════════════════════════════════════════════════
