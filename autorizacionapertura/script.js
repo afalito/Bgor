@@ -11,16 +11,29 @@ let generatedPDF = null;
 // Función para convertir imagen a Base64
 async function getImageBase64(imagePath) {
     try {
+        console.log('Intentando cargar imagen:', imagePath);
         const response = await fetch(imagePath);
+
+        if (!response.ok) {
+            console.error('Error en respuesta:', response.status, response.statusText);
+            return null;
+        }
+
         const blob = await response.blob();
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
-            reader.onloadend = () => resolve(reader.result);
-            reader.onerror = reject;
+            reader.onloadend = () => {
+                console.log('Imagen cargada exitosamente:', imagePath);
+                resolve(reader.result);
+            };
+            reader.onerror = (error) => {
+                console.error('Error en FileReader:', error);
+                reject(error);
+            };
             reader.readAsDataURL(blob);
         });
     } catch (error) {
-        console.error('Error cargando imagen:', error);
+        console.error('Error cargando imagen:', imagePath, error);
         return null;
     }
 }
@@ -57,24 +70,30 @@ async function generarPDF(datos) {
     });
 
     // Cargar imágenes
-    let logoFluxon = await getImageBase64('./assets/logo-fluxon.png');
+    console.log('Iniciando carga de logo...');
+    let logoFluxon = await getImageBase64('./assets/logo-fluxon-feria.png');
     if (!logoFluxon) {
-        logoFluxon = await getImageBase64('../assets/images/logo.png'); // Fallback a logo BGOR
+        console.log('Intentando logo alternativo...');
+        logoFluxon = await getImageBase64('./assets/logo-fluxon.png'); // Fallback
     }
+    console.log('Logo cargado:', logoFluxon ? 'SÍ' : 'NO');
+
     const selloFluxon = datos.selloBase64;
+    console.log('Sello recibido:', selloFluxon ? 'SÍ' : 'NO');
 
     const pageWidth = doc.internal.pageSize.getWidth();
     const margin = 20;
     const contentWidth = pageWidth - (margin * 2);
-    let yPosition = 20;
+    let yPosition = 15;
 
-    // Logo de Fluxon (parte superior centrado)
+    // Logo de Fluxon como membrete (superior derecha, pequeño)
     if (logoFluxon) {
-        const logoWidth = 50;
-        const logoHeight = 15;
-        doc.addImage(logoFluxon, 'PNG', (pageWidth - logoWidth) / 2, yPosition, logoWidth, logoHeight);
+        const logoWidth = 35;
+        const logoHeight = 10;
+        const logoX = pageWidth - margin - logoWidth;
+        doc.addImage(logoFluxon, 'PNG', logoX, yPosition, logoWidth, logoHeight);
     }
-    yPosition += 22;
+    yPosition += 20;
 
     // Título del documento
     doc.setFontSize(16);
@@ -238,12 +257,15 @@ form.addEventListener('submit', async (e) => {
 
     try {
         // Cargar el sello de Fluxon SAS
+        console.log('Iniciando carga del sello...');
         const selloPath = './assets/sello-fluxon.png';
         const sello = await getImageBase64(selloPath);
 
         if (sello) {
+            console.log('Sello cargado correctamente');
             formData.selloBase64 = sello;
         } else {
+            console.warn('No se pudo cargar el sello, intentando fallback...');
             // Fallback: usar el logo de BGOR
             formData.selloBase64 = await getImageBase64('../assets/images/logo.png');
         }
