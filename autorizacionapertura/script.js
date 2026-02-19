@@ -11,29 +11,18 @@ let generatedPDF = null;
 // Función para convertir imagen a Base64
 async function getImageBase64(imagePath) {
     try {
-        console.log('Intentando cargar imagen:', imagePath);
         const response = await fetch(imagePath);
-
-        if (!response.ok) {
-            console.error('Error en respuesta:', response.status, response.statusText);
-            return null;
-        }
+        if (!response.ok) return null;
 
         const blob = await response.blob();
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
-            reader.onloadend = () => {
-                console.log('Imagen cargada exitosamente:', imagePath);
-                resolve(reader.result);
-            };
-            reader.onerror = (error) => {
-                console.error('Error en FileReader:', error);
-                reject(error);
-            };
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
             reader.readAsDataURL(blob);
         });
     } catch (error) {
-        console.error('Error cargando imagen:', imagePath, error);
+        console.error('Error cargando imagen:', error);
         return null;
     }
 }
@@ -71,16 +60,12 @@ async function generarPDF(datos) {
     });
 
     // Cargar imágenes
-    console.log('Iniciando carga de logo...');
     let logoFluxon = await getImageBase64('./assets/logo-fluxon-feria.png');
     if (!logoFluxon) {
-        console.log('Intentando logo alternativo...');
         logoFluxon = await getImageBase64('./assets/logo-fluxon.png'); // Fallback
     }
-    console.log('Logo cargado:', logoFluxon ? 'SÍ' : 'NO');
 
     const selloFluxon = datos.selloBase64;
-    console.log('Sello recibido:', selloFluxon ? 'SÍ' : 'NO');
 
     const pageWidth = doc.internal.pageSize.getWidth();
     const margin = 20;
@@ -95,7 +80,8 @@ async function generarPDF(datos) {
         const logoWidth = 35;
         const logoHeight = 10;
         const logoX = pageWidth - margin - logoWidth;
-        doc.addImage(logoFluxon, 'PNG', logoX, yPosition, logoWidth, logoHeight);
+        // Usar JPEG con compresión para reducir tamaño del PDF
+        doc.addImage(logoFluxon, 'JPEG', logoX, yPosition, logoWidth, logoHeight, undefined, 'MEDIUM');
     }
     yPosition += 20;
 
@@ -159,7 +145,10 @@ async function generarPDF(datos) {
             0: { cellWidth: 60, fontStyle: 'bold' },
             1: { cellWidth: 110 }
         },
-        margin: { left: margin, right: margin }
+        margin: { left: margin, right: margin },
+        // Optimización adicional
+        tableLineColor: [0, 0, 0],
+        tableLineWidth: 0.1
     });
 
     yPosition = doc.lastAutoTable.finalY + 10;
@@ -229,8 +218,8 @@ async function generarPDF(datos) {
         const selloX = pageWidth - margin - selloSize - 10;
         const selloY = firmaStartY - 10;
 
-        // Agregar sello con opacidad
-        doc.addImage(selloFluxon, 'PNG', selloX, selloY, selloSize, selloSize);
+        // Agregar sello con compresión JPEG para PDF más liviano
+        doc.addImage(selloFluxon, 'JPEG', selloX, selloY, selloSize, selloSize, undefined, 'MEDIUM');
     }
 
     return doc;
@@ -261,15 +250,12 @@ form.addEventListener('submit', async (e) => {
 
     try {
         // Cargar el sello de Fluxon SAS
-        console.log('Iniciando carga del sello...');
         const selloPath = './assets/sello-fluxon.png';
         const sello = await getImageBase64(selloPath);
 
         if (sello) {
-            console.log('Sello cargado correctamente');
             formData.selloBase64 = sello;
         } else {
-            console.warn('No se pudo cargar el sello, intentando fallback...');
             // Fallback: usar el logo de BGOR
             formData.selloBase64 = await getImageBase64('../assets/images/logo.png');
         }
