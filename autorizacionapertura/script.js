@@ -66,7 +66,8 @@ async function generarPDF(datos) {
     const doc = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
-        format: 'a4'
+        format: 'a4',
+        compress: true
     });
 
     // Cargar imágenes
@@ -85,6 +86,9 @@ async function generarPDF(datos) {
     const margin = 20;
     const contentWidth = pageWidth - (margin * 2);
     let yPosition = 15;
+
+    // Configurar compresión de imágenes para PDF más ligero
+    doc.compress = true;
 
     // Logo de Fluxon como membrete (superior derecha, pequeño)
     if (logoFluxon) {
