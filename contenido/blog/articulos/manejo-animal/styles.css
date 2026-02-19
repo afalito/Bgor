@@ -60,49 +60,78 @@ body {
     height: 35px;
 }
 
-.menu-toggle {
-    display: block;
-    font-size: 1.5rem;
-    color: var(--light-color);
-    cursor: pointer;
-    z-index: 1001;
-}
-
 .nav-menu {
-    position: fixed;
-    top: 60px;
-    left: -100%;
-    width: 80%;
-    max-width: 300px;
-    height: calc(100vh - 60px);
-    background-color: var(--secondary-color);
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 30px 20px;
-    transition: left 0.3s ease;
+    display: flex;
     list-style: none;
-}
-
-.nav-menu.active {
-    left: 0;
-}
-
-.nav-menu li {
-    margin: 15px 0;
-    width: 100%;
+    gap: 30px;
+    align-items: center;
 }
 
 .nav-menu a {
     color: var(--light-color);
-    font-weight: 500;
     text-decoration: none;
-    display: block;
-    padding: 10px;
+    font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .nav-menu a:hover {
     color: var(--primary-color);
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    list-style: none;
+    padding: 10px 0;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu li {
+    padding: 0;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 12px 20px;
+    color: var(--light-color);
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+    background-color: rgba(255, 107, 0, 0.1);
+    color: var(--primary-color);
+}
+
+.menu-toggle {
+    display: none;
+    color: var(--light-color);
+    font-size: 24px;
+    cursor: pointer;
 }
 
 /* Hero del Artículo - REDISEÑADO */
@@ -1040,6 +1069,39 @@ figcaption {
 }
 
 @media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 60px;
+        left: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: calc(100vh - 60px);
+        background-color: var(--secondary-color);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 30px 20px;
+        transition: left 0.3s ease;
+        gap: 0;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-menu li {
+        margin: 15px 0;
+        width: 100%;
+    }
+
+    .nav-menu a {
+        display: block;
+        padding: 10px;
+    }
+
     .dropdown-menu {
         position: static;
         width: 100%;
@@ -1050,6 +1112,9 @@ figcaption {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.3s ease;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
     }
 
     .dropdown.active .dropdown-menu {
