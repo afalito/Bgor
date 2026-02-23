@@ -41,6 +41,12 @@
   force = true
 
 [[redirects]]
+  from = "/equinos"
+  to = "/productos/equinos/"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/equinos/*"
   to = "/productos/equinos/:splat"
   status = 301

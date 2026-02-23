@@ -541,55 +541,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         /* ===========================
            BENEFICIOS
         =========================== */
-        .benefits {
-            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+        /* ===========================
+           SECCIÓN CAMPEÓN
+        =========================== */
+        .campeon-section {
+            background: linear-gradient(180deg, #111111 0%, #1a1a1a 100%);
+            padding-top: 40px;
+            padding-bottom: 40px;
         }
 
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
-            margin-top: 25px;
+        .campeon-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .benefit-card {
-            background: white;
-            padding: 20px 16px;
-            border-radius: 14px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            border-top: 3px solid #FF5700;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-
-        .benefit-icon {
-            width: 50px;
-            height: 50px;
-            margin: 0 auto 15px;
-        }
-
-        .benefit-icon img {
+        .campeon-img {
             width: 100%;
-            height: 100%;
-            object-fit: contain;
+            max-width: 520px;
+            height: auto;
+            border-radius: 18px;
+            display: block;
+            box-shadow:
+                0 0 0 2px rgba(255, 87, 0, 0.35),
+                0 8px 40px rgba(255, 87, 0, 0.22),
+                0 20px 60px rgba(0, 0, 0, 0.6);
         }
 
-        .benefit-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: #1a1a2e;
-            margin-bottom: 8px;
-        }
-
-        .benefit-text {
-            font-size: 12px;
-            color: #666;
-            line-height: 1.5;
+        @media (min-width: 600px) {
+            .campeon-img {
+                border-radius: 22px;
+            }
         }
 
         /* ===========================
@@ -3414,46 +3396,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="carousel-tagline">No lo decimos nosotros, lo dicen los resultados</p>
     </section>
 
-    <!-- Beneficios -->
-    <section class="section benefits">
-        <h2 class="section-title">Lo Que Vas a Ver en Tu Caballo</h2>
-        <p class="section-subtitle">Cambios reales en 4-6 semanas. Comprobado por miles de criadores.</p>
-
-        <div class="benefits-grid">
-            <div class="benefit-card">
-                <div class="benefit-icon">
-                    <img src="assets/images/ICONO AMINOACIDOS.png" alt="Aminoácidos para Masa Muscular Equina" loading="eager" decoding="async">
-                </div>
-                <h3 class="benefit-title">Mejora Visible en Condición Corporal</h3>
-                <p class="benefit-text">Gracias a aminoácidos esenciales que construyen masa muscular magra</p>
-            </div>
-
-            <div class="benefit-card">
-                <div class="benefit-icon">
-                    <img src="assets/images/ICONO PROBIOTICOS.png" alt="Probióticos Microencapsulados para Digestión Equina" loading="eager" decoding="async">
-                </div>
-                <h3 class="benefit-title">Aprovecha Cada Gramo de Alimento</h3>
-                <p class="benefit-text">Gracias a probióticos microencapsulados que llegan vivos al intestino</p>
-            </div>
-
-            <div class="benefit-card">
-                <div class="benefit-icon">
-                    <img src="assets/images/ICONO-COBRE.png" alt="Cobre Quelado para Respuesta Inmune y Antioxidante" loading="eager" decoding="async">
-                </div>
-                <h3 class="benefit-title">Defensas Fuertes y Protección</h3>
-                <p class="benefit-text">Gracias a minerales quelados que potencian respuesta inmune y función antioxidante</p>
-            </div>
-
-            <div class="benefit-card">
-                <div class="benefit-icon">
-                    <img src="assets/images/ICONI VITAMINAS.png" alt="Vitaminas y Antioxidantes para Pelaje Brillante en Equinos" loading="eager" decoding="async">
-                </div>
-                <h3 class="benefit-title">Pelaje Brillante Que Da Orgullo</h3>
-                <p class="benefit-text">Gracias a vitaminas y omegas que nutren desde adentro</p>
-            </div>
+    <!-- Imagen Campeón -->
+    <section class="section campeon-section">
+        <div class="campeon-wrapper">
+            <img
+                src="assets/images/campeon-landing.jpg"
+                alt="Nutrición de Campeón - B-GOR Equinos Fórmula Exclusiva Uso Veterinario"
+                class="campeon-img"
+                width="800"
+                height="800"
+                loading="lazy"
+                decoding="async"
+            >
         </div>
-
-        <div style="text-align: center; margin-top: 30px;">
+        <div style="text-align: center; margin-top: 32px;">
             <button onclick="openCheckout()" class="cta-primary">
                 <i class="fas fa-truck"></i> PEDIR AHORA CON ENVÍO GRATIS
             </button>

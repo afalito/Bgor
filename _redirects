@@ -6,6 +6,7 @@
 /suplementacion-errores.html  /contenido/guias/suplementacion.html  301
 
 # Equinos
+/equinos    /productos/equinos/        301
 /equinos/*  /productos/equinos/:splat  301
 
 # Fichas técnicas
