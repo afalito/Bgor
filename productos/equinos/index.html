@@ -4549,7 +4549,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const payload = Object.fromEntries(snapshot.entries());
             payload.formName = formName;
             payload.pagina = window.location.href;
-            fetch(GAS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) }).catch(() => {});
+            fetch(GAS_URL + '?' + new URLSearchParams(payload).toString(), { method: 'GET', mode: 'no-cors' }).catch(() => {});
         }
 
         // Handle checkout submission
