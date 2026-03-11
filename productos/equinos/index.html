@@ -4652,32 +4652,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 body: new URLSearchParams(checkoutSnapshot).toString()
             })
             .then(() => {
+                console.log('[DEBUG] .then() ejecutado - Netlify OK');
                 // ✅ SOLO disparar Purchase después de envío exitoso
                 // Verificar que no se haya disparado ya (prevenir duplicados por recarga)
                 const alreadyFired = sessionStorage.getItem('purchase_' + purchaseEventID);
 
-                if (typeof fbq !== 'undefined' && totalValue > 0 && !alreadyFired) {
-                    fbq('track', 'Purchase', {
-                        content_name: contentNames.join(', ') + (hasPriorityShipping ? ' + Envío Prioritario' : ''),
-                        content_ids: contentIds,
-                        content_type: 'product',
-                        value: totalValue, // Valor completo en COP (incluye envío prioritario si aplica)
-                        currency: 'COP',
-                        num_items: contentIds.length
-                    }, { eventID: purchaseEventID });
-
-                    // Marcar como disparado para prevenir duplicados
-                    sessionStorage.setItem('purchase_' + purchaseEventID, 'true');
+                try {
+                    if (typeof fbq !== 'undefined' && totalValue > 0 && !alreadyFired) {
+                        fbq('track', 'Purchase', {
+                            content_name: contentNames.join(', ') + (hasPriorityShipping ? ' + Envío Prioritario' : ''),
+                            content_ids: contentIds,
+                            content_type: 'product',
+                            value: totalValue,
+                            currency: 'COP',
+                            num_items: contentIds.length
+                        }, { eventID: purchaseEventID });
+                        sessionStorage.setItem('purchase_' + purchaseEventID, 'true');
+                    }
+                } catch(fbqErr) {
+                    console.warn('[DEBUG] fbq error (ignorado):', fbqErr);
                 }
 
+                console.log('[DEBUG] Llamando sendToGoogleSheets...');
                 sendToGoogleSheets(checkoutSnapshot, 'pedido-bgor');
                 closeCheckout();
                 showSuccessPopup();
                 form.reset();
             })
             .catch((error) => {
+                console.error('[DEBUG] .catch() - fetch falló:', error);
                 alert('Error al enviar el pedido. Por favor intenta de nuevo.');
-                // ⚠️ NO disparar Purchase si hubo error
             });
 
             return false;
