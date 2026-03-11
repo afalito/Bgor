@@ -4548,11 +4548,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const payload = Object.fromEntries(snapshot.entries());
             payload.formName = formName;
             payload.pagina = window.location.href;
+            console.log('[Sheets] Enviando a función:', formName, payload);
             fetch('/.netlify/functions/save-to-sheets', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams(payload).toString()
-            }).catch(() => {});
+            })
+            .then(res => res.text().then(body => console.log('[Sheets] Respuesta:', res.status, body)))
+            .catch(err => console.error('[Sheets] Error:', err));
         }
 
         // Handle checkout submission
