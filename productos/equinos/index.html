@@ -4543,6 +4543,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             }
         });
 
+        // Google Sheets integration (fire-and-forget, no bloquea la UX)
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbz3ayUuYOWpUPjekIxyvdrRFY-xIcTZQcCERumfkFJKjCBZ-r6-q2jxKiJhqDZdCpIM/exec';
+        function sendToGoogleSheets(snapshot, formName) {
+            const payload = Object.fromEntries(snapshot.entries());
+            payload.formName = formName;
+            payload.pagina = window.location.href;
+            fetch(GAS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) }).catch(() => {});
+        }
+
         // Handle checkout submission
         function handleCheckout(event) {
             event.preventDefault();
@@ -4630,10 +4639,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             // Generar eventID único para este pedido
             const purchaseEventID = generateEventID();
 
+            const checkoutSnapshot = new FormData(form);
             fetch('/', {
                 method: 'POST',
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(new FormData(form)).toString()
+                body: new URLSearchParams(checkoutSnapshot).toString()
             })
             .then(() => {
                 // ✅ SOLO disparar Purchase después de envío exitoso
@@ -4654,6 +4664,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     sessionStorage.setItem('purchase_' + purchaseEventID, 'true');
                 }
 
+                sendToGoogleSheets(checkoutSnapshot, 'pedido-bgor');
                 closeCheckout();
                 showSuccessPopup();
                 form.reset();
@@ -4675,10 +4686,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             const leadEventID = generateEventID();
 
             // Enviar formulario a Netlify
+            const contactSnapshot = new FormData(form);
             fetch('/', {
                 method: 'POST',
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(new FormData(form)).toString()
+                body: new URLSearchParams(contactSnapshot).toString()
             })
             .then(() => {
                 // ✅ Disparar Lead solo después de envío exitoso
@@ -4689,6 +4701,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     }, { eventID: leadEventID });
                 }
 
+                sendToGoogleSheets(contactSnapshot, 'contacto-bgor-equinos');
                 showSuccessPopup(
                     '¡Mensaje Recibido!',
                     'Gracias por contactarnos. Te responderemos lo antes posible para resolver todas tus dudas sobre B-GOR Equinos.',
