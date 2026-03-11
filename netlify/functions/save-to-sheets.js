@@ -1,17 +1,13 @@
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbz3ayUuYOWpUPjekIxyvdrRFY-xIcTZQcCERumfkFJKjCBZ-r6-q2jxKiJhqDZdCpIM/exec';
+
 exports.handler = async (event, context) => {
     if (event.httpMethod !== 'POST') {
         return { statusCode: 405, body: 'Method Not Allowed' };
     }
 
-    const sheetsUrl = process.env.GOOGLE_SHEETS_URL;
-    if (!sheetsUrl) {
-        console.error('GOOGLE_SHEETS_URL no configurado');
-        return { statusCode: 500, body: JSON.stringify({ error: 'GOOGLE_SHEETS_URL not set' }) };
-    }
-
     try {
         const params = new URLSearchParams(event.body);
-        const getUrl = `${sheetsUrl}?${params.toString()}`;
+        const getUrl = `${SHEETS_URL}?${params.toString()}`;
 
         const response = await fetch(getUrl, {
             method: 'GET',
