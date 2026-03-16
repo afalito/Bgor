@@ -1,0 +1,35 @@
+En este repositorio hay una landing que ya esta en produccion, se llama BGOR.COM.CO. pero en esta carpeta vamos a trabajar en BGOR.COM.CO/ANIVERSARIO. uan nueva pagina. necesito que me ayudes a vibecodear una website que sera una ruleta por el aniversario 2 años de BGOR. 
+Increibles obsequios y descuentos, como se muestra en la tabla.
+
+
+Item	Posibles obsequios	Frecuencia 	Costo Luxus	Creativo?
+Compras mayores a $149.900	parches homeopaticos	95%	 $0	ok
+	descuento 10%	5,00%		ok
+				
+Compras desde  $249.900	Set recipientes nevera	17%		ok
+	Espuma blanqueadora dental	25%	 $5.450	ok
+	Masajeador mariposa	13%	 $4.975	ok
+	Bono $20.000	10%	-	ok
+	Bono $30.000	15%	-	ok
+	Fumigadora 2L	20%	 $13.900	ok
+Compras desde $374.000	Bono moto DR SUZUKI 150 CERO KM	Todos	-	
+	Bono Sorteo Ternero	Todos	-	
+	Kzador	24%	 $30.000	ok
+	Fumigadora 2L	24%	 $13.900	ok
+	Kilo Bgor a elección	23%	-	ok
+	Vitalkor	24%	 $21.500	
+	Bono $40.000	5%		
+
+
+	Estimulante: La idea es que esta pagina sea una experiencia altamente estimulante para el usuario.
+	Dinamica: Como puedes ver hay 3 escalafones de premios, de acuerdo al precio de compra. la persona desde que nos pregunta por informacion del producto, le enviaremos la ruleta para que pueda jugar, pero ya que son 3 escalafones, ayudame a pensar una excelente UIX y UI para que jueguen los 3 escalafones a la vez, y al final, mostrarle los 3 posibles premios que gano de acuerdo a lo que compre. la idea es que pueda verlo todo en una pantalla ya que son personas de edad. Y cuando vean los premios, decirles que le envien una captura de pantalla al asesor para reclamar
+	Estetica: Queremos una estetica moderna, limpia, con excelente UIX para maximizar ventas. Ya que estos obsequios estan sujetos a lo que compren las personas. Los colores de la marca son #FF6B03, con blanco como principal, y Gris #666666 de apoyo. Evitar desvanecidos o tornasol.
+	Frecuencia: La idea es que se siga la frecuencia para cada premio en la ruleta, es muy importane que se siga esa frecuencia y no aparezca mas o menos veces.
+	Una sola vez por IP: La idea es que en la IP solamente se pueda ejecutar una sola vez y cuando el usuario vuelva a entrar al link, solamente le aparezcan sus premios sin importar si refresca.
+	Logica oculta en la pagina: No queiro que se vea la logica de frecuencias en el index, quiero que este oculta.
+	Disclaimer: importante que hagas un disclaimer donde apliquen terminos y condiciones.
+	Auditoria: una vez realizado, necesito que audites que hayas hecho todo bien. 
+	Stack de tecnologia: control de cambios en github, desplegado en netlify. si necesitas una base de dato usaremos NEON Database. 
+	Imagenes: agregue imagenes de la mayoria de premios en la ruleta. me encantaria que las personas puedan ver las imagenes de sus premios (o ilustraciones hechas por ti para los bonos). pero ayudame a pensar en un excelente UI y UIX.
+
+Solo se vibecodear asi que necesito que me guies todos los pasos.
