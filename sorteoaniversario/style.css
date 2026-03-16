@@ -707,6 +707,20 @@ img { display: block; max-width: 100%; }
 }
 .confirm-step p strong { color: var(--black); }
 
+.btn-no-soy-yo {
+    background: none;
+    border: none;
+    color: var(--gray-lt);
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 4px 0;
+    -webkit-tap-highlight-color: transparent;
+}
+.btn-no-soy-yo:hover { color: var(--gray); }
+
 .confirm-reminder {
     background: var(--gold-bg);
     border: 1.5px solid rgba(245,197,24,.4);

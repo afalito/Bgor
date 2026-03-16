@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const numeroBig1     = document.getElementById('numeroBig1');
     const numeroBig2     = document.getElementById('numeroBig2');
     const yaInscrito     = document.getElementById('yaInscrito');
+    const btnNoSoyYo     = document.getElementById('btnNoSoyYo');
 
     if (!form) return;
 
@@ -22,6 +23,14 @@ document.addEventListener('DOMContentLoaded', function () {
     if (datosGuardados) {
         mostrarConfirmacion(datosGuardados.numero1, datosGuardados.numero2, false);
         return; // No inicializar el resto del form
+    }
+
+    // ── Botón "No soy yo" — limpia localStorage y muestra el form ──
+    if (btnNoSoyYo) {
+        btnNoSoyYo.addEventListener('click', function () {
+            try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+            location.reload();
+        });
     }
 
     // ── Validación en tiempo real ──────────────────────────────────
