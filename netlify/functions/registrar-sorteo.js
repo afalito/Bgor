@@ -52,15 +52,35 @@ exports.handler = async (event) => {
         const params = new URLSearchParams({ nombre, guia, celular });
         const url = `${GAS_URL}?${params.toString()}`;
 
-        const gasRes = await fetch(url, { method: 'GET', redirect: 'follow' });
-        const text   = await gasRes.text();
+        // Timeout de 9 segundos (Netlify free tier corta a los 10s)
+        const controller = new AbortController();
+        const timeoutId  = setTimeout(() => controller.abort(), 9000);
+
+        let gasRes;
+        try {
+            gasRes = await fetch(url, { method: 'GET', redirect: 'follow', signal: controller.signal });
+        } catch (fetchErr) {
+            clearTimeout(timeoutId);
+            if (fetchErr.name === 'AbortError') {
+                return {
+                    statusCode: 504,
+                    headers: corsHeaders,
+                    body: JSON.stringify({ error: 'El servidor de sorteo tardó demasiado. Intenta de nuevo.' })
+                };
+            }
+            throw fetchErr;
+        }
+        clearTimeout(timeoutId);
+
+        const text = await gasRes.text();
+        console.log('GAS status:', gasRes.status, '| body:', text.slice(0, 200));
 
         let gasData;
         try {
             gasData = JSON.parse(text);
         } catch {
             console.error('GAS respuesta no es JSON:', text);
-            throw new Error('Respuesta inválida del servidor de sorteo.');
+            throw new Error('El servidor de sorteo devolvió una respuesta inesperada.');
         }
 
         if (!gasData.success || !gasData.numero1 || !gasData.numero2) {

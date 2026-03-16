@@ -521,7 +521,6 @@ img { display: block; max-width: 100%; }
     gap: 8px;
     box-shadow: 0 8px 32px rgba(255,107,3,.45);
     transition: transform .15s, box-shadow .15s, background .15s;
-    animation: pulse-btn 2.2s ease-in-out infinite;
     margin-top: 8px;
 }
 .btn-submit:hover:not(:disabled) {
@@ -537,10 +536,6 @@ img { display: block; max-width: 100%; }
     box-shadow: none;
     cursor: not-allowed;
     animation: none;
-}
-@keyframes pulse-btn {
-    0%, 100% { box-shadow: 0 8px 32px rgba(255,107,3,.45); }
-    50%       { box-shadow: 0 10px 40px rgba(255,107,3,.68); }
 }
 .btn-submit__loading {
     display: flex;
