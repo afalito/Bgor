@@ -738,9 +738,10 @@ img { display: block; max-width: 100%; }
 }
 .rv-card--l3 .rv-eyebrow { color: var(--gold); letter-spacing: 3px; font-size: 13px; }
 .rv-eyebrow-sub {
-    font-size: 12px;
-    font-weight: 600;
-    color: rgba(255,255,255,.4);
+    font-size: 16px;
+    font-weight: 800;
+    color: rgba(255,255,255,.90);
+    letter-spacing: .2px;
 }
 
 /* ── Visual (imagen/svg) con fondo curvo ── */
