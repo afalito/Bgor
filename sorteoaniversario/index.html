@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteo Aniversario · BGOR · 2 Años</title>
+    <link rel="icon" type="image/x-icon" href="../aniversario/images/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <img src="../aniversario/images/logo-bgor.png" alt="BGOR" class="header__logo">
+    <span class="header__pill">
+        <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        2 Años · Sorteo
+    </span>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <p class="hero__eyebrow">BGOR cumple 2 años contigo</p>
+    <h1 class="hero__title">Inscríbete al<br>sorteo de<br><span class="hero__accent">aniversario</span></h1>
+    <p class="hero__body">Regístrate y recibe tu número único para el sorteo. ¡Moto + Ternero en juego!</p>
+</section>
+
+<!-- PREMIOS -->
+<section class="prizes">
+    <div class="prizes__inner">
+        <p class="prizes__label">Lo que se sortea</p>
+        <div class="prizes__grid">
+            <div class="prize-card prize-card--moto">
+                <div class="prize-card__img-wrap">
+                    <img src="../aniversario/images/moto-suzuki.webp" alt="Moto DR Suzuki 150 0km" class="prize-card__img">
+                </div>
+                <div class="prize-card__info">
+                    <span class="prize-card__tag">1er Sorteo</span>
+                    <strong class="prize-card__name">Moto DR Suzuki 150<br>Cero Kilómetros</strong>
+                    <span class="prize-card__detail">Nueva · Sin estrenar</span>
+                </div>
+            </div>
+            <div class="prize-card prize-card--ternero">
+                <div class="prize-card__img-wrap">
+                    <img src="../aniversario/images/ternero.webp" alt="Ternero Simmental" class="prize-card__img">
+                </div>
+                <div class="prize-card__info">
+                    <span class="prize-card__tag">2do Sorteo</span>
+                    <strong class="prize-card__name">Ternero<br>Simmental</strong>
+                    <span class="prize-card__detail">Puro · Con Registro</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CÓMO GANAS -->
+<section class="how-to-win">
+    <div class="how-to-win__inner">
+        <p class="how-to-win__label">¿Cómo se determina el ganador?</p>
+        <div class="lottery-box">
+            <div class="lottery-box__header">
+                <svg class="icon icon--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Lotería de Boyacá
+            </div>
+            <div class="lottery-box__body">
+                <div class="lottery-date">
+                    <span class="lottery-date__icon">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    </span>
+                    <div>
+                        <strong>Sábado 18 de abril de 2026</strong>
+                        <span>22:30 · Número 4620</span>
+                    </div>
+                </div>
+                <div class="number-formula">
+                    <div class="number-formula__part">
+                        <div class="number-formula__digits">
+                            <span class="digit digit--lottery">4</span>
+                            <span class="digit digit--lottery">6</span>
+                            <span class="digit digit--lottery">2</span>
+                            <span class="digit digit--lottery">0</span>
+                        </div>
+                        <p class="number-formula__label">4 dígitos de la lotería</p>
+                    </div>
+                    <span class="number-formula__plus">+</span>
+                    <div class="number-formula__part">
+                        <div class="number-formula__digits">
+                            <span class="digit digit--serie">?</span>
+                        </div>
+                        <p class="number-formula__label">1er dígito de la serie</p>
+                    </div>
+                    <span class="number-formula__eq">=</span>
+                    <div class="number-formula__part">
+                        <div class="number-formula__digits">
+                            <span class="digit digit--winner">4</span>
+                            <span class="digit digit--winner">6</span>
+                            <span class="digit digit--winner">2</span>
+                            <span class="digit digit--winner">0</span>
+                            <span class="digit digit--winner digit--unknown">?</span>
+                        </div>
+                        <p class="number-formula__label">Tu número ganador</p>
+                    </div>
+                </div>
+                <div class="lottery-example">
+                    <p>Ejemplo: si la lotería cae <strong>4620</strong> y la serie es <strong>3</strong>xx, el número ganador es <strong class="lottery-example__winner">46203</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BANNER: ya inscrito (se muestra si hay datos en localStorage) -->
+<div class="ya-inscrito" id="yaInscrito" hidden>
+    <svg class="icon icon--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    <span>Ya estás inscrito. Tus números están abajo.</span>
+</div>
+
+<!-- FORMULARIO DE INSCRIPCIÓN -->
+<section class="form-section" id="form-section">
+    <div class="form-section__inner">
+        <p class="form-section__eyebrow">Paso 1 de 1</p>
+        <h2 class="form-section__title">Tus datos de inscripción</h2>
+        <p class="form-section__sub">Recibirás <strong>dos números</strong> de 5 dígitos únicos y aleatorios. Si alguno de los dos coincide, ¡ganaste!</p>
+
+        <form class="sorteo-form" id="sorteoForm" novalidate>
+            <div class="field">
+                <label class="field__label" for="nombre">Nombre completo</label>
+                <input
+                    class="field__input"
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    placeholder="Ej: Juan Carlos Pérez"
+                    autocomplete="name"
+                    required
+                >
+                <span class="field__error" id="error-nombre"></span>
+            </div>
+
+            <div class="field">
+                <label class="field__label" for="guia">Número de guía</label>
+                <input
+                    class="field__input"
+                    type="text"
+                    id="guia"
+                    name="guia"
+                    placeholder="Ej: 1234567890"
+                    required
+                >
+                <span class="field__hint">El número de guía de tu pedido BGOR</span>
+                <span class="field__error" id="error-guia"></span>
+            </div>
+
+            <div class="field">
+                <label class="field__label" for="celular">Celular</label>
+                <input
+                    class="field__input"
+                    type="tel"
+                    id="celular"
+                    name="celular"
+                    placeholder="Ej: 3001234567"
+                    autocomplete="tel"
+                    required
+                >
+                <span class="field__error" id="error-celular"></span>
+            </div>
+
+            <div class="field field--checkbox">
+                <label class="checkbox-label" for="tyc">
+                    <input type="checkbox" id="tyc" name="tyc" required>
+                    <span class="checkbox-label__box"></span>
+                    <span class="checkbox-label__text">
+                        Acepto los términos y condiciones del sorteo aniversario BGOR
+                    </span>
+                </label>
+                <span class="field__error" id="error-tyc"></span>
+            </div>
+
+            <button type="submit" class="btn-submit" id="btnSubmit">
+                <span class="btn-submit__label" id="btnLabel">Inscribirme al sorteo</span>
+                <span class="btn-submit__loading" id="btnLoading" hidden>
+                    <svg class="icon spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg>
+                    Inscribiendo...
+                </span>
+            </button>
+        </form>
+
+        <div class="form-error-global" id="globalError" hidden>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span id="globalErrorMsg">Error al inscribirte. Intenta de nuevo.</span>
+        </div>
+    </div>
+</section>
+
+<!-- PANTALLA DE CONFIRMACIÓN (oculta inicialmente) -->
+<section class="confirm-screen" id="confirmScreen" hidden>
+    <div class="confirm-screen__inner">
+        <div class="confirm-check">
+            <svg viewBox="0 0 52 52" fill="none">
+                <circle cx="26" cy="26" r="25" stroke="#22C55E" stroke-width="2"/>
+                <path d="M14 26l8 8 16-16" stroke="#22C55E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <h2 class="confirm-screen__title">¡Estás inscrito!</h2>
+        <p class="confirm-screen__sub">Tus dos números de sorteo son</p>
+
+        <div class="numeros-par">
+            <div class="numero-sorteo">
+                <p class="numero-sorteo__tag">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="1"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
+                    Moto Suzuki DR 150
+                </p>
+                <div class="numero-sorteo__digits" id="numeroBig1">—</div>
+            </div>
+            <div class="numero-sorteo">
+                <p class="numero-sorteo__tag">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    Ternero Simmental
+                </p>
+                <div class="numero-sorteo__digits" id="numeroBig2">—</div>
+            </div>
+        </div>
+        <p class="numeros-hint">Si alguno de los dos coincide con el resultado de la lotería, ¡eres el ganador!</p>
+
+        <div class="confirm-instructions">
+            <p class="confirm-instructions__title">¿Cuándo y cómo sabes si ganaste?</p>
+            <div class="confirm-step">
+                <span class="confirm-step__num">1</span>
+                <p>El <strong>sábado 18 de abril de 2026 a las 22:30</strong> se realiza el sorteo de la Lotería de Boyacá.</p>
+            </div>
+            <div class="confirm-step">
+                <span class="confirm-step__num">2</span>
+                <p>Toma los <strong>4 dígitos del número ganador</strong> de la lotería + el <strong>primer dígito de la serie</strong>.</p>
+            </div>
+            <div class="confirm-step">
+                <span class="confirm-step__num">3</span>
+                <p>Si ese número de 5 dígitos coincide con <strong>alguno de tus dos números</strong>, <strong>¡eres el ganador!</strong> Contáctanos inmediatamente por WhatsApp.</p>
+            </div>
+        </div>
+
+        <div class="confirm-reminder">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.7 19.79 19.79 0 0 1 1.58 5.08 2 2 0 0 1 3.56 2.87h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.5a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.42 18z"/></svg>
+            Guarda una captura de pantalla con tus dos números.
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer__inner">
+        <img src="../aniversario/images/logo-bgor.png" alt="BGOR" class="footer__logo">
+        <p class="footer__tc">
+            Sorteo Aniversario BGOR 2 Años &middot; Aplican t&eacute;rminos y condiciones.<br>
+            Solicítalos a tu asesor por WhatsApp.
+        </p>
+    </div>
+</footer>
+
+<!-- Hidden form para Netlify Forms (backup) -->
+<form name="sorteo-backup" netlify netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="nombre">
+    <input type="hidden" name="guia">
+    <input type="hidden" name="celular">
+    <input type="hidden" name="numero1">
+    <input type="hidden" name="numero2">
+</form>
+
+<script src="app.js"></script>
+</body>
+</html>
