@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruleta Aniversario · BGOR 2 Años</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <img src="images/logo-bgor.png" alt="BGOR" class="header__logo">
+    <span class="header__pill">
+        <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        2 Años
+    </span>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <p class="hero__eyebrow">BGOR cumple 2 años contigo</p>
+    <h1 class="hero__title">Gira y descubre<br>tus premios<br><span class="hero__accent">de aniversario</span></h1>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section class="steps">
+    <div class="steps__track">
+        <div class="step">
+            <div class="step__icon-wrap step__icon-wrap--orange">
+                <svg class="icon icon--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+            </div>
+            <strong>Gira</strong>
+        </div>
+        <div class="step__sep"></div>
+        <div class="step">
+            <div class="step__icon-wrap step__icon-wrap--dark">
+                <svg class="icon icon--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+            </div>
+            <strong>Descubre</strong>
+        </div>
+        <div class="step__sep"></div>
+        <div class="step">
+            <div class="step__icon-wrap step__icon-wrap--gold">
+                <svg class="icon icon--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+            </div>
+            <strong>Reclama</strong>
+        </div>
+    </div>
+</section>
+
+<!-- RULETA -->
+<section class="game" id="game-section">
+
+    <!-- Leyenda de aros -->
+    <div class="ring-legend">
+        <p class="ring-legend__title">¿Qué representa cada aro?</p>
+        <div class="ring-legend__items">
+            <div class="ring-legend__item">
+                <span class="ring-dot ring-dot--l1"></span>
+                <div class="ring-legend__info">
+                    <strong>Aro exterior · Nivel 1</strong>
+                    <span>Comprando desde $149.900</span>
+                </div>
+            </div>
+            <div class="ring-legend__item">
+                <span class="ring-dot ring-dot--l2"></span>
+                <div class="ring-legend__info">
+                    <strong>Aro medio · Nivel 2</strong>
+                    <span>Comprando desde $249.900</span>
+                </div>
+            </div>
+            <div class="ring-legend__item ring-legend__item--premium">
+                <span class="ring-dot ring-dot--l3"></span>
+                <div class="ring-legend__info">
+                    <strong>Aro interior · Nivel 3</strong>
+                    <span>Desde $374.000 · Con bonos exclusivos</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ruleta canvas -->
+    <div class="wheel-outer">
+        <div class="wheel-glow" aria-hidden="true"></div>
+        <div class="wheel-wrap">
+            <div class="wheel-pointer" aria-hidden="true"></div>
+            <canvas id="rouletteCanvas" width="480" height="480"></canvas>
+        </div>
+    </div>
+
+    <button class="btn-spin" id="btnSpin">
+        <span class="btn-spin__label">¡GIRAR!</span>
+        <span class="btn-spin__sub">Un solo giro &middot; ¡Hazlo valer!</span>
+    </button>
+
+</section>
+
+<!-- RESULTADOS -->
+<section class="results" id="results-section" hidden>
+
+    <div class="results__top">
+        <h2 class="results__title">
+            <svg class="icon icon--lg" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            ¡Mira lo que ganaste!
+        </h2>
+        <p class="results__sub">Tus premios por la compra que realices hoy</p>
+    </div>
+
+    <!-- Siempre 3 columnas — compacto para screenshot -->
+    <div class="results__grid">
+
+        <article class="pcard pcard--l1">
+            <div class="pcard__header">
+                <span class="pcard__badge pcard__badge--l1">Nivel 1</span>
+                <span class="pcard__price">Por compras desde $149.900</span>
+            </div>
+            <div class="pcard__visual">
+                <img id="img-level1" src="" alt="" class="pcard__img" hidden>
+                <div id="svg-level1" class="pcard__svg" hidden></div>
+            </div>
+            <div class="pcard__name" id="name-level1">—</div>
+        </article>
+
+        <article class="pcard pcard--l2">
+            <div class="pcard__header">
+                <span class="pcard__badge pcard__badge--l2">Nivel 2</span>
+                <span class="pcard__price">Por compras desde $249.900</span>
+            </div>
+            <div class="pcard__visual">
+                <img id="img-level2" src="" alt="" class="pcard__img" hidden>
+                <div id="svg-level2" class="pcard__svg" hidden></div>
+            </div>
+            <div class="pcard__name" id="name-level2">—</div>
+        </article>
+
+        <article class="pcard pcard--l3">
+            <div class="pcard__crown">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                Nivel 3 &middot; Mejor premio
+            </div>
+            <div class="pcard__header">
+                <span class="pcard__badge pcard__badge--l3">M&aacute;ximo</span>
+                <span class="pcard__price pcard__price--gold">Por compras desde $374.000</span>
+            </div>
+            <div class="pcard__l3body">
+                <div class="pcard__visual">
+                    <img id="img-level3" src="" alt="" class="pcard__img" hidden>
+                    <div id="svg-level3" class="pcard__svg" hidden></div>
+                </div>
+                <div class="pcard__name pcard__name--gold" id="name-level3">—</div>
+            </div>
+        </article>
+
+    </div>
+
+    <!-- Bonos exclusivos Nivel 3 — banda full width -->
+    <div class="bonos-band">
+        <div class="bonos-band__header">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+            Bonos sorteo exclusivos &middot; Solo en Nivel 3
+        </div>
+        <div class="bonos-band__items">
+            <div class="bonos-band__item">
+                <div class="bonos-band__img-wrap">
+                    <img src="images/moto-suzuki.webp" alt="Moto DR Suzuki 150 0km" class="bonos-band__img">
+                </div>
+                <span class="bonos-band__tag">Bono Sorteo</span>
+                <strong class="bonos-band__name">Moto DR Suzuki 150<br>Cero Kilómetros</strong>
+                <span class="bonos-band__highlight">&#9889; Nueva · Sin estrenar</span>
+            </div>
+            <div class="bonos-band__item">
+                <div class="bonos-band__img-wrap">
+                    <img src="images/ternero.webp" alt="Ternero Simmental" class="bonos-band__img">
+                </div>
+                <span class="bonos-band__tag">Bono Sorteo</span>
+                <strong class="bonos-band__name">Ternero<br>Simmental</strong>
+                <span class="bonos-band__highlight">&#10003; Puro · Con Registro</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA compacto -->
+    <div class="cta">
+        <p class="cta__title">¡Ya son tuyos!</p>
+        <div class="cta__body">
+            <svg class="icon icon--lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+            <p>Toma captura y mu&eacute;strasela a tu asesor al pagar. &Eacute;l te entrega el premio que te corresponde.</p>
+        </div>
+        <p class="cta__note">V&aacute;lido hasta el 15 de abril de 2026 &middot; Aplican T&amp;C</p>
+    </div>
+
+</section>
+
+<!-- REVEAL OVERLAY — animación de premios uno a uno -->
+<div id="prize-reveal" aria-live="polite">
+    <div id="prize-reveal__card"></div>
+</div>
+
+<div id="confetti-container" aria-hidden="true"></div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer__inner">
+        <img src="images/logo-bgor.png" alt="BGOR" class="footer__logo">
+        <p class="footer__tc">
+            Aplican t&eacute;rminos y condiciones. Puedes pedirlos a tu asesor por WhatsApp.
+        </p>
+    </div>
+</footer>
+
+<script src="engine.js"></script>
+<script src="wheel.js"></script>
+<script src="sound.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
