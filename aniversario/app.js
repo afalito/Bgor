@@ -189,14 +189,24 @@
                 <div class="rv-bonos-sep">¡Pero eso no es todo&hellip;!</div>
                 <div class="rv-bonos">
                     <div class="rv-bono rv-bono--1">
-                        <span class="rv-bono__tag">Bono Sorteo</span>
-                        <img src="images/moto-suzuki.webp" alt="Moto DR Suzuki 150 0km" class="rv-bono__img">
-                        <span class="rv-bono__name">¡Moto DR Suzuki 150<br>Cero Kilómetros!</span>
+                        <div class="rv-bono__img-wrap">
+                            <img src="images/moto-suzuki.webp" alt="Moto DR Suzuki 150" class="rv-bono__img">
+                        </div>
+                        <div class="rv-bono__info">
+                            <span class="rv-bono__tag">Bono Sorteo</span>
+                            <span class="rv-bono__name">Moto DR Suzuki 150<br>Cero Kilómetros</span>
+                            <span class="rv-bono__detail">&#9889; Nueva &middot; Sin estrenar</span>
+                        </div>
                     </div>
                     <div class="rv-bono rv-bono--2">
-                        <span class="rv-bono__tag">Bono Sorteo</span>
-                        <img src="images/ternero.webp" alt="Ternero Simmental" class="rv-bono__img">
-                        <span class="rv-bono__name">¡Ternero<br>Simmental!</span>
+                        <div class="rv-bono__img-wrap">
+                            <img src="images/ternero.webp" alt="Ternero Simmental" class="rv-bono__img">
+                        </div>
+                        <div class="rv-bono__info">
+                            <span class="rv-bono__tag">Bono Sorteo</span>
+                            <span class="rv-bono__name">Ternero<br>Simmental</span>
+                            <span class="rv-bono__detail">&#10003; Puro &middot; Con Registro</span>
+                        </div>
                     </div>
                 </div>` : '';
 

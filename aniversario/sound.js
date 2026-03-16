@@ -117,122 +117,148 @@
         } catch(e) {}
     }
 
-    // ── Motor de moto acelerando ─────────────────────────────────────────────
-    // Dos osciladores ligeramente desafinados (coro) + LFO cuadrado (cilindros)
-    // Frecuencias en rango 75-420Hz: audibles en bocinas de teléfono
+    // ── Motor de moto acelerando — con fanfarria ganadora al inicio ──────────
     function playMotoRev() {
         try {
             const c = getCtx();
             const t = c.currentTime;
+
+            // ── Fanfarria C5→E5→G5 (triangle, brillante) — ¡ganaste una moto! ──
+            [[523, 0.00], [659, 0.14], [784, 0.28]].forEach(function(pair) {
+                const freq = pair[0], off = pair[1];
+                const s   = t + off;
+                const osc = c.createOscillator();
+                const g   = c.createGain();
+                osc.connect(g); g.connect(c.destination);
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, s);
+                g.gain.setValueAtTime(0, s);
+                g.gain.linearRampToValueAtTime(0.22, s + 0.018);
+                g.gain.setValueAtTime(0.20, s + 0.12);
+                g.gain.exponentialRampToValueAtTime(0.001, s + 0.30);
+                osc.start(s); osc.stop(s + 0.34);
+            });
+
+            // ── Motor arrancando — empieza a los 0.52s ──
+            const e   = t + 0.52;
             const dur = 1.5;
 
             function makeOsc(startF, endF, detune) {
                 const o = c.createOscillator();
                 o.type = 'sawtooth';
-                o.frequency.setValueAtTime(startF, t);
-                o.frequency.exponentialRampToValueAtTime(startF * 1.6, t + 0.30);
-                o.frequency.exponentialRampToValueAtTime(startF * 3.2, t + 0.75);
-                o.frequency.exponentialRampToValueAtTime(startF * 5.2, t + 1.20);
-                o.frequency.exponentialRampToValueAtTime(endF, t + dur);
+                o.frequency.setValueAtTime(startF, e);
+                o.frequency.exponentialRampToValueAtTime(startF * 1.6, e + 0.30);
+                o.frequency.exponentialRampToValueAtTime(startF * 3.2, e + 0.75);
+                o.frequency.exponentialRampToValueAtTime(startF * 5.2, e + 1.20);
+                o.frequency.exponentialRampToValueAtTime(endF, e + dur);
                 o.detune.value = detune;
                 return o;
             }
 
-            // Dos sawteeth ligeramente desafinados — coro de motor
             const osc1 = makeOsc(75, 420, 0);
-            const osc2 = makeOsc(75, 420, +14); // +14 cents = chorusing
+            const osc2 = makeOsc(75, 420, +14);
 
-            // LFO cuadrado — pulsos de cilindros, va acelerando
             const lfo  = c.createOscillator();
             const lfoG = c.createGain();
             lfo.type = 'square';
-            lfo.frequency.setValueAtTime(10, t);
-            lfo.frequency.exponentialRampToValueAtTime(26, t + 0.6);
-            lfo.frequency.exponentialRampToValueAtTime(62, t + 1.2);
-            lfoG.gain.setValueAtTime(0.32, t);
-            lfoG.gain.linearRampToValueAtTime(0.10, t + 1.0);
-            lfoG.gain.linearRampToValueAtTime(0.03, t + dur);
+            lfo.frequency.setValueAtTime(10, e);
+            lfo.frequency.exponentialRampToValueAtTime(26, e + 0.6);
+            lfo.frequency.exponentialRampToValueAtTime(62, e + 1.2);
+            lfoG.gain.setValueAtTime(0.32, e);
+            lfoG.gain.linearRampToValueAtTime(0.10, e + 1.0);
+            lfoG.gain.linearRampToValueAtTime(0.03, e + dur);
 
-            // Mix + AM modulation
             const mixG = c.createGain();
-            mixG.gain.setValueAtTime(0.50, t);
+            mixG.gain.setValueAtTime(0.50, e);
             lfo.connect(lfoG); lfoG.connect(mixG.gain);
             osc1.connect(mixG); osc2.connect(mixG);
 
-            // Envelope master
             const envG = c.createGain();
-            envG.gain.setValueAtTime(0, t);
-            envG.gain.linearRampToValueAtTime(0.44, t + 0.07);
-            envG.gain.setValueAtTime(0.40, t + 1.1);
-            envG.gain.exponentialRampToValueAtTime(0.001, t + dur);
+            envG.gain.setValueAtTime(0, e);
+            envG.gain.linearRampToValueAtTime(0.44, e + 0.07);
+            envG.gain.setValueAtTime(0.40, e + 1.1);
+            envG.gain.exponentialRampToValueAtTime(0.001, e + dur);
 
             mixG.connect(envG); envG.connect(c.destination);
-            osc1.start(t); osc1.stop(t + dur + 0.05);
-            osc2.start(t); osc2.stop(t + dur + 0.05);
-            lfo.start(t);  lfo.stop(t + dur + 0.05);
+            osc1.start(e); osc1.stop(e + dur + 0.05);
+            osc2.start(e); osc2.stop(e + dur + 0.05);
+            lfo.start(e);  lfo.stop(e + dur + 0.05);
 
-            // Kick de arranque — boom inicial
+            // Kick de arranque
             const kick  = c.createOscillator();
             const kickG = c.createGain();
             kick.type = 'sine';
-            kick.frequency.setValueAtTime(120, t);
-            kick.frequency.exponentialRampToValueAtTime(28, t + 0.14);
-            kickG.gain.setValueAtTime(0, t);
-            kickG.gain.linearRampToValueAtTime(0.55, t + 0.005);
-            kickG.gain.exponentialRampToValueAtTime(0.001, t + 0.17);
+            kick.frequency.setValueAtTime(120, e);
+            kick.frequency.exponentialRampToValueAtTime(28, e + 0.14);
+            kickG.gain.setValueAtTime(0, e);
+            kickG.gain.linearRampToValueAtTime(0.55, e + 0.005);
+            kickG.gain.exponentialRampToValueAtTime(0.001, e + 0.17);
             kick.connect(kickG); kickG.connect(c.destination);
-            kick.start(t); kick.stop(t + 0.22);
+            kick.start(e); kick.stop(e + 0.22);
 
         } catch(e) {}
     }
 
-    // ── Muuuu de vaca ─────────────────────────────────────────────────────────
-    // Fundamental 220Hz+ (audible en bocinas de teléfono), bandpass ancho (Q=2)
+    // ── Muuuu de vaca — con campanita ganadora al inicio ─────────────────────
     function playMoo() {
         try {
             const c = getCtx();
             const t = c.currentTime;
+
+            // ── Campanita C6 + armónico E6 — ¡ganaste un ternero! ──
+            [[1047, 0.28], [1319, 0.10]].forEach(function(pair) {
+                const freq = pair[0], vol = pair[1];
+                const osc = c.createOscillator();
+                const g   = c.createGain();
+                osc.connect(g); g.connect(c.destination);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, t);
+                osc.frequency.exponentialRampToValueAtTime(freq * 0.94, t + 0.50);
+                g.gain.setValueAtTime(0, t);
+                g.gain.linearRampToValueAtTime(vol, t + 0.008);
+                g.gain.exponentialRampToValueAtTime(0.001, t + 0.52);
+                osc.start(t); osc.stop(t + 0.56);
+            });
+
+            // ── Muuuu — empieza a los 0.40s ──
+            const m   = t + 0.40;
             const dur = 1.6;
 
-            // Oscilador principal a frecuencias audibles en móvil
             const osc = c.createOscillator();
             osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(222, t);
-            osc.frequency.linearRampToValueAtTime(315, t + 0.24);
-            osc.frequency.linearRampToValueAtTime(275, t + 0.62);
-            osc.frequency.linearRampToValueAtTime(215, t + 1.12);
-            osc.frequency.linearRampToValueAtTime(168, t + dur);
+            osc.frequency.setValueAtTime(222, m);
+            osc.frequency.linearRampToValueAtTime(315, m + 0.24);
+            osc.frequency.linearRampToValueAtTime(275, m + 0.62);
+            osc.frequency.linearRampToValueAtTime(215, m + 1.12);
+            osc.frequency.linearRampToValueAtTime(168, m + dur);
 
-            // Vibrato LFO — la ondulación característica
             const lfo  = c.createOscillator();
             const lfoG = c.createGain();
             lfo.type = 'sine';
-            lfo.frequency.setValueAtTime(4.5, t);
-            lfo.frequency.linearRampToValueAtTime(8.0, t + 0.45);
-            lfoG.gain.setValueAtTime(4, t);
-            lfoG.gain.linearRampToValueAtTime(30, t + 0.55); // vibrato profundo
-            lfoG.gain.setValueAtTime(25, t + 1.1);
-            lfoG.gain.linearRampToValueAtTime(5, t + dur);
+            lfo.frequency.setValueAtTime(4.5, m);
+            lfo.frequency.linearRampToValueAtTime(8.0, m + 0.45);
+            lfoG.gain.setValueAtTime(4, m);
+            lfoG.gain.linearRampToValueAtTime(30, m + 0.55);
+            lfoG.gain.setValueAtTime(25, m + 1.1);
+            lfoG.gain.linearRampToValueAtTime(5, m + dur);
             lfo.connect(lfoG); lfoG.connect(osc.frequency);
-            lfo.start(t); lfo.stop(t + dur + 0.05);
+            lfo.start(m); lfo.stop(m + dur + 0.05);
 
-            // Bandpass — Q=2 ancho para dejar pasar más señal = más volumen
             const bp = c.createBiquadFilter();
             bp.type = 'bandpass';
-            bp.frequency.setValueAtTime(480, t);
-            bp.frequency.linearRampToValueAtTime(580, t + 0.24);
-            bp.frequency.linearRampToValueAtTime(440, t + 1.0);
+            bp.frequency.setValueAtTime(480, m);
+            bp.frequency.linearRampToValueAtTime(580, m + 0.24);
+            bp.frequency.linearRampToValueAtTime(440, m + 1.0);
             bp.Q.value = 2.0;
 
-            // Ganancia alta para compensar la atenuación del filtro
             const envG = c.createGain();
-            envG.gain.setValueAtTime(0, t);
-            envG.gain.linearRampToValueAtTime(0.95, t + 0.09);
-            envG.gain.setValueAtTime(0.88, t + 1.0);
-            envG.gain.exponentialRampToValueAtTime(0.001, t + dur);
+            envG.gain.setValueAtTime(0, m);
+            envG.gain.linearRampToValueAtTime(0.95, m + 0.09);
+            envG.gain.setValueAtTime(0.88, m + 1.0);
+            envG.gain.exponentialRampToValueAtTime(0.001, m + dur);
 
             osc.connect(bp); bp.connect(envG); envG.connect(c.destination);
-            osc.start(t); osc.stop(t + dur + 0.05);
+            osc.start(m); osc.stop(m + dur + 0.05);
 
         } catch(e) {}
     }
