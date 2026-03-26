@@ -146,9 +146,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ── localStorage helpers ───────────────────────────────────────
+    const UNA_SEMANA_MS = 7 * 24 * 60 * 60 * 1000;
+
     function guardarDatos(datos) {
         try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(datos));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...datos, _ts: Date.now() }));
         } catch (e) { /* privado/incógnito: ignorar silenciosamente */ }
     }
 
@@ -157,8 +159,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const raw = localStorage.getItem(STORAGE_KEY);
             if (!raw) return null;
             const datos = JSON.parse(raw);
-            if (datos && datos.numero1 && datos.numero2) return datos;
-            return null;
+            if (!datos || !datos.numero1 || !datos.numero2) return null;
+            if (datos._ts && Date.now() - datos._ts > UNA_SEMANA_MS) {
+                localStorage.removeItem(STORAGE_KEY);
+                return null;
+            }
+            return datos;
         } catch (e) {
             return null;
         }
