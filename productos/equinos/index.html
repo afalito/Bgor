@@ -3171,6 +3171,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         fbq('track', 'PageView');
 
         // ViewContent - Usuario viendo la página de producto
+        const viewContentEventID = 'evt_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
         fbq('track', 'ViewContent', {
             content_name: 'B-GOR Equinos - Suplemento Premium',
             content_category: 'Suplementos Equinos',
@@ -3178,7 +3179,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             content_type: 'product',
             value: 319900,
             currency: 'COP'
-        });
+        }, { eventID: viewContentEventID });
     </script>
     <noscript>
         <img height="1" width="1" style="display:none"
@@ -3193,8 +3194,47 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             return 'evt_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
         }
 
+        function getMetaCookie(name) {
+            const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+            return match ? decodeURIComponent(match[1]) : null;
+        }
+
+        function sendMetaCAPI(data) {
+            if (!data || !data.eventName || !data.eventId) return;
+
+            fetch('/.netlify/functions/meta-capi', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }).catch(function(err) {
+                console.warn('[CAPI] falló (no crítico):', err);
+            });
+        }
+
+        function buildMetaEventData(eventName, eventId, customData, userData) {
+            const payload = Object.assign({
+                eventName: eventName,
+                eventId: eventId,
+                sourceUrl: window.location.href,
+                fbp: getMetaCookie('_fbp'),
+                fbc: getMetaCookie('_fbc')
+            }, customData || {});
+
+            return Object.assign(payload, userData || {});
+        }
+
         // Flag para evitar múltiples disparos de InitiateCheckout en la misma sesión
         let initiateCheckoutFired = sessionStorage.getItem('initiateCheckoutFired') === 'true';
+
+        sendMetaCAPI(buildMetaEventData('ViewContent', viewContentEventID, {
+            contentName: 'B-GOR Equinos - Suplemento Premium',
+            contentCategory: 'Suplementos Equinos',
+            contentIds: ['bgor-equinos', 'bgor-potros'],
+            contentType: 'product',
+            value: 319900,
+            currency: 'COP',
+            numItems: 2
+        }));
     </script>
 
     <!-- Microsoft Clarity -->
@@ -4339,16 +4379,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             document.body.style.overflow = 'hidden';
 
             // Meta Pixel - InitiateCheckout (solo se dispara una vez por sesión)
-            if (typeof fbq !== 'undefined' && !initiateCheckoutFired) {
+            if (!initiateCheckoutFired) {
                 const eventID = generateEventID();
-                fbq('track', 'InitiateCheckout', {
-                    content_name: 'B-GOR Equinos',
-                    content_category: 'Suplementos Equinos',
-                    content_ids: ['bgor-equinos'],
-                    content_type: 'product',
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'InitiateCheckout', {
+                        content_name: 'B-GOR Equinos',
+                        content_category: 'Suplementos Equinos',
+                        content_ids: ['bgor-equinos'],
+                        content_type: 'product',
+                        value: 319900,
+                        currency: 'COP'
+                    }, { eventID: eventID });
+                }
+
+                sendMetaCAPI(buildMetaEventData('InitiateCheckout', eventID, {
+                    contentName: 'B-GOR Equinos',
+                    contentCategory: 'Suplementos Equinos',
+                    contentIds: ['bgor-equinos'],
+                    contentType: 'product',
                     value: 319900,
-                    currency: 'COP'
-                }, { eventID: eventID });
+                    currency: 'COP',
+                    numItems: 1
+                }));
 
                 // Marcar como disparado en esta sesión
                 initiateCheckoutFired = true;
@@ -4673,6 +4725,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     console.warn('[DEBUG] fbq error (ignorado):', fbqErr);
                 }
 
+                sendMetaCAPI(buildMetaEventData('Purchase', purchaseEventID, {
+                    contentName: contentNames.join(', ') + (hasPriorityShipping ? ' + Envío Prioritario' : ''),
+                    contentIds: contentIds,
+                    contentType: 'product',
+                    value: totalValue,
+                    currency: 'COP',
+                    numItems: contentIds.length
+                }, {
+                    firstName: form.querySelector('[name="nombre"]')?.value || '',
+                    lastName: form.querySelector('[name="apellido"]')?.value || '',
+                    phone: form.querySelector('[name="celular"]')?.value || '',
+                    city: form.querySelector('[name="ciudad"]')?.value || '',
+                    state: form.querySelector('[name="departamento"]')?.value || ''
+                }));
+
                 console.log('[DEBUG] Llamando sendToGoogleSheets...');
                 sendToGoogleSheets(checkoutSnapshot, 'pedido-bgor');
                 closeCheckout();
@@ -4710,6 +4777,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         content_category: 'Consulta'
                     }, { eventID: leadEventID });
                 }
+
+                sendMetaCAPI(buildMetaEventData('Lead', leadEventID, {
+                    contentName: 'Formulario Contacto - B-GOR Equinos',
+                    contentCategory: 'Consulta'
+                }, {
+                    firstName: form.querySelector('[name="nombre"]')?.value || '',
+                    phone: form.querySelector('[name="telefono"]')?.value || ''
+                }));
 
                 sendToGoogleSheets(contactSnapshot, 'contacto-bgor-equinos');
                 showSuccessPopup(
@@ -5518,9 +5593,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     if (this.checked && this.dataset.price) {
                         const price = parseInt(this.dataset.price);
                         const productName = this.dataset.label || this.value;
+                        const eventID = generateEventID();
 
                         if (typeof fbq !== 'undefined') {
-                            const eventID = generateEventID();
                             fbq('track', 'AddToCart', {
                                 content_name: productName,
                                 content_ids: [this.value],
@@ -5529,6 +5604,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 currency: 'COP'
                             }, { eventID: eventID });
                         }
+
+                        sendMetaCAPI(buildMetaEventData('AddToCart', eventID, {
+                            contentName: productName,
+                            contentIds: [this.value],
+                            contentType: 'product',
+                            value: price,
+                            currency: 'COP',
+                            numItems: 1
+                        }));
                     }
                 });
             });
@@ -5544,9 +5628,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             const price = parseInt(option.dataset.price);
                             if (price > 0) {
                                 const productName = option.dataset.label || option.text;
+                                const eventID = generateEventID();
 
                                 if (typeof fbq !== 'undefined') {
-                                    const eventID = generateEventID();
                                     fbq('track', 'AddToCart', {
                                         content_name: productName,
                                         content_ids: [option.value],
@@ -5555,6 +5639,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                         currency: 'COP'
                                     }, { eventID: eventID });
                                 }
+
+                                sendMetaCAPI(buildMetaEventData('AddToCart', eventID, {
+                                    contentName: productName,
+                                    contentIds: [option.value],
+                                    contentType: 'product',
+                                    value: price,
+                                    currency: 'COP',
+                                    numItems: 1
+                                }));
                             }
                         }
                     });
