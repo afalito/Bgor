@@ -1,5 +1,11 @@
 # Redirects para reorganización del sitio
 
+# Despublicar campañas de aniversario
+/aniversario     /404.html  404!
+/aniversario/*   /404.html  404!
+/sorteoaniversario     /404.html  404!
+/sorteoaniversario/*   /404.html  404!
+
 # Blog - artículos específicos
 /blog-ganadero/manejo-animal/*  /contenido/blog/articulos/manejo-animal/:splat  301
 /blog-ganadero/*  /contenido/blog/:splat  301

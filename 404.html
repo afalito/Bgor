@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagina no disponible | BGOR</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    :root {
+      --bg: #f6f1e7;
+      --surface: rgba(255, 255, 255, 0.9);
+      --text: #1f1f1f;
+      --muted: #5b564e;
+      --accent: #f27f0c;
+      --accent-dark: #c85f00;
+      --shadow: 0 24px 60px rgba(31, 31, 31, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(242, 127, 12, 0.16), transparent 34%),
+        linear-gradient(180deg, #fffaf1 0%, var(--bg) 100%);
+    }
+
+    main {
+      width: min(100%, 720px);
+      padding: 40px 32px;
+      border-radius: 28px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+
+    img {
+      width: 180px;
+      max-width: 60%;
+      height: auto;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin: 0 0 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(242, 127, 12, 0.12);
+      color: var(--accent-dark);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 6vw, 3.4rem);
+      line-height: 1.05;
+    }
+
+    p {
+      margin: 0 auto;
+      max-width: 42ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 28px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #ffffff;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 160ms ease, background 160ms ease;
+    }
+
+    a:hover,
+    a:focus-visible {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 640px) {
+      main {
+        padding: 32px 22px;
+        border-radius: 22px;
+      }
+
+      img {
+        width: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <img src="/assets/images/logo.png" alt="BGOR">
+    <div class="eyebrow">404</div>
+    <h1>Esta pagina ya no esta disponible</h1>
+    <p>El contenido que intentas visitar fue retirado del sitio. Puedes volver al inicio para seguir navegando.</p>
+    <a href="/">Ir al inicio</a>
+  </main>
+</body>
+</html>
