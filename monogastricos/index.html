@@ -54,7 +54,7 @@
 
         body {
             font-family: 'Acumin', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #e8e8e8;
+            background: var(--negro-bg);
             color: var(--texto);
             max-width: 430px;
             margin: 0 auto;
@@ -62,7 +62,7 @@
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
             line-height: 1.6;
-            font-size: 15px;
+            font-size: 16px;
         }
 
         img { max-width: 100%; height: auto; display: block; }
@@ -74,9 +74,9 @@
         .section-light { background: var(--blanco); }
         .section-grey { background: var(--gris-bg); }
         .section-pad { padding: 45px 20px; }
-        .section-title { font-size: 24px; font-weight: 700; text-align: center; line-height: 1.25; margin-bottom: 6px; }
+        .section-title { font-size: 26px; font-weight: 700; text-align: center; line-height: 1.25; margin-bottom: 6px; }
         .section-title .hl { color: var(--naranja); }
-        .section-sub { font-size: 14px; text-align: center; color: var(--texto-light); line-height: 1.5; margin-bottom: 28px; }
+        .section-sub { font-size: 15px; text-align: center; color: var(--texto-light); line-height: 1.5; margin-bottom: 28px; }
         .dark .section-title { color: var(--blanco); }
         .dark .section-sub { color: var(--gris); }
 
@@ -118,7 +118,7 @@
 
         .hero-top { display:flex; align-items:center; justify-content:center; margin-bottom:16px; }
         .hero-logo img { height:36px; width:auto; filter:drop-shadow(0 1px 6px rgba(255,87,0,0.3)); }
-        .hero h1 { font-size:26px; font-weight:700; color:var(--blanco); line-height:1.15; margin-bottom:10px; }
+        .hero h1 { font-size:28px; font-weight:700; color:var(--blanco); line-height:1.15; margin-bottom:10px; }
         .hero h1 .hl { color:var(--naranja); }
 
 
@@ -132,7 +132,7 @@
         .hero-price-before::after { content:''; position:absolute; left:-2px; right:-2px; top:45%; height:2px; background:rgba(231,76,60,0.7); transform:rotate(-12deg); }
         .hero-price-label { font-size:12px; color:rgba(255,255,255,0.5); text-transform:uppercase; }
         .hero-price-value { font-size:42px; font-weight:800; color:var(--naranja); line-height:1; }
-        .hero-sub { font-size:14px; color:rgba(255,255,255,0.65); line-height:1.5; margin-bottom:18px; max-width:320px; margin-left:auto; margin-right:auto; }
+        .hero-sub { font-size:15px; color:rgba(255,255,255,0.65); line-height:1.5; margin-bottom:18px; max-width:320px; margin-left:auto; margin-right:auto; }
         .hero-price-label { font-size:14px; text-transform:uppercase; letter-spacing:1px; color:rgba(255,255,255,0.6); margin-bottom:6px; font-weight:700; }
         .hero-price-daily { font-size:13px; color:rgba(255,255,255,0.55); margin-top:6px; letter-spacing:0.3px; }
         .hero-price-perks { display:flex; align-items:center; justify-content:center; gap:6px; margin-top:8px; font-size:11px; color:rgba(255,255,255,0.6); font-weight:600; }
@@ -179,8 +179,8 @@
             display:flex; align-items:center; justify-content:center;
             font-size:22px; color:var(--rojo);
         }
-        .pain-card h3 { font-size:14px; font-weight:700; color:var(--texto); line-height:1.35; margin-bottom:4px; }
-        .pain-card p { font-size:12px; color:var(--texto-light); line-height:1.5; }
+        .pain-card h3 { font-size:15px; font-weight:700; color:var(--texto); line-height:1.35; margin-bottom:4px; }
+        .pain-card p { font-size:13px; color:var(--texto-light); line-height:1.5; }
 
         /* ===================================================
            4. SOLUTION (transicion problema → solucion)
@@ -234,7 +234,7 @@
         .ben-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
         .ben-item { display:flex; align-items:center; gap:10px; background:var(--blanco); border-radius:10px; padding:12px 14px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
         .ben-item i { color:var(--naranja); font-size:15px; flex-shrink:0; width:18px; text-align:center; }
-        .ben-item span { font-size:13px; color:var(--texto); line-height:1.4; }
+        .ben-item span { font-size:14px; color:var(--texto); line-height:1.4; }
         .ben-item strong { color:var(--naranja); font-weight:800; }
 
         /* Mid CTA */
@@ -250,7 +250,7 @@
         .tc-rating i { font-size:17px; color:var(--naranja); }
         .tc-rating span { font-size:15px; font-weight:800; color:var(--texto); margin-left:4px; }
         .tc-stat { text-align:center; font-size:15px; color:var(--texto-light); margin-bottom:22px; line-height:1.5; }
-        .tc-stat strong { font-size:28px; font-weight:900; color:var(--naranja); display:inline-block; margin-right:2px; }
+        .tc-stat strong { font-size:30px; font-weight:900; color:var(--naranja); display:inline-block; margin-right:2px; }
 
         .tc-wrap {
             width:100vw; overflow:hidden; position:relative; left:50%; right:50%; margin-left:-50vw; margin-right:-50vw;
@@ -987,20 +987,20 @@
     <p class="section-sub">Testimonios reales de productores colombianos</p>
     <div class="v-grid">
         <div class="v-card">
-            <video id="vid0" playsinline preload="metadata"><source src="assets/Testimonios multiespecie.mp4" type="video/mp4"></video>
+            <video id="vid0" playsinline preload="metadata" poster="assets/poster-vid0.webp"><source src="assets/Testimonios multiespecie.mp4" type="video/mp4"></video>
             <div class="v-overlay" onclick="playVid(0)"><div class="v-play"><i class="fas fa-play"></i></div></div>
             <div class="v-spinner" id="vs0"></div>
             <div class="v-progress"><div class="v-fill" id="vf0"></div></div>
         </div>
         <div class="v-pair">
             <div class="v-card">
-                <video id="vid1" playsinline preload="metadata"><source src="assets/cerdos manchas.mp4" type="video/mp4"></video>
+                <video id="vid1" playsinline preload="metadata" poster="assets/poster-vid1.webp"><source src="assets/cerdos manchas.mp4" type="video/mp4"></video>
                 <div class="v-overlay" onclick="playVid(1)"><div class="v-play"><i class="fas fa-play"></i></div></div>
                 <div class="v-spinner" id="vs1"></div>
                 <div class="v-progress"><div class="v-fill" id="vf1"></div></div>
             </div>
             <div class="v-card">
-                <video id="vid2" playsinline preload="metadata"><source src="assets/TESTIMONIO.mp4" type="video/mp4"></video>
+                <video id="vid2" playsinline preload="metadata" poster="assets/poster-vid2.webp"><source src="assets/TESTIMONIO.mp4" type="video/mp4"></video>
                 <div class="v-overlay" onclick="playVid(2)"><div class="v-play"><i class="fas fa-play"></i></div></div>
                 <div class="v-spinner" id="vs2"></div>
                 <div class="v-progress"><div class="v-fill" id="vf2"></div></div>
