@@ -1,0 +1,7 @@
+{
+  "name": "bgor-com-co",
+  "private": true,
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.0"
+  }
+}
