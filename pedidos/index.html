@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos · B-GOR</title>
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --accent: #FF5700;
+            --accent-hover: #e64d00;
+            --bg: #f5f5f7;
+            --card: #ffffff;
+            --text: #1d1d1f;
+            --text2: #86868b;
+            --border: #d2d2d7;
+            --green: #34c759;
+            --red: #ff3b30;
+            --orange: #ff9500;
+            --gray: #8e8e93;
+            --radius: 12px;
+            --shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        html { height: 100%; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100%;
+            font-size: 15px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* === LOGIN === */
+        .login-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .login-card {
+            background: var(--card);
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+        }
+        .login-logo {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+        .login-logo span { color: var(--accent); }
+        .login-sub {
+            font-size: 14px;
+            color: var(--text2);
+            margin-bottom: 32px;
+        }
+        .login-card .field {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .login-card .field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text2);
+            margin-bottom: 6px;
+        }
+        .login-card .field input {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .login-card .field input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(255,87,0,0.1);
+        }
+        .login-error {
+            font-size: 13px;
+            color: var(--red);
+            margin-bottom: 12px;
+            display: none;
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .btn-primary:hover { background: var(--accent-hover); }
+        .btn-primary:active { transform: scale(0.98); }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        /* === DASHBOARD === */
+        .dash-header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .dash-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .dash-header .logo {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .dash-header .logo span { color: var(--accent); }
+        .dash-header .sep {
+            width: 1px;
+            height: 20px;
+            background: var(--border);
+        }
+        .dash-header h1 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .btn-logout {
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 13px;
+            font-family: inherit;
+            color: var(--text2);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-logout:hover { border-color: var(--text2); color: var(--text); }
+
+        .dash-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            cursor: pointer;
+            transition: box-shadow 0.2s;
+            border: 2px solid transparent;
+        }
+        .stat-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+        .stat-card.active { border-color: var(--accent); }
+        .stat-num {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            font-size: 13px;
+            color: var(--text2);
+            font-weight: 500;
+        }
+        .stat-card[data-filter="confirmado"] .stat-num { color: var(--green); }
+        .stat-card[data-filter="rechazado"] .stat-num { color: var(--red); }
+        .stat-card[data-filter="sin_comunicacion"] .stat-num { color: var(--gray); }
+
+        /* Filters */
+        .filters-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .search-input {
+            flex: 1;
+            padding: 10px 14px 10px 38px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            background: var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2386868b' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242.156a5 5 0 1 1 0-10 5 5 0 0 1 0 10z'/%3E%3C/svg%3E") 12px center no-repeat;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus { border-color: var(--accent); }
+
+        /* Table */
+        .table-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        .table-wrap { overflow-x: auto; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        thead th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text2);
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            background: var(--card);
+        }
+        tbody tr {
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        tbody tr:hover { background: #f8f8fa; }
+        tbody td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f0f0f2;
+            white-space: nowrap;
+        }
+        tbody tr:last-child td { border-bottom: none; }
+        .td-client {
+            white-space: normal;
+            max-width: 180px;
+        }
+        .td-client .name { font-weight: 600; }
+        .td-client .city { font-size: 12px; color: var(--text2); }
+
+        /* Status badge */
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1;
+        }
+        .badge-pendiente { background: #fff3e0; color: #e65100; }
+        .badge-confirmado { background: #e8f5e9; color: #2e7d32; }
+        .badge-rechazado { background: #ffebee; color: #c62828; }
+        .badge-sin_comunicacion { background: #f5f5f5; color: #616161; }
+
+        /* Empty / Loading */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text2);
+        }
+        .empty-state .icon { font-size: 48px; margin-bottom: 12px; opacity: 0.3; }
+        .spinner {
+            width: 28px; height: 28px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            margin: 0 auto 12px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* === MODAL === */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.2s;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .modal-content {
+            background: var(--card);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 560px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            animation: slideUp 0.25s ease-out;
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: var(--card);
+            border-radius: 16px 16px 0 0;
+            z-index: 1;
+        }
+        .modal-head h2 { font-size: 18px; font-weight: 700; }
+        .modal-head .date { font-size: 13px; color: var(--text2); margin-top: 2px; }
+        .modal-close {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg);
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text2);
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+        .modal-close:hover { background: var(--border); }
+
+        .modal-section {
+            padding: 20px 24px;
+            border-bottom: 1px solid #f0f0f2;
+        }
+        .modal-section:last-of-type { border-bottom: none; }
+        .section-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text2);
+            margin-bottom: 12px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .info-item .label { font-size: 12px; color: var(--text2); }
+        .info-item .value { font-size: 14px; font-weight: 500; }
+        .info-full { grid-column: 1 / -1; }
+
+        .product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f5f5f7;
+            font-size: 14px;
+        }
+        .product-item:last-child { border-bottom: none; }
+        .product-name { font-weight: 500; }
+        .product-detail { font-size: 12px; color: var(--text2); }
+        .product-price { font-weight: 600; white-space: nowrap; }
+
+        .totals-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 14px;
+        }
+        .totals-row.total { font-weight: 700; font-size: 16px; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 4px; }
+
+        /* Contact rows */
+        .contact-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            align-items: end;
+        }
+        .contact-row .field { flex: 1; }
+        .contact-row .field-sm { flex: 0 0 140px; }
+        .contact-label {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        /* Form controls in modal */
+        .modal-section .field { margin-bottom: 14px; }
+        .modal-section .field:last-child { margin-bottom: 0; }
+        .modal-section label {
+            display: block;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text2);
+            margin-bottom: 5px;
+        }
+        .modal-section input,
+        .modal-section select,
+        .modal-section textarea {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #fff;
+            color: var(--text);
+        }
+        .modal-section input:focus,
+        .modal-section select:focus,
+        .modal-section textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(255,87,0,0.08);
+        }
+        .modal-section textarea { resize: vertical; min-height: 80px; }
+        .modal-section select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2386868b' viewBox='0 0 16 16'%3E%3Cpath d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            position: sticky;
+            bottom: 0;
+            background: var(--card);
+            border-radius: 0 0 16px 16px;
+            display: flex;
+            gap: 10px;
+        }
+        .modal-footer .btn-primary { flex: 1; }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--text);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 2000;
+            transition: transform 0.3s ease;
+            pointer-events: none;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+
+        /* Mobile cards */
+        .mobile-cards { display: none; }
+        .mobile-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: box-shadow 0.15s;
+        }
+        .mobile-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+        .mobile-card-head { display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px; }
+        .mobile-card-head .order-num { font-weight: 700; }
+        .mobile-card-body { font-size: 14px; }
+        .mobile-card-body .row { display: flex; justify-content: space-between; margin-top: 4px; }
+        .mobile-card-body .label { color: var(--text2); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .stat-num { font-size: 24px; }
+            .dash-content { padding: 16px; }
+            .table-card { display: none; }
+            .mobile-cards { display: block; }
+            .filters-bar { flex-direction: column; }
+            .modal-content { max-height: 95vh; border-radius: 12px; }
+            .modal-head, .modal-section, .modal-footer { padding-left: 16px; padding-right: 16px; }
+            .contact-row { flex-direction: column; gap: 0; }
+            .contact-row .field-sm { flex: 1; }
+            .info-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 480px) {
+            .login-card { padding: 32px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Login -->
+<div id="loginView" class="login-wrap">
+    <div class="login-card">
+        <div class="login-logo">B<span>·</span>GOR</div>
+        <p class="login-sub">Panel de pedidos</p>
+        <form id="loginForm">
+            <div class="field">
+                <label>Usuario</label>
+                <input type="text" id="loginUser" autocomplete="username" required>
+            </div>
+            <div class="field">
+                <label>Contraseña</label>
+                <input type="password" id="loginPass" autocomplete="current-password" required>
+            </div>
+            <p class="login-error" id="loginError"></p>
+            <button type="submit" class="btn-primary" id="loginBtn">Iniciar sesión</button>
+        </form>
+    </div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashView" style="display:none">
+    <header class="dash-header">
+        <div class="dash-header-left">
+            <div class="logo">B<span>·</span>GOR</div>
+            <div class="sep"></div>
+            <h1>Pedidos</h1>
+        </div>
+        <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
+    </header>
+    <div class="dash-content">
+        <div class="stats-grid">
+            <div class="stat-card" data-filter="" onclick="filterByStatus('')">
+                <div class="stat-num" id="statTotal">0</div>
+                <div class="stat-label">Total</div>
+            </div>
+            <div class="stat-card" data-filter="pendiente" onclick="filterByStatus('pendiente')">
+                <div class="stat-num" id="statPendiente">0</div>
+                <div class="stat-label">Pendientes</div>
+            </div>
+            <div class="stat-card" data-filter="confirmado" onclick="filterByStatus('confirmado')">
+                <div class="stat-num" id="statConfirmado">0</div>
+                <div class="stat-label">Confirmados</div>
+            </div>
+            <div class="stat-card" data-filter="rechazado" onclick="filterByStatus('rechazado')">
+                <div class="stat-num" id="statRechazado">0</div>
+                <div class="stat-label">Rechazados</div>
+            </div>
+        </div>
+
+        <div class="filters-bar">
+            <input type="text" class="search-input" id="searchInput" placeholder="Buscar por nombre, ciudad, celular...">
+        </div>
+
+        <!-- Desktop table -->
+        <div class="table-card">
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>Celular</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersBody"></tbody>
+                </table>
+            </div>
+            <div id="tableEmpty" class="empty-state" style="display:none">
+                <div class="icon">📦</div>
+                <p>No hay pedidos todavía</p>
+            </div>
+            <div id="tableLoading" class="empty-state">
+                <div class="spinner"></div>
+                <p>Cargando pedidos...</p>
+            </div>
+        </div>
+
+        <!-- Mobile cards -->
+        <div class="mobile-cards" id="mobileCards"></div>
+    </div>
+</div>
+
+<!-- Order Detail Modal -->
+<div id="orderModal" class="modal-overlay" style="display:none">
+    <div class="modal-content">
+        <div id="modalInner"></div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+const API = '/.netlify/functions';
+let token = localStorage.getItem('bgor_token');
+let allOrders = [];
+let activeFilter = '';
+let searchQuery = '';
+
+// === INIT ===
+if (token) { showDash(); loadOrders(); } else { showLogin(); }
+
+// === AUTH ===
+function showLogin() {
+    document.getElementById('loginView').style.display = '';
+    document.getElementById('dashView').style.display = 'none';
+}
+function showDash() {
+    document.getElementById('loginView').style.display = 'none';
+    document.getElementById('dashView').style.display = '';
+}
+function logout() {
+    token = null;
+    localStorage.removeItem('bgor_token');
+    showLogin();
+}
+
+document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('loginBtn');
+    const errEl = document.getElementById('loginError');
+    errEl.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Ingresando...';
+    try {
+        const res = await fetch(API + '/admin-login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                user: document.getElementById('loginUser').value,
+                pass: document.getElementById('loginPass').value,
+            }),
+        });
+        const data = await res.json();
+        if (data.ok) {
+            token = data.token;
+            localStorage.setItem('bgor_token', token);
+            showDash();
+            loadOrders();
+        } else {
+            errEl.textContent = data.error || 'Error al ingresar';
+            errEl.style.display = 'block';
+        }
+    } catch {
+        errEl.textContent = 'Error de conexión';
+        errEl.style.display = 'block';
+    }
+    btn.disabled = false;
+    btn.textContent = 'Iniciar sesión';
+});
+
+// === API ===
+async function apiFetch(path, opts) {
+    opts = opts || {};
+    opts.headers = Object.assign({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }, opts.headers || {});
+    const res = await fetch(API + path, opts);
+    if (res.status === 401) { logout(); throw new Error('expired'); }
+    return res.json();
+}
+
+// === ORDERS ===
+async function loadOrders() {
+    document.getElementById('tableLoading').style.display = '';
+    document.getElementById('tableEmpty').style.display = 'none';
+    try {
+        const data = await apiFetch('/admin-orders');
+        if (data.ok) {
+            allOrders = data.orders;
+            renderAll();
+        }
+    } catch (e) { console.error(e); }
+    document.getElementById('tableLoading').style.display = 'none';
+}
+
+function renderAll() {
+    renderStats();
+    renderOrders(getFiltered());
+}
+
+function renderStats() {
+    document.getElementById('statTotal').textContent = allOrders.length;
+    document.getElementById('statPendiente').textContent = allOrders.filter(function(o) { return !o.status || o.status === 'pendiente'; }).length;
+    document.getElementById('statConfirmado').textContent = allOrders.filter(function(o) { return o.status === 'confirmado'; }).length;
+    document.getElementById('statRechazado').textContent = allOrders.filter(function(o) { return o.status === 'rechazado'; }).length;
+}
+
+function getFiltered() {
+    let list = allOrders;
+    if (activeFilter) {
+        list = list.filter(function(o) {
+            if (activeFilter === 'pendiente') return !o.status || o.status === 'pendiente';
+            return o.status === activeFilter;
+        });
+    }
+    if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        list = list.filter(function(o) {
+            return (o.nombre + ' ' + o.apellido + ' ' + o.ciudad + ' ' + o.celular + ' ' + o.order_number).toLowerCase().indexOf(q) !== -1;
+        });
+    }
+    return list;
+}
+
+function filterByStatus(s) {
+    activeFilter = activeFilter === s ? '' : s;
+    document.querySelectorAll('.stat-card').forEach(function(c) {
+        c.classList.toggle('active', c.dataset.filter === activeFilter);
+    });
+    renderOrders(getFiltered());
+}
+
+document.getElementById('searchInput').addEventListener('input', function(e) {
+    searchQuery = e.target.value;
+    renderOrders(getFiltered());
+});
+
+function renderOrders(orders) {
+    const tbody = document.getElementById('ordersBody');
+    const mobile = document.getElementById('mobileCards');
+    const empty = document.getElementById('tableEmpty');
+
+    if (!orders.length) {
+        tbody.innerHTML = '';
+        mobile.innerHTML = '<div class="empty-state"><div class="icon">📦</div><p>No hay pedidos</p></div>';
+        empty.style.display = '';
+        return;
+    }
+    empty.style.display = 'none';
+
+    // Desktop table
+    tbody.innerHTML = orders.map(function(o) {
+        return '<tr onclick="openOrder(\'' + o.id + '\')">' +
+            '<td><strong>#' + o.order_number + '</strong></td>' +
+            '<td>' + fmtDate(o.created_at) + '</td>' +
+            '<td class="td-client"><div class="name">' + esc(o.nombre + ' ' + (o.apellido || '')) + '</div><div class="city">' + esc(o.ciudad || '') + ', ' + esc(o.departamento || '') + '</div></td>' +
+            '<td>' + esc(o.celular) + '</td>' +
+            '<td>' + fmtCOP(o.total) + '</td>' +
+            '<td>' + statusBadge(o.status) + '</td>' +
+            '</tr>';
+    }).join('');
+
+    // Mobile cards
+    mobile.innerHTML = orders.map(function(o) {
+        return '<div class="mobile-card" onclick="openOrder(\'' + o.id + '\')">' +
+            '<div class="mobile-card-head"><span class="order-num">#' + o.order_number + '</span>' + statusBadge(o.status) + '</div>' +
+            '<div class="mobile-card-body">' +
+            '<div class="row"><span>' + esc(o.nombre + ' ' + (o.apellido || '')) + '</span><strong>' + fmtCOP(o.total) + '</strong></div>' +
+            '<div class="row"><span class="label">' + esc(o.ciudad || '') + '</span><span class="label">' + fmtDate(o.created_at) + '</span></div>' +
+            '</div></div>';
+    }).join('');
+}
+
+// === ORDER DETAIL ===
+async function openOrder(id) {
+    const modal = document.getElementById('orderModal');
+    const inner = document.getElementById('modalInner');
+    modal.style.display = '';
+    document.body.style.overflow = 'hidden';
+    inner.innerHTML = '<div class="empty-state" style="padding:40px"><div class="spinner"></div><p>Cargando...</p></div>';
+
+    try {
+        const data = await apiFetch('/admin-orders?id=' + id);
+        if (!data.ok) throw new Error('Not found');
+        renderModal(data.order);
+    } catch {
+        inner.innerHTML = '<div class="empty-state" style="padding:40px"><p>Error al cargar el pedido</p></div>';
+    }
+}
+
+function renderModal(order) {
+    const items = order.items || [];
+    const subtotal = items.reduce(function(a, i) { return a + (i.subtotal || 0); }, 0);
+
+    document.getElementById('modalInner').innerHTML =
+        '<div class="modal-head"><div><h2>Pedido #' + order.order_number + '</h2><div class="date">' + fmtDateFull(order.created_at) + '</div></div><button class="modal-close" onclick="closeModal()">&#10005;</button></div>' +
+
+        '<div class="modal-section"><div class="section-label">Cliente</div><div class="info-grid">' +
+        infoItem('Nombre', esc(order.nombre + ' ' + (order.apellido || ''))) +
+        infoItem('Celular', '<a href="tel:' + order.celular + '" style="color:var(--accent)">' + order.celular + '</a>') +
+        infoItem('Ciudad', esc(order.ciudad || '')) +
+        infoItem('Departamento', esc(order.departamento || '')) +
+        infoItem('Dirección', esc(order.direccion || ''), true) +
+        (order.indicaciones ? infoItem('Indicaciones', esc(order.indicaciones), true) : '') +
+        '</div></div>' +
+
+        '<div class="modal-section"><div class="section-label">Productos</div>' +
+        items.map(function(i) {
+            return '<div class="product-item"><div><div class="product-name">' + esc(i.producto) + '</div><div class="product-detail">' + esc(i.presentacion || '') + (i.tamano ? ' · ' + i.tamano : '') + ' · Cant: ' + i.cantidad + '</div></div><div class="product-price">' + fmtCOP(i.subtotal) + '</div></div>';
+        }).join('') +
+        '<div style="margin-top:10px">' +
+        totalsRow('Subtotal', fmtCOP(subtotal)) +
+        (order.descuento ? totalsRow('Descuento', '-' + fmtCOP(order.descuento)) : '') +
+        totalsRow('Envío', order.envio_costo ? fmtCOP(order.envio_costo) + (order.envio_prioritario ? ' (prioritario)' : '') : 'Gratis') +
+        totalsRow('Total', fmtCOP(order.total), true) +
+        '</div></div>' +
+
+        '<div class="modal-section"><div class="section-label">Seguimiento de contacto</div>' +
+        contactRow('Contacto 1', 'c1', order.contacto_1_fecha, order.contacto_1_canal) +
+        contactRow('Contacto 2', 'c2', order.contacto_2_fecha, order.contacto_2_canal) +
+        contactRow('Contacto 3', 'c3', order.contacto_3_fecha, order.contacto_3_canal) +
+        '</div>' +
+
+        '<div class="modal-section">' +
+        '<div class="field"><label>Estado</label><select id="mStatus">' +
+        '<option value="pendiente"' + (order.status === 'pendiente' || !order.status ? ' selected' : '') + '>Pendiente</option>' +
+        '<option value="confirmado"' + (order.status === 'confirmado' ? ' selected' : '') + '>Confirmado</option>' +
+        '<option value="sin_comunicacion"' + (order.status === 'sin_comunicacion' ? ' selected' : '') + '>No se logra comunicación</option>' +
+        '<option value="rechazado"' + (order.status === 'rechazado' ? ' selected' : '') + '>Rechazado</option>' +
+        '</select></div>' +
+        '<div class="field"><label>Notas</label><textarea id="mNotas" placeholder="Agregar notas...">' + esc(order.notas || '') + '</textarea></div>' +
+        '</div>' +
+
+        '<div class="modal-footer"><button class="btn-primary" onclick="saveOrder(\'' + order.id + '\')">Guardar cambios</button></div>';
+}
+
+function contactRow(label, prefix, fecha, canal) {
+    return '<div class="contact-label">' + label + '</div><div class="contact-row">' +
+        '<div class="field"><label>Fecha y hora</label><input type="datetime-local" id="' + prefix + 'f" value="' + toInputDt(fecha) + '"></div>' +
+        '<div class="field field-sm"><label>Canal</label><select id="' + prefix + 'c">' +
+        '<option value="">—</option>' +
+        '<option value="WhatsApp"' + (canal === 'WhatsApp' ? ' selected' : '') + '>WhatsApp</option>' +
+        '<option value="Llamada"' + (canal === 'Llamada' ? ' selected' : '') + '>Llamada</option>' +
+        '<option value="SMS"' + (canal === 'SMS' ? ' selected' : '') + '>SMS</option>' +
+        '</select></div></div>';
+}
+
+async function saveOrder(id) {
+    const btn = document.querySelector('.modal-footer .btn-primary');
+    btn.disabled = true;
+    btn.textContent = 'Guardando...';
+    try {
+        const payload = {
+            id: id,
+            status: document.getElementById('mStatus').value,
+            notas: document.getElementById('mNotas').value,
+            contacto_1_fecha: dtVal('c1f'),
+            contacto_1_canal: document.getElementById('c1c').value || null,
+            contacto_2_fecha: dtVal('c2f'),
+            contacto_2_canal: document.getElementById('c2c').value || null,
+            contacto_3_fecha: dtVal('c3f'),
+            contacto_3_canal: document.getElementById('c3c').value || null,
+        };
+        const data = await apiFetch('/admin-orders', { method: 'PATCH', body: JSON.stringify(payload) });
+        if (data.ok) {
+            toast('Cambios guardados');
+            closeModal();
+            loadOrders();
+        } else { throw new Error(data.error); }
+    } catch (e) {
+        toast('Error al guardar');
+    }
+    btn.disabled = false;
+    btn.textContent = 'Guardar cambios';
+}
+
+function dtVal(id) {
+    const v = document.getElementById(id).value;
+    return v ? new Date(v).toISOString() : null;
+}
+
+function closeModal() {
+    document.getElementById('orderModal').style.display = 'none';
+    document.body.style.overflow = '';
+}
+document.getElementById('orderModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+});
+
+// === HELPERS ===
+function fmtCOP(n) { return '$' + (n || 0).toLocaleString('es-CO'); }
+function fmtDate(d) {
+    if (!d) return '—';
+    const dt = new Date(d);
+    return dt.toLocaleDateString('es-CO', { day: '2-digit', month: 'short' });
+}
+function fmtDateFull(d) {
+    if (!d) return '';
+    return new Date(d).toLocaleDateString('es-CO', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+function toInputDt(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    const pad = function(n) { return String(n).padStart(2, '0'); };
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+}
+function esc(s) {
+    const d = document.createElement('div');
+    d.textContent = s || '';
+    return d.innerHTML;
+}
+function statusBadge(s) {
+    const labels = { pendiente: 'Pendiente', confirmado: 'Confirmado', rechazado: 'Rechazado', sin_comunicacion: 'Sin comunicación' };
+    const st = s || 'pendiente';
+    return '<span class="badge badge-' + st + '">' + (labels[st] || st) + '</span>';
+}
+function infoItem(label, value, full) {
+    return '<div class="info-item' + (full ? ' info-full' : '') + '"><div class="label">' + label + '</div><div class="value">' + value + '</div></div>';
+}
+function totalsRow(label, value, isTotal) {
+    return '<div class="totals-row' + (isTotal ? ' total' : '') + '"><span>' + label + '</span><span>' + value + '</span></div>';
+}
+function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 2500);
+}
+</script>
+</body>
+</html>
