@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>B-GOR Monogástricos | Más Kilos, Menos Alimento, Protección Real</title>
     <meta name="description" content="B-GOR Monogástricos: suplemento nutricional para cerdos, lechones, pollos de engorde y aves de postura. Registro ICA 24677SL. Envío gratis a toda Colombia.">
     <meta name="theme-color" content="#FF5700">
@@ -16,8 +16,8 @@
     {"@context":"https://schema.org","@type":"Product","name":"B-GOR Monogástricos","description":"Suplemento nutricional para cerdos y aves - Registro ICA 24677SL","brand":{"@type":"Brand","name":"B-GOR"},"offers":{"@type":"Offer","priceCurrency":"COP","price":"84900","availability":"https://schema.org/InStock"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"20847"}}
     </script>
     <link rel="icon" type="image/png" href="assets/isotipo NARANJA.png">
-    <link rel="preload" href="assets/B-GOR MONOGATRICOS.webp" as="image">
-    <link rel="preload" href="assets/isotipo BLANCO.png" as="image">
+    <link rel="preload" href="assets/B-GOR MONOGATRICOS.webp" as="image" fetchpriority="high">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
@@ -243,7 +243,7 @@
         /* ===================================================
            6. TESTIMONIAL CAROUSEL (fotos infinito)
            =================================================== */
-        .tcarousel { padding:30px 20px 10px; background:var(--blanco); overflow:hidden; }
+        .tcarousel { padding:30px 20px 10px; background:var(--blanco); overflow:hidden; contain:layout style; }
         .tcarousel .section-title { color:var(--texto); }
         .tcarousel .section-sub { color:var(--texto-light); font-weight:400; }
         .tc-rating { display:flex; align-items:center; justify-content:center; gap:4px; margin-bottom:10px; }
@@ -254,11 +254,12 @@
 
         .tc-wrap {
             width:100vw; overflow:hidden; position:relative; left:50%; right:50%; margin-left:-50vw; margin-right:-50vw;
+            min-height:180px;
         }
         .tc-track { --scroll-dist:calc(-190px * 10); display:flex; gap:10px; animation:scrollLoop 32s linear infinite; will-change:transform; }
         .tc-item { flex-shrink:0; border-radius:10px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.3); transition:transform 0.3s; }
         .tc-item:hover { transform:scale(1.05); }
-        .tc-item img { width:180px; height:180px; object-fit:cover; }
+        .tc-item img { width:180px; height:180px; object-fit:cover; aspect-ratio:1/1; }
         .tc-tagline { text-align:center; font-size:13px; color:#999; margin-top:18px; font-style:italic; font-weight:500; }
 
         /* ===================================================
@@ -766,11 +767,12 @@
     </style>
 </head>
 <body>
+<main>
 
 <!-- ====== 1. HERO ====== -->
 <section class="hero">
     <div class="hero-top">
-        <div class="hero-logo"><img src="assets/LOGO B-GOR.png" alt="B-GOR" height="36" fetchpriority="high"></div>
+        <div class="hero-logo"><img src="assets/LOGO B-GOR.png" alt="B-GOR" width="126" height="36" fetchpriority="high"></div>
         <!-- ICA badge removed -->
     </div>
 
@@ -787,7 +789,7 @@
     <p class="hero-sub">Resultados desde el primer ciclo o le devolvemos su dinero</p>
 
     <div class="hero-img">
-        <img id="mainImg" src="assets/B-GOR MONOGATRICOS.webp" alt="B-GOR Monogástricos" fetchpriority="high">
+        <img id="mainImg" src="assets/B-GOR MONOGATRICOS.webp" alt="B-GOR Monogástricos" width="540" height="540" fetchpriority="high">
     </div>
 
     <div class="hero-price">
@@ -881,7 +883,7 @@
     <p class="section-sub">Un solo producto que le hace rendir el alimento, sacar más rápido y bajar la mortalidad.</p>
 
     <div class="solution-img">
-        <img src="assets/solucion-porcicultura.webp" alt="Productor con B-GOR Monogástricos en granja porcina" width="600" height="728" loading="lazy">
+        <img src="assets/solucion-porcicultura.webp" alt="Productor con B-GOR Monogástricos en granja porcina" width="400" height="485" loading="lazy" decoding="async">
     </div>
 
     <div class="solution-dock">
@@ -919,7 +921,7 @@
 
     <!-- CERDOS -->
     <div class="sp-content active" id="sp-cerdos">
-        <div class="sp-img"><img src="assets/BENEFICIOS CERDOS.webp" alt="Beneficios para cerdos" width="1080" height="1080" loading="lazy"></div>
+        <div class="sp-img"><img src="assets/BENEFICIOS CERDOS.webp" alt="Beneficios para cerdos" width="540" height="540" loading="lazy" decoding="async"></div>
         <ul class="ben-list">
             <li class="ben-item"><i class="fas fa-wheat-awn"></i><span>Ganan <strong>+5% peso/día</strong> con el mismo concentrado</span></li>
             <li class="ben-item"><i class="fas fa-weight-scale"></i><span>Lechones <strong>+6.7% más pesados</strong> al destete</span></li>
@@ -929,7 +931,7 @@
 
     <!-- POLLOS -->
     <div class="sp-content" id="sp-pollos">
-        <div class="sp-img"><img src="assets/BENEFICIOS POLLO DE ENGORDE.webp" alt="Beneficios para pollos" width="1080" height="1080" loading="lazy"></div>
+        <div class="sp-img"><img src="assets/BENEFICIOS POLLO DE ENGORDE.webp" alt="Beneficios para pollos" width="540" height="540" loading="lazy" decoding="async"></div>
         <ul class="ben-list">
             <li class="ben-item"><i class="fas fa-heart-pulse"></i><span><strong>-68% mortalidad</strong> por estrés de calor</span></li>
             <li class="ben-item"><i class="fas fa-chart-line"></i><span>Ganan <strong>+4.8% peso/día</strong> con el mismo alimento</span></li>
@@ -939,7 +941,7 @@
 
     <!-- PONEDORAS -->
     <div class="sp-content" id="sp-ponedoras">
-        <div class="sp-img"><img src="assets/BENEFICIOS PONEDORAS.webp" alt="Beneficios para ponedoras" width="1080" height="1080" loading="lazy"></div>
+        <div class="sp-img"><img src="assets/BENEFICIOS PONEDORAS.webp" alt="Beneficios para ponedoras" width="540" height="540" loading="lazy" decoding="async"></div>
         <ul class="ben-list">
             <li class="ben-item"><i class="fas fa-shield-virus"></i><span>Atrapa <strong>67% de toxinas</strong> que bajan la postura</span></li>
             <li class="ben-item"><i class="fas fa-egg"></i><span>Cáscara <strong>+7.4% más resistente</strong>, menos huevo roto</span></li>
@@ -1030,7 +1032,7 @@
 
     <div class="tt-card">
         <div class="tt-head">
-            <img class="tt-avatar" src="assets/testimonios/testimonio-1.webp" alt="Luis Hernández" loading="lazy">
+            <img class="tt-avatar" src="assets/testimonios/testimonio-1.webp" alt="Luis Hernández" width="48" height="48" loading="lazy">
             <div><div class="tt-name">Luis Hernández</div><div class="tt-loc">Productor porcino - Antioquia</div><div class="tt-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div></div>
         </div>
         <p class="tt-text">"Mis cerdos mejoraron mucho la condición desde que empecé con B-GOR. Se nota en el peso al momento de la venta y el alimento rinde más."</p>
@@ -1038,7 +1040,7 @@
     </div>
     <div class="tt-card">
         <div class="tt-head">
-            <img class="tt-avatar" src="assets/testimonios/testimonio-8.webp" alt="María del Carmen Ríos" loading="lazy">
+            <img class="tt-avatar" src="assets/testimonios/testimonio-8.webp" alt="María del Carmen Ríos" width="48" height="48" loading="lazy">
             <div><div class="tt-name">María del Carmen Ríos</div><div class="tt-loc">Avicultora - Santander</div><div class="tt-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div></div>
         </div>
         <p class="tt-text">"Antes cuando me llegaban los pollitos del viaje se veían como borrachos, débiles por días. Ahora apenas llegan les doy B&#8209;GOR y se recuperan mucho más rápido. Ya no se me mueren tantos."</p>
@@ -1364,22 +1366,13 @@
     <div class="faq-item"><div class="faq-q" onclick="togFaq(this)"><span>Se puede mezclar con cualquier concentrado?</span><i class="fas fa-chevron-down"></i></div><div class="faq-a"><div class="faq-a-inner"><p>Sí. B-GOR se mezcla directamente con el concentrado que usted ya usa, sin importar la marca. No altera el sabor ni la textura del alimento. Solo agréguelo en la dosis indicada y listo.</p></div></div></div>
 </section>
 
-<!-- ====== 17. CONTACTO ====== -->
-<section class="contact">
-    <p style="font-size:15px;color:var(--texto-light);margin-bottom:14px;line-height:1.4;">
-        <strong style="color:var(--texto);">¿Todavía tiene dudas?</strong><br>
-        Nuestra asesora le responde al instante
-    </p>
-    <a href="https://wa.me/573001234567?text=Hola%2C%20quiero%20información%20sobre%20B-GOR%20Monogástricos" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:var(--blanco);border:none;padding:16px 32px;border-radius:50px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,0.35);">
-        <i class="fab fa-whatsapp" style="font-size:20px;color:var(--blanco);"></i>
-        Preguntar ahora
-    </a>
-</section>
 
+
+</main>
 
 <!-- Footer -->
 <footer class="footer">
-    <img src="assets/LOGO B-GOR.png" alt="B-GOR" class="footer-logo" loading="lazy">
+    <img src="assets/LOGO B-GOR.png" alt="B-GOR" class="footer-logo" width="126" height="36" loading="lazy">
     <div class="footer-text">Ciencia nutricional hecha para el campo colombiano.</div>
     <div class="footer-copyright">&copy; 2026 B-GOR. Todos los derechos reservados.</div>
     <div class="footer-ica">Registro ICA No. 24677SL</div>
@@ -2151,7 +2144,7 @@ var res=await fetch('/.netlify/functions/save-order',{method:'POST',headers:{'Co
 var data=await res.json();
 if(data.ok){document.getElementById('ckBody').style.display='none';document.getElementById('ckSuccess').classList.add('active');document.querySelector('.ck-steps').style.display='none'}
 else{throw new Error(data.error||'err')}
-}catch(err){btn.disabled=false;btn.innerHTML='<i class="fas fa-lock"></i> CONFIRMAR PEDIDO';alert('Error al enviar. Intente de nuevo o contáctanos por WhatsApp.')}
+}catch(err){btn.disabled=false;btn.innerHTML='<i class="fas fa-lock"></i> CONFIRMAR PEDIDO';alert('Error al enviar. Por favor intente de nuevo.')}
 };
 
 // --- Purchase notifications ---
