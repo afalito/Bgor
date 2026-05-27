@@ -50,10 +50,33 @@
     /></noscript>
     <!-- End Meta Pixel Code -->
 
-    <!-- Función para generar eventID único y evitar duplicados -->
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wxpm9akws8");
+    </script>
+
+    <!-- Función para generar eventID único y helpers Meta CAPI -->
     <script>
     function generateEventID(){return 'evt_'+Date.now()+'_'+Math.random().toString(36).substr(2,9)}
     var initiateCheckoutFired=sessionStorage.getItem('initiateCheckoutFired')==='true';
+
+    // Helpers para Meta Conversions API (CAPI)
+    function getMetaCookie(name){
+        var m=document.cookie.match(new RegExp('(?:^|; )'+name+'=([^;]*)'));
+        return m?decodeURIComponent(m[1]):null;
+    }
+    function sendMetaCAPI(data){
+        if(!data)return;
+        fetch('/.netlify/functions/meta-capi-mono',{
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify(data)
+        }).catch(function(err){console.warn('[CAPI] error (no crítico):',err)});
+    }
     </script>
 
     <style>
@@ -2225,6 +2248,26 @@ value:payload.total,
 currency:'COP',
 num_items:payload.items.length
 },{eventID:purchaseEventID});
+// CAPI - mismo eventID para deduplicación
+sendMetaCAPI({
+eventName:'Purchase',
+eventId:purchaseEventID,
+value:payload.total,
+currency:'COP',
+contentIds:contentIds,
+contentName:contentNames.join(', '),
+contentCategory:'Suplementos Monogástricos',
+contentType:'product',
+numItems:payload.items.length,
+firstName:form.nombre.value,
+lastName:form.apellido.value,
+phone:form.celular.value,
+city:form.ciudad.value,
+state:form.departamento.value,
+fbp:getMetaCookie('_fbp'),
+fbc:getMetaCookie('_fbc'),
+sourceUrl:window.location.href
+});
 sessionStorage.setItem('purchase_'+purchaseEventID,'true');
 }
 document.getElementById('ckBody').style.display='none';document.getElementById('ckSuccess').classList.add('active');document.querySelector('.ck-steps').style.display='none'}
