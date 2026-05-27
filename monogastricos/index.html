@@ -2244,6 +2244,11 @@ _openCkSafe();
 }
 function populateCheckoutForModify(order){
 _openCkSafe();
+// Forzar precios originales sin descuento durante modificación
+discApplied=false;closeAttempt=false;
+var hDiscEl=document.getElementById('hDisc');if(hDiscEl)hDiscEl.value='no';
+var ckDiscEl=document.getElementById('ckDiscount');if(ckDiscEl)ckDiscEl.classList.remove('active');
+var stickyEl=document.getElementById('discSticky');if(stickyEl)stickyEl.classList.remove('active');
 window._modifyOrderId=order.id;
 Object.keys(selProds).forEach(function(k){selProds[k]=false});
 order.items.forEach(function(item){
