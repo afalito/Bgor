@@ -683,6 +683,13 @@
         .disc-sticky-timer { font-size:18px; font-weight:800; font-variant-numeric:tabular-nums; min-width:52px; text-align:center; }
         .disc-sticky-btn { background:var(--blanco); color:var(--verde); font-size:13px; font-weight:800; padding:10px 18px; border-radius:50px; border:none; cursor:pointer; white-space:nowrap; flex-shrink:0; transition:transform 0.2s; }
         .disc-sticky-btn:active { transform:scale(0.95); }
+        /* Banner pedido pendiente */
+        .order-banner { position:fixed; bottom:0; left:0; right:0; z-index:9989; background:linear-gradient(135deg,#1a5276,#2471a3); color:#fff; padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px)); display:none; align-items:center; gap:10px; box-shadow:0 -4px 20px rgba(0,0,0,0.3); animation:slideUp 0.4s ease-out; }
+        .order-banner-icon { font-size:20px; flex-shrink:0; }
+        .order-banner-text { flex:1; font-size:12px; line-height:1.3; }
+        .order-banner-text strong { font-size:14px; display:block; }
+        .order-banner-btn { background:#fff; color:#1a5276; font-size:13px; font-weight:800; padding:10px 18px; border-radius:50px; border:none; cursor:pointer; white-space:nowrap; flex-shrink:0; transition:transform 0.2s; }
+        .order-banner-btn:active { transform:scale(0.95); }
 
         /* Abandon modal */
         .disc-modal-ov { position:fixed; inset:0; z-index:10001; background:rgba(0,0,0,0.7); display:none; align-items:center; justify-content:center; padding:20px; backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); }
@@ -2176,14 +2183,118 @@ document.getElementById('hDetail').value=detail.join(' | ');
 document.getElementById('hTotal').value=fmtCOP(t);
 }
 
+// --- Active order tracking (localStorage 48h) ---
+function getActiveOrder(){
+try{
+var raw=localStorage.getItem('bgor_mono_order');
+if(!raw)return null;
+var order=JSON.parse(raw);
+if(Date.now()>order.expires_at){localStorage.removeItem('bgor_mono_order');return null}
+return order;
+}catch(e){localStorage.removeItem('bgor_mono_order');return null}
+}
+function saveActiveOrder(data,form,payload){
+var rec={
+order_id:data.order_id||data.order_number,
+order_number:data.order_number,
+celular:form.celular.value,
+nombre:form.nombre.value,
+total:payload.total,
+items_summary:payload.items.map(function(i){return i.producto+' x'+i.cantidad}).join(', '),
+created_at:Date.now(),
+expires_at:Date.now()+(48*60*60*1000)
+};
+localStorage.setItem('bgor_mono_order',JSON.stringify(rec));
+showOrderBanner(rec);
+}
+function showOrderBanner(order){
+var banner=document.getElementById('orderBanner');
+var detail=document.getElementById('orderBannerDetail');
+if(!banner)return;
+detail.textContent='Pedido #'+order.order_number+' — '+order.items_summary;
+banner.style.display='flex';
+document.getElementById('orderBannerBtn').onclick=function(){openModifyFlow(order)};
+}
+async function openModifyFlow(order){
+var banner=document.getElementById('orderBannerBtn');
+var origHtml=banner.innerHTML;
+banner.innerHTML='<i class="fas fa-spinner fa-spin"></i>';
+try{
+var res=await fetch('/.netlify/functions/check-order?id='+order.order_id+'&cel='+order.celular);
+var data=await res.json();
+banner.innerHTML=origHtml;
+if(!data.ok){alert('No se pudo verificar tu pedido. Intenta de nuevo.');return}
+if(data.status!=='pendiente'){
+alert('Tu pedido ya fue '+data.status+'. No se puede modificar.');
+localStorage.removeItem('bgor_mono_order');
+document.getElementById('orderBanner').style.display='none';
+return;
+}
+populateCheckoutForModify(data.order);
+}catch(e){banner.innerHTML=origHtml;alert('Error de conexión. Intenta de nuevo.')}
+}
+function populateCheckoutForModify(order){
+_originalOpenCk();
+// Asignar DESPUÉS de _originalOpenCk (que resetea _modifyOrderId a null)
+window._modifyOrderId=order.id;
+// Pre-seleccionar productos del pedido existente
+Object.keys(selProds).forEach(function(k){selProds[k]=false});
+order.items.forEach(function(item){
+Object.keys(CATALOG).forEach(function(k){
+var c=CATALOG[k];
+if(c.full===item.producto){
+selProds[k]=true;
+c.pres.forEach(function(p,idx){
+if(p.name===item.presentacion){
+prodCfg[k].pres=idx;
+prodCfg[k].qty=item.cantidad;
+}
+});
+}
+});
+});
+// Sincronizar visual de product cards con selProds
+document.querySelectorAll('.ck-prod').forEach(function(el){
+var k=el.dataset.prod;
+if(selProds[k])el.classList.add('selected');
+else el.classList.remove('selected');
+});
+// Pre-llenar datos personales
+var form=document.getElementById('orderForm');
+form.nombre.value=order.nombre||'';
+form.apellido.value=order.apellido||'';
+form.celular.value=order.celular||'';
+form.celular_confirm.value=order.celular||'';
+form.direccion.value=order.direccion||'';
+form.ciudad.value=order.ciudad||'';
+form.departamento.value=order.departamento||'';
+if(form.indicaciones_entrega)form.indicaciones_entrega.value=order.indicaciones||'';
+if(order.envio_prioritario){
+hasPriority=true;
+var pEl=document.getElementById('ckPriority');if(pEl)pEl.classList.add('checked');
+document.getElementById('hPriority').value='si';
+}
+syncCkSelect();
+var btn=document.getElementById('ckBtn');
+btn.innerHTML='<i class="fas fa-pen"></i> ACTUALIZAR PEDIDO';
+}
+
 // --- Checkout open/close ---
 var PRIORITY_PRICE=5900;
 var hasPriority=false;
 var closeAttempt=false,discApplied=false;
-window.openCk=function(){
+_originalOpenCk=function(){
 // Reset state
+window._modifyOrderId=null;
 var form=document.getElementById('orderForm');
 if(form)form.reset();
+// Restaurar textos del success por si antes fue una modificación
+var successEl=document.getElementById('ckSuccess');
+successEl.querySelector('h3').textContent='Pedido Recibido!';
+successEl.querySelector('p').textContent='Gracias por confiar en B-GOR. Un asesor se comunicará contigo en las próximas horas para confirmar tu pedido.';
+// Restaurar botón
+var btn=document.getElementById('ckBtn');
+btn.innerHTML='<i class="fas fa-lock"></i> CONFIRMAR PEDIDO';
 hasPriority=false;
 var pEl=document.getElementById('ckPriority');if(pEl)pEl.classList.remove('checked');
 var hP=document.getElementById('hPriority');if(hP)hP.value='no';
@@ -2212,8 +2323,13 @@ initiateCheckoutFired=true;
 sessionStorage.setItem('initiateCheckoutFired','true');
 }
 };
+window.openCk=function(){
+var order=getActiveOrder();
+if(order){openModifyFlow(order);return}
+_originalOpenCk();
+};
 function closeCk(){document.getElementById('ckOverlay').classList.remove('active');document.body.style.overflow=''}
-window.tryCkClose=function(){if(!closeAttempt&&!discApplied&&ckCurrentStep>=2){closeAttempt=true;applyDisc()}else{closeCk();if(discApplied)showDiscSticky()}};
+window.tryCkClose=function(){var hasOrder=getActiveOrder();if(!hasOrder&&!closeAttempt&&!discApplied&&ckCurrentStep>=2){closeAttempt=true;applyDisc()}else{closeCk();if(!hasOrder&&discApplied)showDiscSticky()}};
 function applyDisc(){
 discApplied=true;document.getElementById('hDisc').value='si-5%';
 document.getElementById('ckDiscount').classList.add('active');
@@ -2318,14 +2434,46 @@ return !first;
 window.sendOrder=async function(e){
 e.preventDefault();var form=e.target;var btn=document.getElementById('ckBtn');
 if(!validateForm(form))return;
-btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Enviando...';
+var isModify=!!window._modifyOrderId;
+btn.disabled=true;btn.innerHTML=isModify?'<i class="fas fa-spinner fa-spin"></i> Actualizando...':'<i class="fas fa-spinner fa-spin"></i> Enviando...';
 renderFinalSum();
 var purchaseEventID=generateEventID();
 try{
 var payload=buildOrderPayload(form);
-var res=await fetch('/.netlify/functions/save-order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+var url,method;
+if(isModify){
+payload.order_id=window._modifyOrderId;
+url='/.netlify/functions/update-order';method='PUT';
+}else{
+url='/.netlify/functions/save-order';method='POST';
+}
+var res=await fetch(url,{method:method,headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
 var data=await res.json();
+// Manejar duplicado detectado por servidor
+if(!data.ok&&data.error==='duplicate'){
+var dupRec={order_id:data.order_id,order_number:data.order_number,celular:form.celular.value,nombre:form.nombre.value,total:0,items_summary:'Pedido existente',created_at:Date.now(),expires_at:Date.now()+(48*60*60*1000)};
+localStorage.setItem('bgor_mono_order',JSON.stringify(dupRec));
+btn.disabled=false;btn.innerHTML='<i class="fas fa-lock"></i> CONFIRMAR PEDIDO';
+closeCk();showOrderBanner(dupRec);
+alert('Ya tienes un pedido pendiente (#'+data.order_number+'). Puedes modificarlo si necesitas hacer cambios.');
+return;
+}
 if(data.ok){
+if(isModify){
+// Actualización exitosa
+var updRec={order_id:window._modifyOrderId,order_number:data.order_number,celular:form.celular.value,nombre:form.nombre.value,total:payload.total,items_summary:payload.items.map(function(i){return i.producto+' x'+i.cantidad}).join(', '),created_at:Date.now(),expires_at:Date.now()+(48*60*60*1000)};
+localStorage.setItem('bgor_mono_order',JSON.stringify(updRec));
+window._modifyOrderId=null;
+document.getElementById('ckBody').style.display='none';
+var successEl=document.getElementById('ckSuccess');
+successEl.querySelector('h3').textContent='Pedido Actualizado!';
+successEl.querySelector('p').textContent='Tu pedido ha sido modificado exitosamente. Un asesor se comunicará contigo pronto.';
+successEl.classList.add('active');
+document.querySelector('.ck-steps').style.display='none';
+showOrderBanner(updRec);
+}else{
+// Pedido nuevo exitoso — guardar en localStorage
+saveActiveOrder(data,form,payload);
 // Meta Pixel - Purchase (SOLO después de envío exitoso)
 var alreadyFired=sessionStorage.getItem('purchase_'+purchaseEventID);
 if(typeof fbq!=='undefined'&&payload.total>0&&!alreadyFired){
@@ -2339,7 +2487,6 @@ value:payload.total,
 currency:'COP',
 num_items:payload.items.length
 },{eventID:purchaseEventID});
-// CAPI - mismo eventID para deduplicación
 sendMetaCAPI({
 eventName:'Purchase',
 eventId:purchaseEventID,
@@ -2361,9 +2508,10 @@ sourceUrl:window.location.href
 });
 sessionStorage.setItem('purchase_'+purchaseEventID,'true');
 }
-document.getElementById('ckBody').style.display='none';document.getElementById('ckSuccess').classList.add('active');document.querySelector('.ck-steps').style.display='none'}
-else{throw new Error(data.error||'err')}
-}catch(err){btn.disabled=false;btn.innerHTML='<i class="fas fa-lock"></i> CONFIRMAR PEDIDO';alert('Error al enviar. Por favor intente de nuevo.')}
+document.getElementById('ckBody').style.display='none';document.getElementById('ckSuccess').classList.add('active');document.querySelector('.ck-steps').style.display='none';
+}
+}else{throw new Error(data.error||'err')}
+}catch(err){btn.disabled=false;btn.innerHTML=isModify?'<i class="fas fa-pen"></i> ACTUALIZAR PEDIDO':'<i class="fas fa-lock"></i> CONFIRMAR PEDIDO';alert(isModify?'Error al actualizar. Intenta de nuevo.':'Error al enviar. Por favor intente de nuevo.')}
 };
 
 // --- Purchase notifications ---
@@ -2391,7 +2539,7 @@ var cust=[
 ];
 var li=-1,nc=0,mx=3;
 var scrollTh=[800,1800],notifShown=new Set,ttNotifShown=false;
-function pnPos(){var el=document.getElementById('pn');if(!el)return;var sticky=document.getElementById('discSticky');el.style.bottom=(sticky&&sticky.classList.contains('active'))?'68px':'16px'}
+function pnPos(){var el=document.getElementById('pn');if(!el)return;var sticky=document.getElementById('discSticky');var banner=document.getElementById('orderBanner');var hasBar=(sticky&&sticky.classList.contains('active'))||(banner&&banner.style.display==='flex');el.style.bottom=hasBar?'68px':'16px'}
 function showPN(type){if(nc>=mx)return;var el=document.getElementById('pn');if(type==='viewers'){document.getElementById('pnN').textContent=currentViewers+' personas';document.getElementById('pnT').textContent='están viendo esto ahora';document.getElementById('pnTm').textContent='En tiempo real'}else{var idx;do{idx=Math.floor(Math.random()*cust.length)}while(idx===li);li=idx;var c=cust[idx];document.getElementById('pnN').textContent=c.n;document.getElementById('pnT').textContent='acaba de comprar '+c.p;document.getElementById('pnTm').textContent=c.t}pnPos();el.classList.add('show');setTimeout(function(){el.classList.remove('show')},5000);nc++}
 window.addEventListener('scroll',function(){var s=window.scrollY;scrollTh.forEach(function(t,i){if(s>t&&!notifShown.has(t)){notifShown.add(t);showPN(i%2===0?'purchase':'viewers')}})},{passive:true});
 var ttSec=document.querySelector('.ttext');if(ttSec){new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting&&!ttNotifShown&&e.intersectionRatio>0.3){ttNotifShown=true;setTimeout(function(){showPN('purchase')},2000)}})},{threshold:0.3}).observe(ttSec)}
@@ -2430,6 +2578,16 @@ if(tcWrap&&tcTrack){new IntersectionObserver(function(entries){entries.forEach(f
     <div class="disc-sticky-text"><strong>5% OFF activado</strong>Tu descuento expira pronto</div>
     <div class="disc-sticky-timer" id="discStickyTimer">10:00</div>
     <button class="disc-sticky-btn" onclick="openCk()"><i class="fas fa-cart-shopping"></i> Retomar</button>
+</div>
+
+<!-- Banner pedido pendiente -->
+<div class="order-banner" id="orderBanner">
+    <div class="order-banner-icon"><i class="fas fa-box"></i></div>
+    <div class="order-banner-text">
+        <strong>Tienes un pedido pendiente</strong>
+        <span id="orderBannerDetail"></span>
+    </div>
+    <button class="order-banner-btn" id="orderBannerBtn"><i class="fas fa-pen"></i> Modificar</button>
 </div>
 
 <script>
@@ -2492,6 +2650,12 @@ document.getElementById('discModal').classList.remove('active');
 // Show sticky bar
 document.getElementById('discSticky').classList.add('active');
 };
+})();
+
+// --- Inicializar banner de pedido pendiente ---
+(function(){
+var order=getActiveOrder();
+if(order)showOrderBanner(order);
 })();
 </script>
 </body>
