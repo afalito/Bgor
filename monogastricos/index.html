@@ -784,8 +784,9 @@
         .icon-pollito { display:block; width:18px; height:18px; margin:0 auto 3px; background:currentColor; -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath d='M236.44,73.34,213.21,57.86A60,60,0,0,0,156,16h-.29C122.79,16.16,96,43.47,96,76.89V96.63L11.63,197.88l-.1.12A16,16,0,0,0,24,224h88A104.11,104.11,0,0,0,216,120V100.28l20.44-13.62a8,8,0,0,0,0-13.32ZM126.15,133.12l-60,72a8,8,0,1,1-12.29-10.24l60-72a8,8,0,1,1,12.29,10.24ZM164,80a12,12,0,1,1,12-12A12,12,0,0,1,164,80Z'/%3E%3C/svg%3E"); mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath d='M236.44,73.34,213.21,57.86A60,60,0,0,0,156,16h-.29C122.79,16.16,96,43.47,96,76.89V96.63L11.63,197.88l-.1.12A16,16,0,0,0,24,224h88A104.11,104.11,0,0,0,216,120V100.28l20.44-13.62a8,8,0,0,0,0-13.32ZM126.15,133.12l-60,72a8,8,0,1,1-12.29-10.24l60-72a8,8,0,1,1,12.29,10.24ZM164,80a12,12,0,1,1,12-12A12,12,0,0,1,164,80Z'/%3E%3C/svg%3E"); -webkit-mask-size:contain; mask-size:contain; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; }
 
         /* PDF Viewer */
-        .pdf-overlay { position:fixed; inset:0; background:#000; z-index:1100; display:none; flex-direction:column; }
+        .pdf-overlay { position:fixed; inset:0; background:#000; z-index:1100; display:none; flex-direction:column; overscroll-behavior:contain; }
         .pdf-overlay.active { display:flex; }
+        body.pdf-open { position:fixed; width:100%; overflow:hidden; }
         .pdf-topbar { display:flex; align-items:center; justify-content:space-between; padding:0 8px; height:48px; padding-top:env(safe-area-inset-top, 0px); background:#000; flex-shrink:0; position:sticky; top:0; z-index:10; }
         .pdf-back { display:flex; align-items:center; gap:5px; color:#0a84ff; font-size:15px; font-weight:400; cursor:pointer; background:none; border:none; font-family:inherit; padding:8px; transition:opacity 0.2s; }
         .pdf-back:active { opacity:0.5; }
@@ -1625,9 +1626,17 @@ window.openPdf=function(src){
         frame.src=file+'#toolbar=0&navpanes=0';
         body.style.display='block';fb.style.display='none';
     }
-    ov.classList.add('active');document.body.style.overflow='hidden'
+    ov.classList.add('active');
+    document.body.dataset.scrollY=window.scrollY;
+    document.body.style.top='-'+window.scrollY+'px';
+    document.body.classList.add('pdf-open');
 };
-window.closePdf=function(){document.getElementById('pdfOverlay').classList.remove('active');document.body.style.overflow=''};
+window.closePdf=function(){
+    document.getElementById('pdfOverlay').classList.remove('active');
+    document.body.classList.remove('pdf-open');
+    document.body.style.top='';
+    window.scrollTo(0,parseInt(document.body.dataset.scrollY||'0'));
+};
 
 // --- Viewer count ---
 var currentViewers=29;
