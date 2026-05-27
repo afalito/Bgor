@@ -34,11 +34,27 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '968707005757335');
     fbq('track', 'PageView');
+
+    // ViewContent - Usuario viendo la página de producto
+    fbq('track', 'ViewContent', {
+        content_name: 'B-GOR Monogástricos - Suplemento Nutricional',
+        content_category: 'Suplementos Monogástricos',
+        content_ids: ['bgor-monogastricos'],
+        content_type: 'product',
+        value: 89900,
+        currency: 'COP'
+    });
     </script>
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=968707005757335&ev=PageView&noscript=1"
     /></noscript>
     <!-- End Meta Pixel Code -->
+
+    <!-- Función para generar eventID único y evitar duplicados -->
+    <script>
+    function generateEventID(){return 'evt_'+Date.now()+'_'+Math.random().toString(36).substr(2,9)}
+    var initiateCheckoutFired=sessionStorage.getItem('initiateCheckoutFired')==='true';
+    </script>
 
     <style>
         /* === FONT: Acumin Pro (marca B-GOR) === */
@@ -1767,6 +1783,18 @@ window.toggleProd=function(el){
 var k=el.dataset.prod;
 selProds[k]=!selProds[k];
 el.classList.toggle('selected');
+// Meta Pixel - AddToCart al seleccionar producto
+if(selProds[k]&&typeof fbq!=='undefined'){
+var cat=CATALOG[k];
+var pres=cat.pres[0];
+fbq('track','AddToCart',{
+content_name:cat.full,
+content_ids:[k],
+content_type:'product',
+value:pres.price,
+currency:'COP'
+},{eventID:generateEventID()});
+}
 };
 
 var ckCurrentStep=1;
@@ -2055,6 +2083,20 @@ var stickyEl=document.getElementById('discSticky');if(stickyEl)stickyEl.classLis
 document.getElementById('ckOverlay').classList.add('active');
 document.body.style.overflow='hidden';
 syncCkSelect();ckGo(1);
+// Meta Pixel - InitiateCheckout (una vez por sesión)
+if(typeof fbq!=='undefined'&&!initiateCheckoutFired){
+var eid=generateEventID();
+fbq('track','InitiateCheckout',{
+content_name:'B-GOR Monogástricos',
+content_category:'Suplementos Monogástricos',
+content_ids:['bgor-monogastricos'],
+content_type:'product',
+value:89900,
+currency:'COP'
+},{eventID:eid});
+initiateCheckoutFired=true;
+sessionStorage.setItem('initiateCheckoutFired','true');
+}
 };
 function closeCk(){document.getElementById('ckOverlay').classList.remove('active');document.body.style.overflow=''}
 window.tryCkClose=function(){if(!closeAttempt&&!discApplied&&ckCurrentStep>=2){closeAttempt=true;applyDisc()}else{closeCk();if(discApplied)showDiscSticky()}};
@@ -2164,11 +2206,28 @@ e.preventDefault();var form=e.target;var btn=document.getElementById('ckBtn');
 if(!validateForm(form))return;
 btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Enviando...';
 renderFinalSum();
+var purchaseEventID=generateEventID();
 try{
 var payload=buildOrderPayload(form);
 var res=await fetch('/.netlify/functions/save-order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
 var data=await res.json();
-if(data.ok){document.getElementById('ckBody').style.display='none';document.getElementById('ckSuccess').classList.add('active');document.querySelector('.ck-steps').style.display='none'}
+if(data.ok){
+// Meta Pixel - Purchase (SOLO después de envío exitoso)
+var alreadyFired=sessionStorage.getItem('purchase_'+purchaseEventID);
+if(typeof fbq!=='undefined'&&payload.total>0&&!alreadyFired){
+var contentIds=payload.items.map(function(i){return i.producto.toLowerCase().replace(/\s+/g,'-')});
+var contentNames=payload.items.map(function(i){return i.producto+' '+i.tamano+' x'+i.cantidad});
+fbq('track','Purchase',{
+content_name:contentNames.join(', ')+(payload.envio_prioritario?' + Envío Prioritario':''),
+content_ids:contentIds,
+content_type:'product',
+value:payload.total,
+currency:'COP',
+num_items:payload.items.length
+},{eventID:purchaseEventID});
+sessionStorage.setItem('purchase_'+purchaseEventID,'true');
+}
+document.getElementById('ckBody').style.display='none';document.getElementById('ckSuccess').classList.add('active');document.querySelector('.ck-steps').style.display='none'}
 else{throw new Error(data.error||'err')}
 }catch(err){btn.disabled=false;btn.innerHTML='<i class="fas fa-lock"></i> CONFIRMAR PEDIDO';alert('Error al enviar. Por favor intente de nuevo.')}
 };
