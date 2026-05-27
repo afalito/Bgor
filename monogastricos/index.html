@@ -1895,6 +1895,7 @@ var prodCfg={};
 Object.keys(CATALOG).forEach(function(k){prodCfg[k]={pres:1,qty:1,tierTotal:null,volKg:0}});
 
 function syncCkSelect(){
+if(typeof curPres==='undefined')return;
 if(curPres==='unidad')prodCfg.mono.pres=0;
 else if(curPres==='combo')prodCfg.mono.pres=1;
 else if(curPres==='balde')prodCfg.mono.pres=2;
