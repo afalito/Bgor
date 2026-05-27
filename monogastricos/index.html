@@ -1618,18 +1618,13 @@ window.openPdf=function(src){
     var ov=document.getElementById('pdfOverlay');var frame=document.getElementById('pdfFrame');
     var fb=document.getElementById('pdfFallback');var body=document.getElementById('pdfBody');
     var isMobile=/iPhone|iPad|Android/i.test(navigator.userAgent);
-    // Actualizar link del fallback con el archivo correcto
-    var fbLink=fb.querySelector('a');if(fbLink)fbLink.href=file;
+    // Móvil: abrir PDF directo en el navegador (visor nativo, fluido)
     if(isMobile){
-        var absUrl=new URL(file,window.location.href).href;
-        frame.src='https://docs.google.com/gview?embedded=true&url='+encodeURIComponent(absUrl);
-        body.style.display='block';fb.style.display='none';
-        // Timeout: si Google Docs Viewer no carga en 8s, mostrar fallback
-        frame._pdfTimeout=setTimeout(function(){
-            body.style.display='none';fb.style.display='flex';
-        },8000);
-        frame.onload=function(){clearTimeout(frame._pdfTimeout)};
-    }else{
+        window.open(new URL(file,window.location.href).href,'_blank');
+        return;
+    }
+    // Desktop: mostrar en iframe dentro del overlay
+    {
         frame.src=file+'#toolbar=0&navpanes=0';
         body.style.display='block';fb.style.display='none';
     }
