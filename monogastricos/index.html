@@ -2212,7 +2212,7 @@ function showOrderBanner(order){
 var banner=document.getElementById('orderBanner');
 if(!banner)return;
 var detail=document.getElementById('orderBannerDetail');
-if(detail)detail.textContent='Pedido #'+order.order_number+' — '+order.items_summary;
+if(detail)detail.textContent=order.items_summary;
 banner.style.display='flex';
 var btn=document.getElementById('orderBannerBtn');
 if(btn)btn.onclick=function(){openModifyFlow(order)};
@@ -2473,7 +2473,7 @@ var dupRec={order_id:data.order_id,order_number:data.order_number,celular:form.c
 localStorage.setItem('bgor_mono_order',JSON.stringify(dupRec));
 btn.disabled=false;btn.innerHTML='<i class="fas fa-lock"></i> CONFIRMAR PEDIDO';
 closeCk();showOrderBanner(dupRec);
-alert('Ya tienes un pedido pendiente (#'+data.order_number+'). Puedes modificarlo si necesitas hacer cambios.');
+alert('Ya tienes un pedido pendiente. Puedes modificarlo si necesitas hacer cambios.');
 return;
 }
 if(data.ok){
