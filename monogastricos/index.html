@@ -794,6 +794,10 @@
         .pdf-pages { font-size:12px; color:rgba(255,255,255,0.4); padding:0 10px; letter-spacing:0.3px; }
         .pdf-body { flex:1; overflow:auto; -webkit-overflow-scrolling:touch; background:#333; }
         .pdf-body iframe { width:100%; height:100%; border:none; }
+        .pdf-body canvas { display:block; width:100%; height:auto; }
+        .pdf-placeholder { width:100%; background:#2a2a2a; }
+        .pdf-loading { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:#999; gap:12px; font-size:14px; }
+        .pdf-loading i { font-size:28px; }
         .pdf-fallback { display:none; text-align:center; padding:60px 20px; color:var(--blanco); flex:1; flex-direction:column; align-items:center; justify-content:center; }
         .pdf-fallback p { font-size:15px; color:#999; margin-bottom:20px; }
         .pdf-fallback a { display:inline-flex; align-items:center; gap:8px; background:var(--naranja); color:var(--blanco); font-size:15px; font-weight:600; padding:14px 28px; border-radius:12px; text-decoration:none; }
@@ -1613,31 +1617,103 @@
 // --- Hero gallery ---
 
 // --- PDF Viewer ---
+// Cargar PDF.js solo cuando se necesite (no afecta velocidad de la landing)
+var pdfJsLoaded=false;
+function loadPdfJs(cb){
+    if(pdfJsLoaded)return cb();
+    var s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    s.onload=function(){
+        pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        pdfJsLoaded=true;cb();
+    };
+    document.head.appendChild(s);
+}
+
+var _pdfObserver=null;
+function renderPdfPages(file,container){
+    container.innerHTML='<div class="pdf-loading"><i class="fas fa-spinner fa-spin"></i>Cargando documento...</div>';
+    // Scale: usar devicePixelRatio pero máximo 2 (ahorra memoria en dispositivos viejos)
+    var scale=Math.min(window.devicePixelRatio||1,2);
+    pdfjsLib.getDocument(file).promise.then(function(pdf){
+        container.innerHTML='';
+        var pagesEl=document.querySelector('.pdf-pages');
+        if(pagesEl)pagesEl.textContent=pdf.numPages+' páginas';
+        // Crear placeholders con la proporción correcta de la primera página
+        pdf.getPage(1).then(function(firstPage){
+            var vp=firstPage.getViewport({scale:1});
+            var paddingPct=(vp.height/vp.width*100).toFixed(2)+'%';
+            var placeholders=[];
+            for(var i=0;i<pdf.numPages;i++){
+                var div=document.createElement('div');
+                div.className='pdf-placeholder';
+                div.style.paddingTop=paddingPct;
+                div.dataset.pageNum=i+1;
+                container.appendChild(div);
+                placeholders.push(div);
+            }
+            // Función para renderizar una página en su placeholder
+            function renderPage(div){
+                if(div.dataset.rendered)return;
+                div.dataset.rendered='1';
+                var pageNum=parseInt(div.dataset.pageNum);
+                pdf.getPage(pageNum).then(function(page){
+                    var vp2=page.getViewport({scale:scale});
+                    var canvas=document.createElement('canvas');
+                    canvas.width=vp2.width;canvas.height=vp2.height;
+                    div.style.paddingTop='';
+                    div.appendChild(canvas);
+                    page.render({canvasContext:canvas.getContext('2d'),viewport:vp2});
+                });
+            }
+            // Lazy render con IntersectionObserver (o fallback para dispositivos muy viejos)
+            if('IntersectionObserver' in window){
+                if(_pdfObserver)_pdfObserver.disconnect();
+                _pdfObserver=new IntersectionObserver(function(entries){
+                    entries.forEach(function(entry){
+                        if(entry.isIntersecting)renderPage(entry.target);
+                    });
+                },{root:container,rootMargin:'200% 0px'});
+                placeholders.forEach(function(p){_pdfObserver.observe(p)});
+            }else{
+                // Fallback: renderizar solo las primeras 3, el resto al hacer scroll
+                placeholders.slice(0,3).forEach(renderPage);
+                container.addEventListener('scroll',function(){
+                    placeholders.forEach(function(div){
+                        if(div.dataset.rendered)return;
+                        var rect=div.getBoundingClientRect();
+                        if(rect.top<window.innerHeight*2)renderPage(div);
+                    });
+                });
+            }
+        });
+    }).catch(function(){
+        container.innerHTML='';
+        document.getElementById('pdfFallback').style.display='flex';
+    });
+}
+
 window.openPdf=function(src){
     var file=src||'assets/respaldo-cientifico.pdf';
-    var ov=document.getElementById('pdfOverlay');var frame=document.getElementById('pdfFrame');
-    var fb=document.getElementById('pdfFallback');var body=document.getElementById('pdfBody');
-    var isMobile=/iPhone|iPad|Android/i.test(navigator.userAgent);
-    // Móvil: abrir PDF directo en el navegador (visor nativo, fluido)
-    if(isMobile){
-        window.open(new URL(file,window.location.href).href,'_blank');
-        return;
-    }
-    // Desktop: mostrar en iframe dentro del overlay
-    {
-        frame.src=file+'#toolbar=0&navpanes=0';
-        body.style.display='block';fb.style.display='none';
-    }
+    var ov=document.getElementById('pdfOverlay');
+    var body=document.getElementById('pdfBody');
+    var frame=document.getElementById('pdfFrame');
+    var fb=document.getElementById('pdfFallback');
+    var fbLink=fb.querySelector('a');if(fbLink)fbLink.href=file;
+    fb.style.display='none';
+    // Ocultar iframe, usar canvases
+    if(frame)frame.style.display='none';
     ov.classList.add('active');
     document.body.dataset.scrollY=window.scrollY;
     document.body.style.top='-'+window.scrollY+'px';
     document.body.classList.add('pdf-open');
+    loadPdfJs(function(){renderPdfPages(file,body)});
 };
 window.closePdf=function(){
-    var frame=document.getElementById('pdfFrame');
-    if(frame._pdfTimeout)clearTimeout(frame._pdfTimeout);
-    frame.onload=null;
-    frame.src='about:blank';
+    if(_pdfObserver){_pdfObserver.disconnect();_pdfObserver=null}
+    var body=document.getElementById('pdfBody');
+    body.innerHTML='<iframe id="pdfFrame" style="display:none"></iframe>';
+    document.getElementById('pdfFallback').style.display='none';
     document.getElementById('pdfOverlay').classList.remove('active');
     document.body.classList.remove('pdf-open');
     document.body.style.top='';
