@@ -2238,8 +2238,7 @@ return;
 populateCheckoutForModify(data.order);
 }catch(e){
 if(bannerBtn)bannerBtn.innerHTML=origHtml;
-clearOrderState();
-_openCkSafe();
+alert('No se pudo cargar tu pedido. Intenta de nuevo en unos segundos.');
 }
 }
 function populateCheckoutForModify(order){
@@ -2342,7 +2341,7 @@ if(order){openModifyFlow(order);return}
 _openCkSafe();
 };
 function closeCk(){document.getElementById('ckOverlay').classList.remove('active');document.body.style.overflow=''}
-window.tryCkClose=function(){var hasOrder=getActiveOrder();if(!hasOrder&&!closeAttempt&&!discApplied&&ckCurrentStep>=2){closeAttempt=true;applyDisc()}else{closeCk();if(!hasOrder&&discApplied)showDiscSticky()}};
+window.tryCkClose=function(){var hasOrder=getActiveOrder()||window._modifyOrderId;if(!hasOrder&&!closeAttempt&&!discApplied&&ckCurrentStep>=2){closeAttempt=true;applyDisc()}else{closeCk();if(!hasOrder&&discApplied)showDiscSticky()}};
 function applyDisc(){
 discApplied=true;document.getElementById('hDisc').value='si-5%';
 document.getElementById('ckDiscount').classList.add('active');
