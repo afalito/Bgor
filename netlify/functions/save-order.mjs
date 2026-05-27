@@ -33,25 +33,6 @@ export default async function handler(req) {
       return Response.json({ ok: false, error: 'Campos requeridos faltantes' }, { status: 400 });
     }
 
-    // Detectar pedido duplicado: mismo celular + landing + pendiente en últimas 48h
-    const landingSlug = landing || 'bgor-monogastricos';
-    const dupRows = await sql`
-      SELECT o.id, o.order_number FROM orders o
-      JOIN landings l ON o.landing_id = l.id
-      WHERE o.celular = ${celular} AND l.slug = ${landingSlug}
-        AND o.status = 'pendiente'
-        AND o.created_at > NOW() - INTERVAL '48 hours'
-      LIMIT 1
-    `;
-    if (dupRows.length) {
-      return Response.json({
-        ok: false,
-        error: 'duplicate',
-        order_id: dupRows[0].id,
-        order_number: dupRows[0].order_number,
-      }, { headers: { 'Access-Control-Allow-Origin': '*' } });
-    }
-
     // Obtener landing_id por slug
     const landingRows = await sql`
       SELECT id FROM landings WHERE slug = ${landing || 'bgor-monogastricos'} LIMIT 1
