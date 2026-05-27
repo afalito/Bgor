@@ -792,7 +792,7 @@
         .pdf-back:active { opacity:0.5; }
         .pdf-back i { font-size:14px; }
         .pdf-pages { font-size:12px; color:rgba(255,255,255,0.4); padding:0 10px; letter-spacing:0.3px; }
-        .pdf-body { flex:1; overflow:hidden; background:#333; }
+        .pdf-body { flex:1; overflow:auto; -webkit-overflow-scrolling:touch; background:#333; }
         .pdf-body iframe { width:100%; height:100%; border:none; }
         .pdf-fallback { display:none; text-align:center; padding:60px 20px; color:var(--blanco); flex:1; flex-direction:column; align-items:center; justify-content:center; }
         .pdf-fallback p { font-size:15px; color:#999; margin-bottom:20px; }
@@ -1618,10 +1618,17 @@ window.openPdf=function(src){
     var ov=document.getElementById('pdfOverlay');var frame=document.getElementById('pdfFrame');
     var fb=document.getElementById('pdfFallback');var body=document.getElementById('pdfBody');
     var isMobile=/iPhone|iPad|Android/i.test(navigator.userAgent);
+    // Actualizar link del fallback con el archivo correcto
+    var fbLink=fb.querySelector('a');if(fbLink)fbLink.href=file;
     if(isMobile){
         var absUrl=new URL(file,window.location.href).href;
         frame.src='https://docs.google.com/gview?embedded=true&url='+encodeURIComponent(absUrl);
         body.style.display='block';fb.style.display='none';
+        // Timeout: si Google Docs Viewer no carga en 8s, mostrar fallback
+        frame._pdfTimeout=setTimeout(function(){
+            body.style.display='none';fb.style.display='flex';
+        },8000);
+        frame.onload=function(){clearTimeout(frame._pdfTimeout)};
     }else{
         frame.src=file+'#toolbar=0&navpanes=0';
         body.style.display='block';fb.style.display='none';
@@ -1632,6 +1639,10 @@ window.openPdf=function(src){
     document.body.classList.add('pdf-open');
 };
 window.closePdf=function(){
+    var frame=document.getElementById('pdfFrame');
+    if(frame._pdfTimeout)clearTimeout(frame._pdfTimeout);
+    frame.onload=null;
+    frame.src='about:blank';
     document.getElementById('pdfOverlay').classList.remove('active');
     document.body.classList.remove('pdf-open');
     document.body.style.top='';
