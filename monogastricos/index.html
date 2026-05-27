@@ -2227,6 +2227,12 @@ var origHtml=bannerBtn?bannerBtn.innerHTML:'';
 if(bannerBtn)bannerBtn.innerHTML='<i class="fas fa-spinner fa-spin"></i>';
 try{
 var res=await fetch('/.netlify/functions/check-order?id='+order.order_id+'&cel='+order.celular);
+if(!res.ok){
+if(bannerBtn)bannerBtn.innerHTML=origHtml;
+var errText=await res.text().catch(function(){return 'sin detalle'});
+alert('Error al verificar pedido ('+res.status+'): '+errText.substring(0,100));
+return;
+}
 var data=await res.json();
 if(bannerBtn)bannerBtn.innerHTML=origHtml;
 if(!data.ok||data.status!=='pendiente'){
@@ -2238,7 +2244,7 @@ return;
 populateCheckoutForModify(data.order);
 }catch(e){
 if(bannerBtn)bannerBtn.innerHTML=origHtml;
-alert('No se pudo cargar tu pedido. Intenta de nuevo en unos segundos.');
+alert('Error de conexión: '+e.message);
 }
 }
 function populateCheckoutForModify(order){
