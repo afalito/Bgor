@@ -2216,29 +2216,22 @@ banner.style.display='flex';
 document.getElementById('orderBannerBtn').onclick=function(){openModifyFlow(order)};
 }
 async function openModifyFlow(order){
-var bannerBtn=document.getElementById('orderBannerBtn');
-var origHtml=bannerBtn?bannerBtn.innerHTML:'';
-if(bannerBtn)bannerBtn.innerHTML='<i class="fas fa-spinner fa-spin"></i>';
+var banner=document.getElementById('orderBannerBtn');
+var origHtml=banner.innerHTML;
+banner.innerHTML='<i class="fas fa-spinner fa-spin"></i>';
 try{
 var res=await fetch('/.netlify/functions/check-order?id='+order.order_id+'&cel='+order.celular);
 var data=await res.json();
-if(bannerBtn)bannerBtn.innerHTML=origHtml;
-if(!data.ok||data.status!=='pendiente'){
-// Pedido no encontrado o ya procesado — limpiar y permitir nuevo pedido
+banner.innerHTML=origHtml;
+if(!data.ok){alert('No se pudo verificar tu pedido. Intenta de nuevo.');return}
+if(data.status!=='pendiente'){
+alert('Tu pedido ya fue '+data.status+'. No se puede modificar.');
 localStorage.removeItem('bgor_mono_order');
 document.getElementById('orderBanner').style.display='none';
-if(data.ok&&data.status!=='pendiente'){alert('Tu pedido ya fue '+data.status+'. Puedes hacer uno nuevo.')}
-_originalOpenCk();
 return;
 }
 populateCheckoutForModify(data.order);
-}catch(e){
-if(bannerBtn)bannerBtn.innerHTML=origHtml;
-// Si falla la conexión, permitir abrir checkout normal
-localStorage.removeItem('bgor_mono_order');
-document.getElementById('orderBanner').style.display='none';
-_originalOpenCk();
-}
+}catch(e){banner.innerHTML=origHtml;alert('Error de conexión. Intenta de nuevo.')}
 }
 function populateCheckoutForModify(order){
 _originalOpenCk();
