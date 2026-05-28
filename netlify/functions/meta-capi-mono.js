@@ -71,6 +71,8 @@ exports.handler = async (event) => {
     if (lastName) userData.ln = sha256(lastName);
     if (city) userData.ct = sha256(city);
     if (state) userData.st = sha256(state);
+    userData.country = sha256('co');
+    if (data.orderId) userData.external_id = sha256(String(data.orderId));
 
     const payload = {
         data: [
@@ -88,7 +90,9 @@ exports.handler = async (event) => {
                     content_category: data.contentCategory,
                     content_ids: Array.isArray(data.contentIds) ? data.contentIds : [],
                     content_type: data.contentType || 'product',
-                    num_items: Number(data.numItems) || undefined
+                    num_items: Number(data.numItems) || undefined,
+                    order_id: data.orderId ? String(data.orderId) : undefined,
+                    contents: Array.isArray(data.contents) ? data.contents : undefined
                 }
             }
         ]
