@@ -2492,11 +2492,13 @@ var stepsEl=document.querySelector('.ck-steps');if(stepsEl)stepsEl.style.display
 showOrderBanner(updRec);
 }else{
 saveActiveOrder(data,form,payload);
-// Meta Pixel - Purchase (SOLO después de envío exitoso)
+// Meta Purchase tracking
 var alreadyFired=sessionStorage.getItem('purchase_'+purchaseEventID);
-if(typeof fbq!=='undefined'&&payload.total>0&&!alreadyFired){
+if(payload.total>0&&!alreadyFired){
 var contentIds=payload.items.map(function(i){return i.producto.toLowerCase().replace(/\s+/g,'-')});
 var contentNames=payload.items.map(function(i){return i.producto+' '+i.tamano+' x'+i.cantidad});
+// Pixel browser (solo si fbq cargó)
+if(typeof fbq!=='undefined'){
 fbq('track','Purchase',{
 content_name:contentNames.join(', ')+(payload.envio_prioritario?' + Envío Prioritario':''),
 content_ids:contentIds,
@@ -2505,6 +2507,8 @@ value:payload.total,
 currency:'COP',
 num_items:payload.items.length
 },{eventID:purchaseEventID});
+}
+// CAPI server-side (SIEMPRE, independiente del pixel)
 sendMetaCAPI({
 eventName:'Purchase',
 eventId:purchaseEventID,
