@@ -20,15 +20,23 @@ export default async function handler(req) {
 
   const waUrl = `https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`;
 
-  // Registrar clic en background (no bloquea el redirect)
+  // Registrar clic con deduplicación (misma IP + slug en 10s = ignorar)
   try {
     const sql = neon(process.env.DATABASE_URL);
     const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || null;
     const ua = req.headers.get('user-agent') || null;
-    await sql`
-      INSERT INTO link_clicks (slug, ip_address, user_agent)
-      VALUES (${slug}, ${ip}, ${ua})
+    const dup = await sql`
+      SELECT id FROM link_clicks
+      WHERE slug = ${slug} AND ip_address = ${ip}
+        AND clicked_at > NOW() - INTERVAL '10 seconds'
+      LIMIT 1
     `;
+    if (!dup.length) {
+      await sql`
+        INSERT INTO link_clicks (slug, ip_address, user_agent)
+        VALUES (${slug}, ${ip}, ${ua})
+      `;
+    }
   } catch (e) {
     console.error('click track error:', e);
   }
