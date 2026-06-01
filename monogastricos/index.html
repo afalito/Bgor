@@ -666,6 +666,11 @@
         .ck-success-icon i { font-size:32px; color:var(--blanco); }
         .ck-success h3 { font-size:20px; font-weight:700; margin-bottom:8px; }
         .ck-success p { font-size:13px; color:var(--texto-light); line-height:1.6; }
+        .ck-success-phone { margin-top:16px; font-size:15px; font-weight:700; color:var(--texto); letter-spacing:0.5px; }
+        .ck-success-wa { display:inline-flex; align-items:center; gap:10px; background:#25D366; color:#fff; text-decoration:none; padding:14px 28px; border-radius:50px; font-size:15px; font-weight:700; margin-top:14px; transition:all 0.3s; box-shadow:0 4px 15px rgba(37,211,102,0.3); }
+        .ck-success-wa:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(37,211,102,0.4); }
+        .ck-success-wa:active { transform:scale(0.98); }
+        .ck-success-wa i { font-size:22px; }
         .ck-discount { background:linear-gradient(135deg,var(--verde),#229954); color:var(--blanco); padding:12px 14px; border-radius:10px; font-size:13px; font-weight:700; text-align:center; margin-bottom:14px; display:none; position:relative; overflow:hidden; }
         .ck-discount::before { content:''; position:absolute; top:0; left:-100%; width:60%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent); animation:discShine 2.5s ease-in-out infinite; }
         @keyframes discShine { 0%{left:-100%} 100%{left:200%} }
@@ -1590,6 +1595,8 @@
             <h3>Pedido Recibido!</h3>
             <p>Gracias por confiar en B-GOR. Un asesor se comunicará contigo en las próximas horas para confirmar tu pedido.</p>
             <p style="margin-top:10px;font-weight:700;color:var(--naranja)">Recuerda: pagas cuando recibas el producto.</p>
+            <div class="ck-success-phone">+57 320 921 6434</div>
+            <a id="ckSuccessWa" href="https://wa.me/573209216434?text=Hola%2C%20acabo%20de%20realizar%20un%20pedido%20de%20B-GOR%20Monog%C3%A1stricos%20y%20quiero%20confirmar%20que%20fue%20recibido." class="ck-success-wa" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Escribir por WhatsApp</a>
         </div>
     </div>
 </div>
@@ -2311,6 +2318,8 @@ var sh3=successEl?successEl.querySelector('h3'):null;
 var sp=successEl?successEl.querySelector('p'):null;
 if(sh3)sh3.textContent='Pedido Recibido!';
 if(sp)sp.textContent='Gracias por confiar en B-GOR. Un asesor se comunicará contigo en las próximas horas para confirmar tu pedido.';
+var waBtn=document.getElementById('ckSuccessWa');
+if(waBtn)waBtn.href='https://wa.me/573209216434?text='+encodeURIComponent('Hola, acabo de realizar un pedido de B-GOR Monogástricos y quiero confirmar que fue recibido.');
 var btn=document.getElementById('ckBtn');
 if(btn)btn.innerHTML='<i class="fas fa-lock"></i> CONFIRMAR PEDIDO';
 hasPriority=false;
@@ -2487,6 +2496,8 @@ var sh3=successEl?successEl.querySelector('h3'):null;
 var sp=successEl?successEl.querySelector('p'):null;
 if(sh3)sh3.textContent='Pedido Actualizado!';
 if(sp)sp.textContent='Tu pedido ha sido modificado exitosamente. Un asesor se comunicará contigo pronto.';
+var waBtn=document.getElementById('ckSuccessWa');
+if(waBtn)waBtn.href='https://wa.me/573209216434?text='+encodeURIComponent('Hola, acabo de modificar mi pedido de B-GOR Monogástricos y quiero confirmar que fue actualizado.');
 if(successEl)successEl.classList.add('active');
 var stepsEl=document.querySelector('.ck-steps');if(stepsEl)stepsEl.style.display='none';
 showOrderBanner(updRec);
