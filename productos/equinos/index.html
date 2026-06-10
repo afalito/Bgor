@@ -31,14 +31,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <meta name="keywords" content="suplemento equinos, suplemento caballos, probioticos equinos, minerales quelados caballos, nutrición equina, B-GOR, suplemento caballos Colombia, vitaminas equinos, glicerol caballos, mejora condición caballos">
     <meta name="author" content="B-GOR">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <link rel="canonical" href="https://bgor.com.co/">
+    <link rel="canonical" href="https://bgor.com.co/productos/equinos/">
 
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="product">
     <meta property="og:title" content="B-GOR Equinos - Suplemento Premium con Probióticos y Minerales Quelados">
     <meta property="og:description" content="Transforma la condición de tu caballo en 4-6 semanas. Probióticos microencapsulados + Minerales quelados. Envío gratis Colombia.">
-    <meta property="og:image" content="https://bgor.com.co/assets/images/IMAGEN GALERIA 1.jpg">
-    <meta property="og:image:secure_url" content="https://bgor.com.co/assets/images/IMAGEN GALERIA 1.jpg">
+    <meta property="og:image" content="https://bgor.com.co/productos/equinos/assets/images/IMAGEN%20INICIAL%20LANDING%20EQUINOS.jpg">
+    <meta property="og:image:secure_url" content="https://bgor.com.co/productos/equinos/assets/images/IMAGEN%20INICIAL%20LANDING%20EQUINOS.jpg">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -55,7 +55,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="B-GOR Equinos - Suplemento Premium para Caballos">
     <meta name="twitter:description" content="Probióticos microencapsulados + Minerales quelados. Mejora condición en 4-6 semanas. Envío gratis Colombia.">
-    <meta name="twitter:image" content="https://bgor.com.co/assets/images/IMAGEN GALERIA 1.jpg">
+    <meta name="twitter:image" content="https://bgor.com.co/productos/equinos/assets/images/IMAGEN%20INICIAL%20LANDING%20EQUINOS.jpg">
     <meta name="twitter:image:alt" content="B-GOR Equinos Suplemento Premium">
 
     <!-- Geo Tags para Colombia -->
@@ -72,9 +72,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <!-- Preload recursos críticos -->
     <link rel="preload" href="assets/images/LOGO B-GOR.png" as="image">
-    <link rel="preload" href="assets/images/IMAGEN GALERIA 1_mobile.jpg" as="image" fetchpriority="high" media="(max-width: 480px)">
-    <link rel="preload" href="assets/images/IMAGEN GALERIA 1_tablet.jpg" as="image" fetchpriority="high" media="(min-width: 481px) and (max-width: 768px)">
-    <link rel="preload" href="assets/images/IMAGEN GALERIA 1.jpg" as="image" fetchpriority="high" media="(min-width: 769px)">
+    <link rel="preload" href="assets/images/IMAGEN INICIAL LANDING EQUINOS_mobile.jpg" as="image" fetchpriority="high" media="(max-width: 480px)">
+    <link rel="preload" href="assets/images/IMAGEN INICIAL LANDING EQUINOS_tablet.jpg" as="image" fetchpriority="high" media="(min-width: 481px) and (max-width: 768px)">
+    <link rel="preload" href="assets/images/IMAGEN INICIAL LANDING EQUINOS.jpg" as="image" fetchpriority="high" media="(min-width: 769px)">
 
     <!-- Font Awesome -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
@@ -360,6 +360,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             animation: fadeIn 0.5s ease-in;
         }
 
+        .gallery-main img.landing-art {
+            object-fit: cover;
+            background: #000;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -579,6 +584,46 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         =========================== */
         .tecnologia {
             background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .problematica-strip-section {
+            background: #050505;
+            padding: 0;
+        }
+
+        .problematica-strip-header {
+            padding: 34px 20px 24px;
+            text-align: center;
+        }
+
+        .problematica-strip-header .section-title {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .problematica-strip-header .section-subtitle {
+            color: rgba(255,255,255,0.72);
+            margin-bottom: 0;
+        }
+
+        .problematica-strip-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .problematica-strip-card {
+            width: 100%;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .problematica-strip-card:first-child {
+            border-top: none;
+        }
+
+        .problematica-strip-card img {
+            width: 100%;
+            display: block;
         }
 
         .tech-card {
@@ -863,6 +908,53 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             color: #27ae60;
             font-weight: 600;
             margin-top: 5px;
+        }
+
+        .transportadoras-strip {
+            background: #ffffff;
+            padding: 18px 20px 20px;
+            text-align: center;
+            border-top: 1px solid #ececec;
+            border-bottom: 1px solid #ececec;
+        }
+
+        .transportadoras-strip-title {
+            font-size: 12px;
+            font-weight: 800;
+            color: #3C3C3C;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 12px;
+        }
+
+        .transportadoras-strip-logos {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 8px;
+            align-items: center;
+        }
+
+        .transportadoras-strip-logo {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+            border-radius: 10px;
+            background: #fff;
+        }
+
+        .transportadoras-strip-logo img {
+            max-width: 100%;
+            max-height: 30px;
+            object-fit: contain;
+            opacity: 0.92;
+        }
+
+        @media (max-width: 430px) {
+            .transportadoras-strip-logos {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
         }
 
         /* ===========================
@@ -3298,23 +3390,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="product-gallery">
             <div class="gallery-main">
                 <img
-                    src="assets/images/IMAGEN GALERIA 1.jpg"
-                    srcset="assets/images/IMAGEN GALERIA 1_mobile.jpg 480w,
-                            assets/images/IMAGEN GALERIA 1_tablet.jpg 768w,
-                            assets/images/IMAGEN GALERIA 1.jpg 1080w"
+                    src="assets/images/IMAGEN INICIAL LANDING EQUINOS.jpg"
+                    srcset="assets/images/IMAGEN INICIAL LANDING EQUINOS_mobile.jpg 480w,
+                            assets/images/IMAGEN INICIAL LANDING EQUINOS_tablet.jpg 768w,
+                            assets/images/IMAGEN INICIAL LANDING EQUINOS.jpg 1080w"
                     sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, 1080px"
-                    alt="B-GOR Equinos - Suplemento Premium con Probióticos y Minerales para Caballos"
+                    alt="B-GOR Equinos - Imagen principal de landing con caballo y presentaciones del producto"
                     id="mainImage"
+                    class="landing-art"
                     fetchpriority="high"
                     decoding="sync">
             </div>
 
             <div class="gallery-thumbnails">
-                <div class="gallery-thumb active" onclick="changeImage(this, 'assets/images/IMAGEN GALERIA 1.jpg')">
-                    <picture>
-                        <source srcset="assets/images/IMAGEN GALERIA 1-thumb.webp" type="image/webp">
-                        <img src="assets/images/IMAGEN GALERIA 1.jpg" alt="B-GOR Suplemento Equinos Balde 12kg" loading="lazy" decoding="async" width="116" height="116">
-                    </picture>
+                <div class="gallery-thumb active" onclick="changeImage(this, 'assets/images/IMAGEN INICIAL LANDING EQUINOS.jpg')">
+                    <img src="assets/images/IMAGEN INICIAL LANDING EQUINOS.jpg" alt="Hero B-GOR Equinos" loading="lazy" decoding="async" width="116" height="116">
                 </div>
                 <div class="gallery-thumb" onclick="changeImage(this, 'assets/images/IMAGEN GALERIA 2.jpg')">
                     <picture>
@@ -3322,11 +3412,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <img src="assets/images/IMAGEN GALERIA 2.jpg" alt="B-GOR Suplemento con Probióticos Microencapsulados" loading="lazy" decoding="async" width="116" height="116">
                     </picture>
                 </div>
-                <div class="gallery-thumb" onclick="changeImage(this, 'assets/images/IMAGEN GALERIA 4.jpg')">
-                    <picture>
-                        <source srcset="assets/images/IMAGEN GALERIA 4-thumb.webp" type="image/webp">
-                        <img src="assets/images/IMAGEN GALERIA 4.jpg" alt="B-GOR Minerales Quelados para Caballos" loading="lazy" decoding="async" width="116" height="116">
-                    </picture>
+                <div class="gallery-thumb" onclick="changeImage(this, 'assets/images/IMAGEN INICIAL LANDING POTROS.jpg')">
+                    <img src="assets/images/IMAGEN INICIAL LANDING POTROS.jpg" alt="Hero B-GOR Potros" loading="lazy" decoding="async" width="116" height="116">
                 </div>
                 <div class="gallery-thumb" onclick="changeImage(this, 'assets/images/IMAGEN GALERIA 5.jpg')">
                     <picture>
@@ -3456,93 +3543,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </section>
 
-    <!-- Tecnología -->
-    <section class="section tecnologia">
-        <h2 class="section-title">Tecnología Avanzada</h2>
-        <p class="section-subtitle">Innovación que marca la diferencia</p>
-
-        <!-- Probióticos Microencapsulados -->
-        <div class="tech-card">
-            <div class="tech-video">
-                <video loop muted playsinline preload="none" loading="lazy">
-                    <source src="assets/videos/Microencapsulados 2-optimized.mp4" type="video/mp4">
-                </video>
-            </div>
-            <div class="tech-content">
-                <span class="tech-badge">Tecnología Exclusiva</span>
-                <h3 class="tech-title">Aprovecha TODA la Comida</h3>
-                <p class="tech-description">
-                    Probióticos <strong>microencapsulados</strong>. Sobreviven el ácido, llegan vivos al intestino. Los comunes mueren antes.
-                </p>
-                <ul class="tech-features">
-                    <li class="tech-feature">
-                        <i class="fas fa-check-circle"></i>
-                        <span><strong>90% llegan vivos</strong> al intestino (vs 10% comunes que mueren en el estómago)</span>
-                    </li>
-                    <li class="tech-feature">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Mejor digestión = Más músculo y condición con la misma comida</span>
-                    </li>
-                </ul>
-            </div>
+    <!-- Problemáticas -->
+    <section class="section problematica-strip-section">
+        <div class="problematica-strip-header">
+            <h2 class="section-title">Problemas que frenan la condición y el rendimiento</h2>
+            <p class="section-subtitle">Tres frentes clave donde más se nota cuando la nutrición se queda corta</p>
         </div>
 
-        <!-- Minerales Quelados - Articulaciones -->
-        <div class="tech-card">
-            <div class="tech-video">
-                <video loop muted playsinline preload="none" loading="lazy">
-                    <source src="assets/videos/articulaciones-optimized.mp4" type="video/mp4">
-                </video>
+        <div class="problematica-strip-stack">
+            <div class="problematica-strip-card">
+                <img src="assets/images/IMAGENES PROBLEMATICA-01.jpg" alt="Problemática de articulaciones y tendones en equinos" loading="lazy" decoding="async" width="1440" height="810">
             </div>
-            <div class="tech-content">
-                <span class="tech-badge">Salud Articular</span>
-                <h3 class="tech-title">Articulaciones Sanas y Sin Desgaste</h3>
-                <p class="tech-description">
-                    Minerales <strong>quelados</strong> (Cobre, Cromo, Selenio, Zinc) que se absorben 3x mejor. Protegen el cartílago articular y mantienen la movilidad.
-                </p>
-                <ul class="tech-features">
-                    <li class="tech-feature">
-                        <i class="fas fa-check-circle"></i>
-                        <span><strong>Absorción 70-90%</strong> vs minerales comunes que solo absorben 20-40%</span>
-                    </li>
-                    <li class="tech-feature">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Reduce inflamación articular y previene desgaste = Tu caballo se mueve sin dolor</span>
-                    </li>
-                </ul>
+            <div class="problematica-strip-card">
+                <img src="assets/images/IMAGENES PROBLEMATICA-02.jpg" alt="Problemática de energía y rendimiento en equinos" loading="lazy" decoding="async" width="1440" height="810">
             </div>
-        </div>
-
-        <!-- Aminoácidos para Condición Corporal -->
-        <div class="tech-card">
-            <div class="tech-video">
-                <video loop muted playsinline preload="none" loading="lazy">
-                    <source src="assets/videos/glicerol-energia-optimized.mp4" type="video/mp4">
-                </video>
+            <div class="problematica-strip-card">
+                <img src="assets/images/IMAGENES PROBLEMATICA-03.jpg" alt="Problemática de pelaje y apariencia en equinos" loading="lazy" decoding="async" width="1440" height="810">
             </div>
-            <div class="tech-content">
-                <span class="tech-badge">Desarrollo Muscular</span>
-                <h3 class="tech-title">Perfil Completo de Aminoácidos Esenciales</h3>
-                <p class="tech-description">
-                    <strong>6 aminoácidos esenciales</strong> (Lisina, Metionina, Treonina, Triptófano, Leucina, Valina). Los bloques fundamentales para construir músculo, mejorar condición corporal y recuperación.
-                </p>
-                <ul class="tech-features">
-                    <li class="tech-feature">
-                        <i class="fas fa-check-circle"></i>
-                        <span><strong>Tu caballo gana condición corporal</strong> y masa muscular de calidad</span>
-                    </li>
-                    <li class="tech-feature">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Deja de verse flaco o "colgado" sin importar cuánto coma</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div style="text-align: center; margin-top: 30px;">
-            <button onclick="openCheckout()" class="cta-primary">
-                <i class="fas fa-bolt"></i> QUIERO ESTA TECNOLOGÍA AHORA
-            </button>
         </div>
     </section>
 
@@ -3785,6 +3802,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             Úsalo <strong>30 días completos</strong> según indicaciones. Si no ves mejora, <strong>te devolvemos tu dinero</strong>.<br><br>
             Solo pedimos evidencia de que fue suministrado (fotos antes/después del caballo). El riesgo es nuestro.
         </p>
+    </section>
+
+    <!-- Transportadoras -->
+    <section class="transportadoras-strip" aria-label="Transportadoras aliadas">
+        <div class="transportadoras-strip-title">Aliados logísticos</div>
+        <div class="transportadoras-strip-logos">
+            <div class="transportadoras-strip-logo">
+                <img src="assets/images/TRANSPORTADORA 1.png" alt="Transportadora aliada 1" loading="lazy" decoding="async" width="366" height="366">
+            </div>
+            <div class="transportadoras-strip-logo">
+                <img src="assets/images/TRANSPORTADORA 2.png" alt="Transportadora aliada 2" loading="lazy" decoding="async" width="366" height="366">
+            </div>
+            <div class="transportadoras-strip-logo">
+                <img src="assets/images/TRANSPORTADORA 3.png" alt="Transportadora aliada 3" loading="lazy" decoding="async" width="366" height="366">
+            </div>
+            <div class="transportadoras-strip-logo">
+                <img src="assets/images/TRANSPORTADORA 4.png" alt="Transportadora aliada 4" loading="lazy" decoding="async" width="366" height="366">
+            </div>
+            <div class="transportadoras-strip-logo">
+                <img src="assets/images/TRANSPORTADORA 5.png" alt="Transportadora aliada 5" loading="lazy" decoding="async" width="365" height="366">
+            </div>
+        </div>
     </section>
 
     <!-- Precios -->
@@ -4337,10 +4376,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         function changeImage(element, src) {
             const mainImage = document.getElementById('mainImage');
             const baseSrc = src.replace('.jpg', '');
+            const isLandingImage = src.includes('IMAGEN INICIAL LANDING');
 
             // Actualizar src y srcset
             mainImage.src = src;
             mainImage.srcset = `${baseSrc}_mobile.jpg 480w, ${baseSrc}_tablet.jpg 768w, ${src} 1080w`;
+            mainImage.classList.toggle('landing-art', isLandingImage);
 
             document.querySelectorAll('.gallery-thumb').forEach(thumb => {
                 thumb.classList.remove('active');

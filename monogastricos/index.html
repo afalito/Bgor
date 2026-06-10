@@ -7,11 +7,20 @@
     <meta name="description" content="B-GOR Monogástricos: suplemento nutricional para cerdos, lechones, pollos de engorde y aves de postura. Registro ICA 24677SL. Envío gratis a toda Colombia.">
     <meta name="theme-color" content="#FF5700">
     <link rel="canonical" href="https://bgor.com.co/monogastricos">
+    <meta name="robots" content="index, follow">
     <meta property="og:title" content="B-GOR Monogástricos | Cerdos y Aves">
     <meta property="og:description" content="Nutrición que se nota en kilos y rentabilidad. Registro ICA 24677SL. Envío gratis.">
     <meta property="og:type" content="product">
     <meta property="og:url" content="https://bgor.com.co/monogastricos">
     <meta property="og:locale" content="es_CO">
+    <meta property="og:site_name" content="B-GOR Colombia">
+    <meta property="og:image" content="https://bgor.com.co/monogastricos/assets/B-GOR%20MONOGATRICOS.webp">
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="600">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="B-GOR Monogástricos | Más Kilos, Menos Alimento">
+    <meta name="twitter:description" content="Suplemento para cerdos y aves. Registro ICA 24677SL. Envío gratis Colombia.">
+    <meta name="twitter:image" content="https://bgor.com.co/monogastricos/assets/B-GOR%20MONOGATRICOS.webp">
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"Product","name":"B-GOR Monogástricos","description":"Suplemento nutricional para cerdos y aves - Registro ICA 24677SL","brand":{"@type":"Brand","name":"B-GOR"},"offers":{"@type":"Offer","priceCurrency":"COP","price":"84900","availability":"https://schema.org/InStock"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"20847"}}
     </script>
@@ -143,7 +152,7 @@
             background: linear-gradient(135deg, var(--naranja), var(--naranja-dark));
             color: var(--blanco); font-size: 16px; font-weight: 700;
             padding: 16px 36px; border-radius: 50px; text-transform: uppercase;
-            letter-spacing: 0.5px; font-size:17px;
+            letter-spacing: 0.5px; font-size:14px;
             transition: var(--trans); width: 100%; max-width: 340px; margin: 0 auto;
             animation: bounceIn 1s ease 0.5s both;
         }
@@ -294,8 +303,24 @@
         .ben-item span { font-size:14px; color:var(--texto); line-height:1.4; }
         .ben-item strong { color:var(--naranja); font-weight:800; }
 
+        /* ===================================================
+           RESPALDO FLUXON
+           =================================================== */
+        .respaldo { padding:24px 20px; background:var(--blanco); text-align:center; border-top:1px solid var(--gris-border); }
+        .respaldo-cite { font-size:13px; color:var(--texto-light); line-height:1.6; }
+        .respaldo-cite strong { color:var(--texto); font-weight:700; }
+        .respaldo-cite .hl { color:var(--naranja); font-weight:700; }
+        .respaldo-sep { color:rgba(0,0,0,0.2); margin:0 2px; }
+
         /* Mid CTA */
         .mid-cta { text-align:center; padding:10px 20px 30px; background:var(--gris-bg); }
+
+        /* Trust badges bajo CTAs */
+        .cta-trust { display:flex; justify-content:center; gap:16px; margin-top:12px; }
+        .cta-trust-item { display:flex; flex-direction:column; align-items:center; gap:4px; }
+        .cta-trust-item i { font-size:16px; color:var(--naranja); }
+        .cta-trust-item span { font-size:10px; font-weight:700; color:var(--texto-light); letter-spacing:0.3px; }
+        .cta-trust.dark .cta-trust-item span { color:rgba(255,255,255,0.7); }
 
         /* ===================================================
            6. TESTIMONIAL CAROUSEL (fotos infinito)
@@ -465,7 +490,7 @@
         .ficha-cta-badge { display:inline-block; background:rgba(0,0,0,0.15); padding:8px 18px; border-radius:8px; font-size:12px; font-weight:700; margin-bottom:20px; letter-spacing:0.5px; }
         .ficha-cta-badge i { margin-right:6px; }
         .ficha-cta h2 { font-size:24px; font-weight:800; margin-bottom:20px; line-height:1.3; }
-        .ficha-cta-btn { display:inline-block; background:var(--negro); color:var(--naranja); text-decoration:none; padding:18px 45px; border-radius:50px; font-weight:800; font-size:17px; transition:var(--trans); border:none; cursor:pointer; }
+        .ficha-cta-btn { display:inline-block; background:var(--negro); color:var(--naranja); text-decoration:none; padding:18px 45px; border-radius:50px; font-weight:800; font-size:14px; transition:var(--trans); border:none; cursor:pointer; }
         .ficha-cta-btn:active { transform:scale(0.97); }
         .ficha-cta-sheet { display:inline-block; background:none; color:var(--blanco); padding:14px 28px; border-radius:50px; font-weight:700; font-size:14px; border:2px solid var(--blanco); transition:var(--trans); margin-top:14px; cursor:pointer; font-family:inherit; }
         .ficha-cta-sheet:active { transform:scale(0.97); }
@@ -859,7 +884,7 @@
         </div>
     </div>
 
-    <h1>Haga su producción<br>más <span class="hl">rentable</span></h1>
+    <h1>Saque más kilos con el mismo <span class="hl">concentrado</span></h1>
     <p class="hero-sub">Resultados desde el primer ciclo o le devolvemos su dinero</p>
 
     <div class="hero-img">
@@ -882,7 +907,7 @@
     </div>
 
     <div class="hero-ctas">
-        <button class="cta-main" onclick="openCk()"><i class="fas fa-cart-shopping"></i> Comprar Ahora</button>
+        <button class="cta-main" onclick="openCk()"><i class="fas fa-cart-shopping"></i> Pedir contraentrega ahora</button>
     </div>
 </section>
 
@@ -922,6 +947,15 @@
         </div>
     </div>
     <p class="tc-tagline">No lo decimos nosotros, lo dicen los resultados</p>
+</section>
+
+<!-- ====== RESPALDO FLUXON ====== -->
+<section class="respaldo">
+    <p class="respaldo-cite">
+        Respaldado por <strong class="hl">Laboratorios Fluxon</strong><br>
+        Planta avalada por el ICA <span class="respaldo-sep">·</span> +7 registros activos <span class="respaldo-sep">·</span> Bogotá, Colombia<br>
+        <strong>Registro ICA No. 24677SL</strong>
+    </p>
 </section>
 
 <!-- ====== 3. PAIN POINTS ====== -->
@@ -1027,7 +1061,12 @@
 
 <!-- Mid CTA -->
 <section class="mid-cta">
-    <button class="cta-main" onclick="openCk()" style="animation:none"><i class="fas fa-cart-shopping"></i> Pedir B-GOR Ahora</button>
+    <button class="cta-main" onclick="openCk()" style="animation:none"><i class="fas fa-cart-shopping"></i> Pedir contraentrega ahora</button>
+    <div class="cta-trust">
+        <div class="cta-trust-item"><i class="fas fa-truck-fast"></i><span>Envío Gratis</span></div>
+        <div class="cta-trust-item"><i class="fas fa-shield-halved"></i><span>Garantía 45 días</span></div>
+        <div class="cta-trust-item"><i class="fas fa-money-bill-wave"></i><span>Contraentrega</span></div>
+    </div>
 </section>
 
 <!-- ====== DOSIFICACION ====== -->
@@ -1083,8 +1122,13 @@
     </div>
     <div style="text-align:center; padding:20px 20px 0;">
         <button class="cta-main" onclick="openCk()" style="max-width:320px; margin:0 auto; animation:none">
-            <i class="fas fa-cart-shopping"></i> Pedir B-GOR ahora
+            <i class="fas fa-cart-shopping"></i> Pedir contraentrega ahora
         </button>
+        <div class="cta-trust dark">
+            <div class="cta-trust-item"><i class="fas fa-truck-fast"></i><span>Envío Gratis</span></div>
+            <div class="cta-trust-item"><i class="fas fa-shield-halved"></i><span>Garantía 45 días</span></div>
+            <div class="cta-trust-item"><i class="fas fa-money-bill-wave"></i><span>Contraentrega</span></div>
+        </div>
     </div>
 </section>
 
@@ -1411,7 +1455,14 @@
 
     <p class="pk-vol-note"><i class="fas fa-check-circle"></i> Compre por kilo o por balde. Mientras más lleva, mejor precio.</p>
 
-    <div><button class="cta-main" onclick="openCk()" style="animation:none"><i class="fas fa-cart-shopping"></i> HACER PEDIDO</button></div>
+    <div>
+        <button class="cta-main" onclick="openCk()" style="animation:none"><i class="fas fa-cart-shopping"></i> Pedir contraentrega ahora</button>
+        <div class="cta-trust">
+            <div class="cta-trust-item"><i class="fas fa-truck-fast"></i><span>Envío Gratis</span></div>
+            <div class="cta-trust-item"><i class="fas fa-shield-halved"></i><span>Garantía 45 días</span></div>
+            <div class="cta-trust-item"><i class="fas fa-money-bill-wave"></i><span>Contraentrega</span></div>
+        </div>
+    </div>
 </section>
 
 <!-- ====== FICHA TECNICA CTA ====== -->
@@ -1419,7 +1470,12 @@
     <div class="ficha-cta-content">
         <div class="ficha-cta-badge"><i class="fas fa-truck-fast"></i> ENVÍO GRATIS A TODA COLOMBIA</div>
         <h2>Ciencia nutricional hecha para el campo colombiano.</h2>
-        <button class="ficha-cta-btn" onclick="openCk()"><i class="fas fa-cart-shopping"></i> COMPRAR AHORA</button>
+        <button class="ficha-cta-btn" onclick="openCk()"><i class="fas fa-cart-shopping"></i> Pedir contraentrega ahora</button>
+        <div class="cta-trust" style="margin-top:14px;">
+            <div class="cta-trust-item"><i class="fas fa-truck-fast" style="color:var(--blanco)"></i><span style="color:rgba(255,255,255,0.85)">Envío Gratis</span></div>
+            <div class="cta-trust-item"><i class="fas fa-shield-halved" style="color:var(--blanco)"></i><span style="color:rgba(255,255,255,0.85)">Garantía 45 días</span></div>
+            <div class="cta-trust-item"><i class="fas fa-money-bill-wave" style="color:var(--blanco)"></i><span style="color:rgba(255,255,255,0.85)">Contraentrega</span></div>
+        </div>
         <br>
         <button class="ficha-cta-sheet" onclick="openPdf('assets/ficha-tecnica-bgor-monogastricos.pdf')">
             <i class="fas fa-file-pdf"></i> VER FICHA TÉCNICA
