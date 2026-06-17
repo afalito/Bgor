@@ -39,7 +39,12 @@ export default async function handler(req) {
       const id = url.searchParams.get('id');
 
       if (id) {
-        const rows = await sql`SELECT * FROM orders WHERE id = ${id}`;
+        const rows = await sql`
+          SELECT o.*, l.slug AS landing_slug
+          FROM orders o
+          LEFT JOIN landings l ON o.landing_id = l.id
+          WHERE o.id = ${id}
+        `;
         if (!rows.length) {
           return Response.json({ ok: false, error: 'No encontrado' }, { status: 404, headers: cors });
         }
@@ -47,7 +52,12 @@ export default async function handler(req) {
         return Response.json({ ok: true, order: { ...rows[0], items } }, { headers: cors });
       }
 
-      const orders = await sql`SELECT * FROM orders ORDER BY created_at DESC`;
+      const orders = await sql`
+        SELECT o.*, l.slug AS landing_slug
+        FROM orders o
+        LEFT JOIN landings l ON o.landing_id = l.id
+        ORDER BY o.created_at DESC
+      `;
       return Response.json({ ok: true, orders }, { headers: cors });
     }
 

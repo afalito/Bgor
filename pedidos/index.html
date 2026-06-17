@@ -272,6 +272,24 @@
         .badge-rechazado { background: #ffebee; color: #c62828; }
         .badge-sin_comunicacion { background: #f5f5f5; color: #616161; }
 
+        /* Landing badges */
+        .badge-landing {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            line-height: 1.2;
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        .badge-landing-monogastricos { background: #e3f2fd; color: #1565c0; }
+        .badge-landing-rumiantes { background: #f3e5f5; color: #6a1b9a; }
+        .badge-landing-equinos { background: #fff3e0; color: #ef6c00; }
+        .badge-landing-potros { background: #fce4ec; color: #ad1457; }
+        .badge-landing-default { background: #eceff1; color: #455a64; }
+
         /* Empty / Loading */
         .empty-state {
             text-align: center;
@@ -396,6 +414,45 @@
         }
         .contact-row .field { flex: 1; }
         .contact-row .field-sm { flex: 0 0 140px; }
+        .btn-now {
+            width: 100%;
+            padding: 9px 12px;
+            background: #fff;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+        .btn-now:hover { background: var(--accent); color: #fff; }
+        .contact-stamp {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 9px 12px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #166534;
+            font-weight: 500;
+        }
+        .contact-stamp .clear {
+            background: none;
+            border: none;
+            color: #166534;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            padding: 0 2px;
+            opacity: 0.6;
+            transition: opacity 0.15s;
+        }
+        .contact-stamp .clear:hover { opacity: 1; }
         .contact-label {
             font-size: 13px;
             font-weight: 600;
@@ -508,8 +565,7 @@
 <!-- Login -->
 <div id="loginView" class="login-wrap">
     <div class="login-card">
-        <div class="login-logo">B<span>·</span>GOR</div>
-        <p class="login-sub">Panel de pedidos</p>
+        <p class="login-sub" style="margin-top:8px">Panel de pedidos</p>
         <form id="loginForm">
             <div class="field">
                 <label>Usuario</label>
@@ -529,8 +585,6 @@
 <div id="dashView" style="display:none">
     <header class="dash-header">
         <div class="dash-header-left">
-            <div class="logo">B<span>·</span>GOR</div>
-            <div class="sep"></div>
             <h1>Pedidos</h1>
         </div>
         <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
@@ -565,6 +619,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>Landing</th>
                             <th>#</th>
                             <th>Fecha</th>
                             <th>Cliente</th>
@@ -706,7 +761,7 @@ function getFiltered() {
     if (searchQuery) {
         const q = searchQuery.toLowerCase();
         list = list.filter(function(o) {
-            return (o.nombre + ' ' + o.apellido + ' ' + o.ciudad + ' ' + o.celular + ' ' + o.order_number).toLowerCase().indexOf(q) !== -1;
+            return (o.nombre + ' ' + o.apellido + ' ' + o.ciudad + ' ' + o.celular + ' ' + o.order_number + ' ' + (o.landing_slug || '') + ' ' + landingInfo(o.landing_slug).label).toLowerCase().indexOf(q) !== -1;
         });
     }
     return list;
@@ -741,6 +796,7 @@ function renderOrders(orders) {
     // Desktop table
     tbody.innerHTML = orders.map(function(o) {
         return '<tr onclick="openOrder(\'' + o.id + '\')">' +
+            '<td>' + landingBadge(o.landing_slug) + '</td>' +
             '<td><strong>#' + o.order_number + '</strong></td>' +
             '<td>' + fmtDate(o.created_at) + '</td>' +
             '<td class="td-client"><div class="name">' + esc(o.nombre + ' ' + (o.apellido || '')) + '</div><div class="city">' + esc(o.ciudad || '') + ', ' + esc(o.departamento || '') + '</div></td>' +
@@ -753,7 +809,7 @@ function renderOrders(orders) {
     // Mobile cards
     mobile.innerHTML = orders.map(function(o) {
         return '<div class="mobile-card" onclick="openOrder(\'' + o.id + '\')">' +
-            '<div class="mobile-card-head"><span class="order-num">#' + o.order_number + '</span>' + statusBadge(o.status) + '</div>' +
+            '<div class="mobile-card-head"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">' + landingBadge(o.landing_slug) + '<span class="order-num">#' + o.order_number + '</span></div>' + statusBadge(o.status) + '</div>' +
             '<div class="mobile-card-body">' +
             '<div class="row"><span>' + esc(o.nombre + ' ' + (o.apellido || '')) + '</span><strong>' + fmtCOP(o.total) + '</strong></div>' +
             '<div class="row"><span class="label">' + esc(o.ciudad || '') + '</span><span class="label">' + fmtDate(o.created_at) + '</span></div>' +
@@ -783,7 +839,7 @@ function renderModal(order) {
     const subtotal = items.reduce(function(a, i) { return a + (i.subtotal || 0); }, 0);
 
     document.getElementById('modalInner').innerHTML =
-        '<div class="modal-head"><div><h2>Pedido #' + order.order_number + '</h2><div class="date">' + fmtDateFull(order.created_at) + '</div></div><button class="modal-close" onclick="closeModal()">&#10005;</button></div>' +
+        '<div class="modal-head"><div><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px">' + landingBadge(order.landing_slug) + '<h2 style="margin:0">Pedido #' + order.order_number + '</h2></div><div class="date">' + fmtDateFull(order.created_at) + '</div></div><button class="modal-close" onclick="closeModal()">&#10005;</button></div>' +
 
         '<div class="modal-section"><div class="section-label">Cliente</div><div class="info-grid">' +
         infoItem('Nombre', esc(order.nombre + ' ' + (order.apellido || ''))) +
@@ -826,13 +882,36 @@ function renderModal(order) {
 
 function contactRow(label, prefix, fecha, canal) {
     return '<div class="contact-label">' + label + '</div><div class="contact-row">' +
-        '<div class="field"><label>Fecha y hora</label><input type="datetime-local" id="' + prefix + 'f" value="' + toInputDt(fecha) + '"></div>' +
+        '<div class="field"><label>Fecha y hora</label>' +
+        '<input type="hidden" id="' + prefix + 'f" value="' + (fecha || '') + '">' +
+        '<div id="' + prefix + 'fBox">' + contactStamp(prefix, fecha) + '</div>' +
+        '</div>' +
         '<div class="field field-sm"><label>Canal</label><select id="' + prefix + 'c">' +
         '<option value="">—</option>' +
         '<option value="WhatsApp"' + (canal === 'WhatsApp' ? ' selected' : '') + '>WhatsApp</option>' +
         '<option value="Llamada"' + (canal === 'Llamada' ? ' selected' : '') + '>Llamada</option>' +
         '<option value="SMS"' + (canal === 'SMS' ? ' selected' : '') + '>SMS</option>' +
         '</select></div></div>';
+}
+function contactStamp(prefix, iso) {
+    if (iso) {
+        return '<div class="contact-stamp"><span>&#10003; ' + esc(fmtStamp(iso)) + '</span>' +
+            '<button type="button" class="clear" title="Quitar" onclick="clearContact(\'' + prefix + '\')">&#10005;</button></div>';
+    }
+    return '<button type="button" class="btn-now" onclick="registerContact(\'' + prefix + '\')">Registrar ahora</button>';
+}
+function registerContact(prefix) {
+    const iso = new Date().toISOString();
+    document.getElementById(prefix + 'f').value = iso;
+    document.getElementById(prefix + 'fBox').innerHTML = contactStamp(prefix, iso);
+}
+function clearContact(prefix) {
+    document.getElementById(prefix + 'f').value = '';
+    document.getElementById(prefix + 'fBox').innerHTML = contactStamp(prefix, '');
+}
+function fmtStamp(iso) {
+    if (!iso) return '';
+    return new Date(iso).toLocaleString('es-CO', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 }
 
 async function saveOrder(id) {
@@ -866,7 +945,7 @@ async function saveOrder(id) {
 
 function dtVal(id) {
     const v = document.getElementById(id).value;
-    return v ? new Date(v).toISOString() : null;
+    return v || null;
 }
 
 function closeModal() {
@@ -903,6 +982,22 @@ function statusBadge(s) {
     const labels = { pendiente: 'Pendiente', confirmado: 'Confirmado', rechazado: 'Rechazado', sin_comunicacion: 'Sin comunicación' };
     const st = s || 'pendiente';
     return '<span class="badge badge-' + st + '">' + (labels[st] || st) + '</span>';
+}
+function landingInfo(slug) {
+    const map = {
+        'bgor-monogastricos': { label: 'Monogástricos', cls: 'monogastricos' },
+        'bgor-rumiantes':     { label: 'Rumiantes',     cls: 'rumiantes' },
+        'bgor-equinos':       { label: 'Equinos',       cls: 'equinos' },
+        'bgor-potros':        { label: 'Potros',        cls: 'potros' },
+    };
+    if (slug && map[slug]) return map[slug];
+    if (!slug) return { label: '—', cls: 'default' };
+    const clean = String(slug).replace(/^bgor-/, '').replace(/-/g, ' ');
+    return { label: clean.charAt(0).toUpperCase() + clean.slice(1), cls: 'default' };
+}
+function landingBadge(slug) {
+    const info = landingInfo(slug);
+    return '<span class="badge-landing badge-landing-' + info.cls + '">' + esc(info.label) + '</span>';
 }
 function infoItem(label, value, full) {
     return '<div class="info-item' + (full ? ' info-full' : '') + '"><div class="label">' + label + '</div><div class="value">' + value + '</div></div>';
