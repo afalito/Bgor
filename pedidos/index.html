@@ -290,6 +290,47 @@
         .badge-landing-potros { background: #fce4ec; color: #ad1457; }
         .badge-landing-default { background: #eceff1; color: #455a64; }
 
+        /* Intentos badge */
+        .badge-intentos {
+            display: inline-block;
+            min-width: 32px;
+            text-align: center;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.2;
+            background: #f5f5f7;
+            color: #6e6e73;
+        }
+        .badge-intentos.has-1 { background: #fef3c7; color: #92400e; }
+        .badge-intentos.has-2 { background: #fed7aa; color: #9a3412; }
+        .badge-intentos.has-3 { background: #fecaca; color: #991b1b; }
+
+        /* Notas preview */
+        .td-notas {
+            max-width: 220px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--text2);
+            font-size: 13px;
+        }
+        .td-notas.empty { color: #c7c7cc; font-style: italic; }
+        .mobile-notas {
+            margin-top: 6px;
+            padding: 8px 10px;
+            background: #fafafa;
+            border-left: 3px solid var(--border);
+            border-radius: 4px;
+            font-size: 13px;
+            color: var(--text2);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
         /* Empty / Loading */
         .empty-state {
             text-align: center;
@@ -626,6 +667,8 @@
                             <th>Celular</th>
                             <th>Total</th>
                             <th>Estado</th>
+                            <th>Intentos</th>
+                            <th>Notas</th>
                         </tr>
                     </thead>
                     <tbody id="ordersBody"></tbody>
@@ -761,7 +804,7 @@ function getFiltered() {
     if (searchQuery) {
         const q = searchQuery.toLowerCase();
         list = list.filter(function(o) {
-            return (o.nombre + ' ' + o.apellido + ' ' + o.ciudad + ' ' + o.celular + ' ' + o.order_number + ' ' + (o.landing_slug || '') + ' ' + landingInfo(o.landing_slug).label).toLowerCase().indexOf(q) !== -1;
+            return (o.nombre + ' ' + o.apellido + ' ' + o.ciudad + ' ' + o.celular + ' ' + o.order_number + ' ' + (o.landing_slug || '') + ' ' + landingInfo(o.landing_slug).label + ' ' + (o.notas || '')).toLowerCase().indexOf(q) !== -1;
         });
     }
     return list;
@@ -795,6 +838,7 @@ function renderOrders(orders) {
 
     // Desktop table
     tbody.innerHTML = orders.map(function(o) {
+        const notas = (o.notas || '').trim();
         return '<tr onclick="openOrder(\'' + o.id + '\')">' +
             '<td>' + landingBadge(o.landing_slug) + '</td>' +
             '<td><strong>#' + o.order_number + '</strong></td>' +
@@ -803,16 +847,21 @@ function renderOrders(orders) {
             '<td>' + esc(o.celular) + '</td>' +
             '<td>' + fmtCOP(o.total) + '</td>' +
             '<td>' + statusBadge(o.status) + '</td>' +
+            '<td>' + intentosBadge(o) + '</td>' +
+            '<td class="td-notas' + (notas ? '' : ' empty') + '" title="' + esc(notas) + '">' + (notas ? esc(notas) : '—') + '</td>' +
             '</tr>';
     }).join('');
 
     // Mobile cards
     mobile.innerHTML = orders.map(function(o) {
+        const notas = (o.notas || '').trim();
         return '<div class="mobile-card" onclick="openOrder(\'' + o.id + '\')">' +
             '<div class="mobile-card-head"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">' + landingBadge(o.landing_slug) + '<span class="order-num">#' + o.order_number + '</span></div>' + statusBadge(o.status) + '</div>' +
             '<div class="mobile-card-body">' +
             '<div class="row"><span>' + esc(o.nombre + ' ' + (o.apellido || '')) + '</span><strong>' + fmtCOP(o.total) + '</strong></div>' +
             '<div class="row"><span class="label">' + esc(o.ciudad || '') + '</span><span class="label">' + fmtDate(o.created_at) + '</span></div>' +
+            '<div class="row" style="margin-top:6px"><span class="label">Intentos</span>' + intentosBadge(o) + '</div>' +
+            (notas ? '<div class="mobile-notas">' + esc(notas) + '</div>' : '') +
             '</div></div>';
     }).join('');
 }
@@ -998,6 +1047,17 @@ function landingInfo(slug) {
 function landingBadge(slug) {
     const info = landingInfo(slug);
     return '<span class="badge-landing badge-landing-' + info.cls + '">' + esc(info.label) + '</span>';
+}
+function countIntentos(o) {
+    let n = 0;
+    if (o.contacto_1_fecha) n++;
+    if (o.contacto_2_fecha) n++;
+    if (o.contacto_3_fecha) n++;
+    return n;
+}
+function intentosBadge(o) {
+    const n = countIntentos(o);
+    return '<span class="badge-intentos has-' + n + '">' + n + '/3</span>';
 }
 function infoItem(label, value, full) {
     return '<div class="info-item' + (full ? ' info-full' : '') + '"><div class="label">' + label + '</div><div class="value">' + value + '</div></div>';
