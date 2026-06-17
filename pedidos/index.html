@@ -610,6 +610,187 @@
         }
         .toast.show { transform: translateX(-50%) translateY(0); }
 
+        /* Tabs */
+        .dash-tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--bg);
+            padding: 4px;
+            border-radius: 10px;
+        }
+        .dash-tab {
+            background: none;
+            border: none;
+            padding: 7px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+            color: var(--text2);
+            cursor: pointer;
+            border-radius: 7px;
+            transition: all 0.15s;
+        }
+        .dash-tab:hover { color: var(--text); }
+        .dash-tab.active {
+            background: var(--card);
+            color: var(--text);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+        }
+
+        /* Stats view */
+        .stats-toolbar {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: flex-end;
+        }
+        .stats-toolbar .field { display: flex; flex-direction: column; gap: 5px; }
+        .stats-toolbar label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text2);
+        }
+        .stats-toolbar input[type=date] {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            background: #fff;
+            color: var(--text);
+        }
+        .stats-toolbar input[type=date]:focus { border-color: var(--accent); }
+        .stats-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .preset-btn {
+            background: var(--bg);
+            border: 1px solid transparent;
+            border-radius: 7px;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 500;
+            font-family: inherit;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .preset-btn:hover { background: var(--border); }
+        .preset-btn.active {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .kpi-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 18px 20px;
+        }
+        .kpi-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+        .kpi-sub {
+            font-size: 12px;
+            color: var(--text2);
+        }
+        .kpi-card.confirmado .kpi-value { color: var(--green); }
+        .kpi-card.rechazado .kpi-value { color: var(--red); }
+        .kpi-card.sin_comunicacion .kpi-value { color: var(--gray); }
+        .kpi-card.tasa .kpi-value { color: var(--accent); }
+
+        .stats-section-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 12px 4px;
+        }
+        .stats-table-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        .stats-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .stats-table thead th {
+            text-align: left;
+            padding: 12px 14px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text2);
+            border-bottom: 1px solid var(--border);
+            background: var(--card);
+            white-space: nowrap;
+        }
+        .stats-table tbody td {
+            padding: 14px;
+            border-bottom: 1px solid #f0f0f2;
+            white-space: nowrap;
+        }
+        .stats-table tbody tr:last-child td { border-bottom: none; }
+        .stats-table .col-num { text-align: right; font-variant-numeric: tabular-nums; }
+        .stats-table .col-pct { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+        .stats-table .col-pct .bar {
+            display: inline-block;
+            width: 60px;
+            height: 6px;
+            background: #f0f0f2;
+            border-radius: 3px;
+            margin-left: 8px;
+            vertical-align: middle;
+            overflow: hidden;
+        }
+        .stats-table .col-pct .bar > div {
+            height: 100%;
+            background: var(--green);
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+        .stats-table .total-row td {
+            font-weight: 700;
+            background: #fafafa;
+            border-top: 2px solid var(--border);
+        }
+        .stats-empty {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text2);
+        }
+        @media (max-width: 768px) {
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .kpi-value { font-size: 22px; }
+            .stats-toolbar { flex-direction: column; align-items: stretch; }
+            .stats-toolbar .field { width: 100%; }
+            .stats-table-card { overflow-x: auto; }
+            .dash-tab { padding: 6px 12px; font-size: 13px; }
+        }
+
         /* Mobile cards */
         .mobile-cards { display: none; }
         .mobile-card {
@@ -672,11 +853,16 @@
 <div id="dashView" style="display:none">
     <header class="dash-header">
         <div class="dash-header-left">
-            <h1>Pedidos</h1>
+            <div class="dash-tabs">
+                <button class="dash-tab active" data-tab="pedidos" onclick="switchTab('pedidos')">Pedidos</button>
+                <button class="dash-tab" data-tab="stats" onclick="switchTab('stats')">Estadísticas</button>
+            </div>
         </div>
         <button class="btn-logout" onclick="logout()">Cerrar sesión</button>
     </header>
     <div class="dash-content">
+    <!-- ============== TAB: PEDIDOS ============== -->
+    <div id="tabPedidos" class="tab-panel">
         <div class="stats-grid">
             <div class="stat-card" data-filter="" onclick="filterByStatus('')">
                 <div class="stat-num" id="statTotal">0</div>
@@ -736,6 +922,94 @@
         <!-- Paginación -->
         <div id="paginationBar" class="pagination-bar"></div>
     </div>
+    <!-- ============== /TAB PEDIDOS ============== -->
+
+    <!-- ============== TAB: ESTADÍSTICAS ============== -->
+    <div id="tabStats" class="tab-panel" style="display:none">
+        <div class="stats-toolbar">
+            <div class="field">
+                <label>Desde</label>
+                <input type="date" id="statsFrom">
+            </div>
+            <div class="field">
+                <label>Hasta</label>
+                <input type="date" id="statsTo">
+            </div>
+            <div class="field" style="flex:1;min-width:240px">
+                <label>Rangos rápidos</label>
+                <div class="stats-presets" id="statsPresets">
+                    <button class="preset-btn" data-preset="hoy" onclick="applyPreset('hoy')">Hoy</button>
+                    <button class="preset-btn" data-preset="7d" onclick="applyPreset('7d')">Últimos 7 días</button>
+                    <button class="preset-btn active" data-preset="30d" onclick="applyPreset('30d')">Últimos 30 días</button>
+                    <button class="preset-btn" data-preset="90d" onclick="applyPreset('90d')">Últimos 90 días</button>
+                    <button class="preset-btn" data-preset="mes" onclick="applyPreset('mes')">Este mes</button>
+                    <button class="preset-btn" data-preset="mes-anterior" onclick="applyPreset('mes-anterior')">Mes anterior</button>
+                    <button class="preset-btn" data-preset="todo" onclick="applyPreset('todo')">Todo</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="statsLoading" class="empty-state" style="display:none">
+            <div class="spinner"></div>
+            <p>Cargando estadísticas...</p>
+        </div>
+
+        <div id="statsContent">
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-label">Pedidos en rango</div>
+                    <div class="kpi-value" id="kpiTotal">0</div>
+                    <div class="kpi-sub" id="kpiTotalMonto">$0</div>
+                </div>
+                <div class="kpi-card confirmado">
+                    <div class="kpi-label">Confirmados</div>
+                    <div class="kpi-value" id="kpiConfirmado">0</div>
+                    <div class="kpi-sub" id="kpiConfirmadoMonto">$0</div>
+                </div>
+                <div class="kpi-card rechazado">
+                    <div class="kpi-label">Rechazados</div>
+                    <div class="kpi-value" id="kpiRechazado">0</div>
+                    <div class="kpi-sub" id="kpiRechazadoPct">0%</div>
+                </div>
+                <div class="kpi-card tasa">
+                    <div class="kpi-label">Tasa de confirmación</div>
+                    <div class="kpi-value" id="kpiTasa">0%</div>
+                    <div class="kpi-sub">sobre gestionados (confirmados + rechazados + sin com.)</div>
+                </div>
+            </div>
+
+            <div class="kpi-grid" style="grid-template-columns:repeat(2,1fr); margin-bottom:24px">
+                <div class="kpi-card">
+                    <div class="kpi-label">Pendientes (sin gestionar)</div>
+                    <div class="kpi-value" id="kpiPendiente" style="color:var(--orange)">0</div>
+                </div>
+                <div class="kpi-card sin_comunicacion">
+                    <div class="kpi-label">Sin comunicación</div>
+                    <div class="kpi-value" id="kpiSinCom">0</div>
+                </div>
+            </div>
+
+            <h3 class="stats-section-title">Desempeño por landing</h3>
+            <div class="stats-table-card">
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>Landing</th>
+                            <th class="col-num">Total</th>
+                            <th class="col-num">Pendientes</th>
+                            <th class="col-num" style="color:#2e7d32">Confirmados</th>
+                            <th class="col-num" style="color:#c62828">Rechazados</th>
+                            <th class="col-num">Sin com.</th>
+                            <th class="col-pct">Tasa confirmación</th>
+                        </tr>
+                    </thead>
+                    <tbody id="landingStatsBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- ============== /TAB ESTADÍSTICAS ============== -->
+    </div>
 </div>
 
 <!-- Order Detail Modal -->
@@ -759,6 +1033,10 @@ let currentPage = 1;
 let totalPages = 1;
 let filteredTotal = 0;
 let searchDebounce = null;
+let currentTab = 'pedidos';
+let statsRangeFrom = null;
+let statsRangeTo = null;
+let statsLoaded = false;
 
 // === INIT ===
 if (token) { showDash(); loadOrders(); } else { showLogin(); }
@@ -1143,6 +1421,132 @@ function toast(msg) {
     t.classList.add('show');
     setTimeout(function() { t.classList.remove('show'); }, 2500);
 }
+
+// === TABS ===
+function switchTab(tab) {
+    currentTab = tab;
+    document.querySelectorAll('.dash-tab').forEach(function(b) {
+        b.classList.toggle('active', b.dataset.tab === tab);
+    });
+    document.getElementById('tabPedidos').style.display = tab === 'pedidos' ? '' : 'none';
+    document.getElementById('tabStats').style.display = tab === 'stats' ? '' : 'none';
+    if (tab === 'stats' && !statsLoaded) {
+        applyPreset('30d');
+    }
+}
+
+// === STATS ===
+function ymd(d) {
+    const pad = function(n) { return String(n).padStart(2, '0'); };
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+}
+function startOfDay(d) { const x = new Date(d); x.setHours(0,0,0,0); return x; }
+function endOfDay(d) { const x = new Date(d); x.setHours(23,59,59,999); return x; }
+
+function applyPreset(key) {
+    const now = new Date();
+    let from, to;
+    if (key === 'hoy') {
+        from = startOfDay(now); to = endOfDay(now);
+    } else if (key === '7d') {
+        to = endOfDay(now);
+        from = startOfDay(new Date(now.getTime() - 6 * 24 * 60 * 60 * 1000));
+    } else if (key === '30d') {
+        to = endOfDay(now);
+        from = startOfDay(new Date(now.getTime() - 29 * 24 * 60 * 60 * 1000));
+    } else if (key === '90d') {
+        to = endOfDay(now);
+        from = startOfDay(new Date(now.getTime() - 89 * 24 * 60 * 60 * 1000));
+    } else if (key === 'mes') {
+        from = startOfDay(new Date(now.getFullYear(), now.getMonth(), 1));
+        to = endOfDay(now);
+    } else if (key === 'mes-anterior') {
+        from = startOfDay(new Date(now.getFullYear(), now.getMonth() - 1, 1));
+        to = endOfDay(new Date(now.getFullYear(), now.getMonth(), 0));
+    } else if (key === 'todo') {
+        from = new Date('2020-01-01T00:00:00');
+        to = endOfDay(now);
+    }
+    document.getElementById('statsFrom').value = ymd(from);
+    document.getElementById('statsTo').value = ymd(to);
+    document.querySelectorAll('.preset-btn').forEach(function(b) {
+        b.classList.toggle('active', b.dataset.preset === key);
+    });
+    statsRangeFrom = from.toISOString();
+    statsRangeTo = to.toISOString();
+    loadStats();
+}
+
+function onDateChange() {
+    const fromStr = document.getElementById('statsFrom').value;
+    const toStr = document.getElementById('statsTo').value;
+    if (!fromStr || !toStr) return;
+    statsRangeFrom = startOfDay(new Date(fromStr + 'T00:00:00')).toISOString();
+    statsRangeTo = endOfDay(new Date(toStr + 'T00:00:00')).toISOString();
+    document.querySelectorAll('.preset-btn').forEach(function(b) { b.classList.remove('active'); });
+    loadStats();
+}
+
+async function loadStats() {
+    if (!statsRangeFrom || !statsRangeTo) return;
+    const content = document.getElementById('statsContent');
+    const loading = document.getElementById('statsLoading');
+    content.style.display = 'none';
+    loading.style.display = '';
+    try {
+        const params = new URLSearchParams({ from: statsRangeFrom, to: statsRangeTo });
+        const data = await apiFetch('/admin-stats?' + params.toString());
+        if (data.ok) {
+            renderStatsView(data);
+            statsLoaded = true;
+        }
+    } catch (e) { console.error(e); }
+    loading.style.display = 'none';
+    content.style.display = '';
+}
+
+function renderStatsView(data) {
+    const g = data.global;
+    document.getElementById('kpiTotal').textContent = g.total.toLocaleString('es-CO');
+    document.getElementById('kpiTotalMonto').textContent = fmtCOP(g.monto_total);
+    document.getElementById('kpiConfirmado').textContent = g.confirmado.toLocaleString('es-CO');
+    document.getElementById('kpiConfirmadoMonto').textContent = fmtCOP(g.monto_confirmado);
+    document.getElementById('kpiRechazado').textContent = g.rechazado.toLocaleString('es-CO');
+    const rechPct = g.gestionados ? Math.round((g.rechazado / g.gestionados) * 1000) / 10 : 0;
+    document.getElementById('kpiRechazadoPct').textContent = rechPct + '% de gestionados';
+    document.getElementById('kpiTasa').textContent = g.tasa_confirmacion + '%';
+    document.getElementById('kpiPendiente').textContent = g.pendiente.toLocaleString('es-CO');
+    document.getElementById('kpiSinCom').textContent = g.sin_comunicacion.toLocaleString('es-CO');
+
+    const tbody = document.getElementById('landingStatsBody');
+    if (!data.byLanding.length) {
+        tbody.innerHTML = '<tr><td colspan="7" class="stats-empty">Sin datos en este rango</td></tr>';
+        return;
+    }
+    tbody.innerHTML = data.byLanding.map(function(r) {
+        return '<tr>' +
+            '<td>' + landingBadge(r.landing_slug === 'sin-landing' ? null : r.landing_slug) + '</td>' +
+            '<td class="col-num">' + r.total.toLocaleString('es-CO') + '</td>' +
+            '<td class="col-num">' + r.pendiente.toLocaleString('es-CO') + '</td>' +
+            '<td class="col-num" style="color:#2e7d32;font-weight:600">' + r.confirmado.toLocaleString('es-CO') + '</td>' +
+            '<td class="col-num" style="color:#c62828;font-weight:600">' + r.rechazado.toLocaleString('es-CO') + '</td>' +
+            '<td class="col-num">' + r.sin_comunicacion.toLocaleString('es-CO') + '</td>' +
+            '<td class="col-pct">' + r.tasa_confirmacion + '%<span class="bar"><div style="width:' + Math.min(100, r.tasa_confirmacion) + '%"></div></span></td>' +
+            '</tr>';
+    }).join('') +
+    '<tr class="total-row">' +
+        '<td>Total</td>' +
+        '<td class="col-num">' + g.total.toLocaleString('es-CO') + '</td>' +
+        '<td class="col-num">' + g.pendiente.toLocaleString('es-CO') + '</td>' +
+        '<td class="col-num" style="color:#2e7d32">' + g.confirmado.toLocaleString('es-CO') + '</td>' +
+        '<td class="col-num" style="color:#c62828">' + g.rechazado.toLocaleString('es-CO') + '</td>' +
+        '<td class="col-num">' + g.sin_comunicacion.toLocaleString('es-CO') + '</td>' +
+        '<td class="col-pct">' + g.tasa_confirmacion + '%<span class="bar"><div style="width:' + Math.min(100, g.tasa_confirmacion) + '%"></div></span></td>' +
+    '</tr>';
+}
+
+document.getElementById('statsFrom').addEventListener('change', onDateChange);
+document.getElementById('statsTo').addEventListener('change', onDateChange);
 </script>
 </body>
 </html>
