@@ -331,6 +331,52 @@
             overflow: hidden;
         }
 
+        /* Pagination */
+        .pagination-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-top: 16px;
+            padding: 12px 4px;
+            flex-wrap: wrap;
+        }
+        .pagination-bar:empty { display: none; }
+        .pg-info {
+            font-size: 13px;
+            color: var(--text2);
+        }
+        .pg-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .pg-btn {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 7px 14px;
+            font-size: 13px;
+            font-weight: 500;
+            font-family: inherit;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .pg-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+        .pg-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .pg-page {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+            min-width: 110px;
+            text-align: center;
+        }
+        @media (max-width: 480px) {
+            .pagination-bar { flex-direction: column; align-items: stretch; }
+            .pg-controls { justify-content: space-between; }
+        }
+
         /* Empty / Loading */
         .empty-state {
             text-align: center;
@@ -686,6 +732,9 @@
 
         <!-- Mobile cards -->
         <div class="mobile-cards" id="mobileCards"></div>
+
+        <!-- Paginación -->
+        <div id="paginationBar" class="pagination-bar"></div>
     </div>
 </div>
 
@@ -701,10 +750,15 @@
 
 <script>
 const API = '/.netlify/functions';
+const PAGE_SIZE = 100;
 let token = localStorage.getItem('bgor_token');
-let allOrders = [];
+let currentOrders = [];
 let activeFilter = '';
 let searchQuery = '';
+let currentPage = 1;
+let totalPages = 1;
+let filteredTotal = 0;
+let searchDebounce = null;
 
 // === INIT ===
 if (token) { showDash(); loadOrders(); } else { showLogin(); }
@@ -772,56 +826,74 @@ async function loadOrders() {
     document.getElementById('tableLoading').style.display = '';
     document.getElementById('tableEmpty').style.display = 'none';
     try {
-        const data = await apiFetch('/admin-orders');
+        const params = new URLSearchParams({
+            page: String(currentPage),
+            pageSize: String(PAGE_SIZE),
+        });
+        if (activeFilter) params.set('status', activeFilter);
+        if (searchQuery) params.set('search', searchQuery);
+
+        const data = await apiFetch('/admin-orders?' + params.toString());
         if (data.ok) {
-            allOrders = data.orders;
-            renderAll();
+            currentOrders = data.orders || [];
+            totalPages = data.totalPages || 1;
+            filteredTotal = data.filteredTotal || 0;
+            currentPage = data.page || 1;
+            renderStats(data.stats || {});
+            renderOrders(currentOrders);
+            renderPagination();
         }
     } catch (e) { console.error(e); }
     document.getElementById('tableLoading').style.display = 'none';
 }
 
-function renderAll() {
-    renderStats();
-    renderOrders(getFiltered());
-}
-
-function renderStats() {
-    document.getElementById('statTotal').textContent = allOrders.length;
-    document.getElementById('statPendiente').textContent = allOrders.filter(function(o) { return !o.status || o.status === 'pendiente'; }).length;
-    document.getElementById('statConfirmado').textContent = allOrders.filter(function(o) { return o.status === 'confirmado'; }).length;
-    document.getElementById('statRechazado').textContent = allOrders.filter(function(o) { return o.status === 'rechazado'; }).length;
-}
-
-function getFiltered() {
-    let list = allOrders;
-    if (activeFilter) {
-        list = list.filter(function(o) {
-            if (activeFilter === 'pendiente') return !o.status || o.status === 'pendiente';
-            return o.status === activeFilter;
-        });
-    }
-    if (searchQuery) {
-        const q = searchQuery.toLowerCase();
-        list = list.filter(function(o) {
-            return (o.nombre + ' ' + o.apellido + ' ' + o.ciudad + ' ' + o.celular + ' ' + o.order_number + ' ' + (o.landing_slug || '') + ' ' + landingInfo(o.landing_slug).label + ' ' + (o.notas || '')).toLowerCase().indexOf(q) !== -1;
-        });
-    }
-    return list;
+function renderStats(stats) {
+    document.getElementById('statTotal').textContent = stats.total || 0;
+    document.getElementById('statPendiente').textContent = stats.pendiente || 0;
+    document.getElementById('statConfirmado').textContent = stats.confirmado || 0;
+    document.getElementById('statRechazado').textContent = stats.rechazado || 0;
 }
 
 function filterByStatus(s) {
     activeFilter = activeFilter === s ? '' : s;
+    currentPage = 1;
     document.querySelectorAll('.stat-card').forEach(function(c) {
         c.classList.toggle('active', c.dataset.filter === activeFilter);
     });
-    renderOrders(getFiltered());
+    loadOrders();
 }
 
 document.getElementById('searchInput').addEventListener('input', function(e) {
     searchQuery = e.target.value;
-    renderOrders(getFiltered());
+    currentPage = 1;
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(loadOrders, 300);
 });
+
+function goToPage(p) {
+    if (p < 1 || p > totalPages || p === currentPage) return;
+    currentPage = p;
+    loadOrders();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderPagination() {
+    const wrap = document.getElementById('paginationBar');
+    if (!wrap) return;
+    if (filteredTotal <= PAGE_SIZE) {
+        wrap.innerHTML = filteredTotal ? '<div class="pg-info">' + filteredTotal + ' pedido' + (filteredTotal === 1 ? '' : 's') + '</div>' : '';
+        return;
+    }
+    const from = (currentPage - 1) * PAGE_SIZE + 1;
+    const to = Math.min(currentPage * PAGE_SIZE, filteredTotal);
+    wrap.innerHTML =
+        '<div class="pg-info">Mostrando ' + from + '–' + to + ' de ' + filteredTotal + '</div>' +
+        '<div class="pg-controls">' +
+        '<button class="pg-btn" ' + (currentPage <= 1 ? 'disabled' : '') + ' onclick="goToPage(' + (currentPage - 1) + ')">&larr; Anterior</button>' +
+        '<span class="pg-page">Página ' + currentPage + ' de ' + totalPages + '</span>' +
+        '<button class="pg-btn" ' + (currentPage >= totalPages ? 'disabled' : '') + ' onclick="goToPage(' + (currentPage + 1) + ')">Siguiente &rarr;</button>' +
+        '</div>';
+}
 
 function renderOrders(orders) {
     const tbody = document.getElementById('ordersBody');

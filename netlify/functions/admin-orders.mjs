@@ -52,13 +52,65 @@ export default async function handler(req) {
         return Response.json({ ok: true, order: { ...rows[0], items } }, { headers: cors });
       }
 
+      // Paginación + filtros server-side
+      const page = Math.max(1, parseInt(url.searchParams.get('page') || '1', 10));
+      const pageSize = Math.min(500, Math.max(1, parseInt(url.searchParams.get('pageSize') || '100', 10)));
+      const offset = (page - 1) * pageSize;
+      const status = (url.searchParams.get('status') || '').trim();
+      const search = (url.searchParams.get('search') || '').trim();
+
+      const searchLike = '%' + search.toLowerCase() + '%';
+      const hasSearch = search.length > 0;
+
+      // Stats agregados — siempre del total, independientes del filtro/búsqueda
+      const statsRows = await sql`
+        SELECT
+          COUNT(*)::int AS total,
+          SUM(CASE WHEN status IS NULL OR status = 'pendiente' THEN 1 ELSE 0 END)::int AS pendiente,
+          SUM(CASE WHEN status = 'confirmado' THEN 1 ELSE 0 END)::int AS confirmado,
+          SUM(CASE WHEN status = 'rechazado' THEN 1 ELSE 0 END)::int AS rechazado,
+          SUM(CASE WHEN status = 'sin_comunicacion' THEN 1 ELSE 0 END)::int AS sin_comunicacion
+        FROM orders
+      `;
+      const stats = statsRows[0] || { total: 0, pendiente: 0, confirmado: 0, rechazado: 0, sin_comunicacion: 0 };
+
+      // Query con filtros condicionales — usa CASE para incluir/excluir cada cláusula sin SQL dinámico
+      const countRows = await sql`
+        SELECT COUNT(*)::int AS n
+        FROM orders o
+        LEFT JOIN landings l ON o.landing_id = l.id
+        WHERE
+          (${status} = '' OR
+           (${status} = 'pendiente' AND (o.status IS NULL OR o.status = 'pendiente')) OR
+           (${status} <> 'pendiente' AND o.status = ${status}))
+          AND (${!hasSearch} OR
+               LOWER(COALESCE(o.nombre,'') || ' ' || COALESCE(o.apellido,'') || ' ' || COALESCE(o.ciudad,'') || ' ' || COALESCE(o.celular,'') || ' ' || COALESCE(o.order_number::text,'') || ' ' || COALESCE(l.slug,'') || ' ' || COALESCE(o.notas,'')) LIKE ${searchLike})
+      `;
+      const filteredTotal = countRows[0]?.n || 0;
+
       const orders = await sql`
         SELECT o.*, l.slug AS landing_slug
         FROM orders o
         LEFT JOIN landings l ON o.landing_id = l.id
+        WHERE
+          (${status} = '' OR
+           (${status} = 'pendiente' AND (o.status IS NULL OR o.status = 'pendiente')) OR
+           (${status} <> 'pendiente' AND o.status = ${status}))
+          AND (${!hasSearch} OR
+               LOWER(COALESCE(o.nombre,'') || ' ' || COALESCE(o.apellido,'') || ' ' || COALESCE(o.ciudad,'') || ' ' || COALESCE(o.celular,'') || ' ' || COALESCE(o.order_number::text,'') || ' ' || COALESCE(l.slug,'') || ' ' || COALESCE(o.notas,'')) LIKE ${searchLike})
         ORDER BY o.created_at DESC
+        LIMIT ${pageSize} OFFSET ${offset}
       `;
-      return Response.json({ ok: true, orders }, { headers: cors });
+
+      return Response.json({
+        ok: true,
+        orders,
+        page,
+        pageSize,
+        filteredTotal,
+        totalPages: Math.max(1, Math.ceil(filteredTotal / pageSize)),
+        stats,
+      }, { headers: cors });
     }
 
     if (req.method === 'PATCH') {
